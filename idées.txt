@@ -1,0 +1,21 @@
+Menu inscription :
+faire directement un chat conversationnel qd on clique sur Référent
+
+Menu inscription générale :
+refaire jauges de manière plus précise et compréhensible
+montrer avec des chiffres le remplissage (genre 3/10 qd on fait un hoover sur PC, à voir sur téléphone)
+Qd on ne peut plus remplir, ça devient très clair et le cursor n'est plus poointer
+
+Menu animation jeux (diapo 9):
+Mettre barre de recherche
+Faire un défilement : qd on clique sur "Espace A", la liste de tous les espaces commencant par A défilent
+
+Menu animation jeux (diapo 10):
+demander à Fiorio que veut dire la phrase et comment fonctionne le remplissage
+
+mettre une FAC dans le dernier onglet
+
+
+Quels bénévoles présents à instant T connaissent les jeux de ma zone ?
+=> est ce que les bénévoles référent du jeu doivent être sur le même site que moi ou peu importe où ils sont
+-> si jamais un bénévoles veut une info sur un jeu, dans le menu animation jeu, on peu rajouter un petit lien qui redirige vers la liste des référents et leur position à l'instant T
