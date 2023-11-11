@@ -19,3 +19,9 @@ mettre une FAC dans le dernier onglet
 Quels bénévoles présents à instant T connaissent les jeux de ma zone ?
 => est ce que les bénévoles référent du jeu doivent être sur le même site que moi ou peu importe où ils sont
 -> si jamais un bénévoles veut une info sur un jeu, dans le menu animation jeu, on peu rajouter un petit lien qui redirige vers la liste des référents et leur position à l'instant T
+
+
+que fait un admin :
+créer un admin (gestion de bénévole)
+dire qui sont les référents de tels truc
+

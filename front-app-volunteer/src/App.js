@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'; /*,{useEffect, useState}*/
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-/*import HomeView from './views/homeView/homeView.js'
-import ContactView from './views/contactView/contactView.js';
+import HomeView from './views/homeView/homeView.js'
+/*import ContactView from './views/contactView/contactView.js';
 
 import ImageFond from './images/fond.jpg'*/
 
@@ -20,12 +20,13 @@ function App() {
                 changeIsLogged={changeIsLogged}
                 changeIsAdmin={changeIsAdmin}> 
             </NavBar>
+            */}
             <Routes>
                 <Route path="*" element={<h1>404: page not found</h1>}/>
                 <Route path='/' exact element={<HomeView />} />
                 <Route path='/home' exact element={<HomeView />} />
-                <Route path='/contact' exact element={<ContactView changeUrl={changeUrl} />}/>
-                {/*
+                {/*<Route path='/contact' exact element={<ContactView changeUrl={changeUrl} />}/>
+                
                 <Route path={"/Sessions/:id"} exact element={<InfoViewSession />} />
                 <Route path={'/Sessions'} exact element={<SessionView />} />
                 <Route path={"/Athletes/:id"} exact element={<InfoViewAthlete />} />
@@ -35,9 +36,9 @@ function App() {
                 <Route path='/Sessions/Update' exact element={<SessionForm />} />
                 <Route path='/Athletes' exact element={<AthleteView />} />
                 <Route path='/Athletes/Create' exact element={<FormAthlete type="create" />} />
-                <Route path='/Athletes/Update' exact element={<FormAthlete />} />>
+                <Route path='/Athletes/Update' exact element={<FormAthlete />} />>*/}
                 
-            </Routes>*/}
+            </Routes>
         </Router> 
     </div>
 );
