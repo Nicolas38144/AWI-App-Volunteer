@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'; /*,{useEffect, useState}*/
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import NavBar from './components/navBar/navBar.js';
-import HomeView from './views/homeView/homeView.js'
+/*import HomeView from './views/homeView/homeView.js'
 import ContactView from './views/contactView/contactView.js';
 
-import ImageFond from './images/fond.jpg'
+import ImageFond from './images/fond.jpg'*/
 
 import './App.css';
 
@@ -13,7 +12,7 @@ function App() {
   return (
     <div className="App">
         <Router>
-            <img className="background" src={ImageFond} alt="Fond"></img>
+            {/*<img className="background" src={ImageFond} alt="Fond"></img>
             <NavBar className="navBar" 
                 btnLogin={btnLogin} 
                 changeStateBtnLogin={changeStateBtnLogin} 
@@ -37,8 +36,8 @@ function App() {
                 <Route path='/Athletes' exact element={<AthleteView />} />
                 <Route path='/Athletes/Create' exact element={<FormAthlete type="create" />} />
                 <Route path='/Athletes/Update' exact element={<FormAthlete />} />>
-                */}
-            </Routes>
+                
+            </Routes>*/}
         </Router> 
     </div>
 );
