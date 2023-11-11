@@ -1,0 +1,19 @@
+bleu moyen
+76/92/197
+
+bleu foncé
+0/38/99
+
+vert dégradé
+146/212/0
+115/150/0
+85/96/28
+
+rose dégradé
+250/20/255 #FA14FF
+230/92/184 #E65CB8
+
+typo 
+festival : dry brush-regular
+du jeu KG life is messy
+Montpellier: olives sans pimiento
