@@ -1,0 +1,17 @@
+@font-face {
+	font-family: 'Olive';
+	src: url('../../../../Logo_FJM/polices/OlivessansPimiento.ttf')
+}
+
+.button {
+    min-width: 50px;
+}
+
+.button button{
+    padding: 15px 40px;
+    font-size: 32px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: "Olive";
+    font-weight: bold;
+}

@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import NavBar from '../../components/navBar/navBar.js';
+import Button from '../../components/button/button.js';
 
 import ImageFond from '../../images/logo31_couleur.png';
 
@@ -7,7 +7,6 @@ import './homeView.css';
 
 export default function HomeView(props){
     useEffect(() => {},[]);
-    //ajoute une fonction add
 
 
     return(
@@ -15,8 +14,14 @@ export default function HomeView(props){
             <div className='image-container'>
                 <img className="background" src={ImageFond} alt="Fond"></img>
             </div>
-            <button className="login-button">Se connecter</button>
-
+            <div className="login-button">
+                <Button 
+                    text="Se connecter" 
+                    textColor="white"
+                    bgColor="#002663"
+                    >
+                </Button>
+            </div> 
         </div>
     );
 }
