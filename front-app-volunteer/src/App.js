@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react'; /*,{useEffect, useState}*/
+import React from 'react'; /*,{useEffect, useState}*/
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import HomeView from './views/homeView/homeView.js'
-/*import ContactView from './views/contactView/contactView.js';
 
-import ImageFond from './images/fond.jpg'*/
+/*import ImageFond from './images/fond.jpg'*/
 
 import './App.css';
 
