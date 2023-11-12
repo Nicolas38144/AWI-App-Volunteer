@@ -2,6 +2,7 @@ import React from 'react'; /*,{useEffect, useState}*/
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import HomeView from './views/homeView/homeView.js'
+import LoginView from './views/loginView/loginView.js';
 
 /*import ImageFond from './images/fond.jpg'*/
 
@@ -23,6 +24,7 @@ function App() {
             <Routes>
                 <Route path="*" element={<h1>404: page not found</h1>}/>
                 <Route path='/' exact element={<HomeView />} />
+                <Route path='/login' exact element={<LoginView />} />
                 <Route path='/home' exact element={<HomeView />} />
                 {/*<Route path='/contact' exact element={<ContactView changeUrl={changeUrl} />}/>
                 
