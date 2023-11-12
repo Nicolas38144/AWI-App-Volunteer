@@ -1,5 +1,4 @@
 import React,{useEffect} from 'react';
-import NavBar from '../../components/navBar/navBar.js';
 
 import ImageFond from '../../images/logo31_couleur.png';
 

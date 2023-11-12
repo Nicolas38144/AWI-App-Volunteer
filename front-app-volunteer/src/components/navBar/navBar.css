@@ -85,3 +85,21 @@
     transform-origin: right;
     transform: scaleX(1);
 }
+
+@media screen and (max-width: 1000px) {
+    .navBar .navigation .btnLogin-popup {
+        margin-left: 120px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .navBar .navigation .btnLogin-popup {
+        margin-left: 80px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .navBar .navigation .btnLogin-popup {
+        margin-left: 40px;
+    }
+}
