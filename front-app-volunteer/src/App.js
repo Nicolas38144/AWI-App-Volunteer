@@ -6,8 +6,6 @@ import LoginView from './views/loginView/loginView.js';
 import RegisterSiteView from './views/registerSiteView/registerSiteView.js'
 import GeneralView from './views/generalView/generalView.js';
 
-/*import ImageFond from './images/fond.jpg'*/
-
 import './App.css';
 
 function App() {

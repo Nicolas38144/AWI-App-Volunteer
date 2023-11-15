@@ -11,7 +11,7 @@ export default function GeneralView(props){
 
     const navigate = useNavigate();
 
-    const handleLoginClick = () => {
+    const handleLogoutClick = () => {
         navigate('/login');
     };
 
@@ -25,7 +25,7 @@ export default function GeneralView(props){
                     text="Se déconnecter" 
                     textColor="white"
                     bgColor="#002663"
-                    onClick={handleLoginClick}
+                    handleClick={handleLogoutClick}
                     >
                 </Button>
             </div> 

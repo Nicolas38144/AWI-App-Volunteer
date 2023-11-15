@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate  } from 'react-router-dom';
 
 import TexteField from "../texteField/texteField.js";
 import Button from "../button/button.js";
@@ -19,7 +18,7 @@ export default function Card(props) {
                     text="Se connecter" 
                     textColor="white"
                     bgColor="#002663"
-                    onClick={props.handleLoginClick}
+                    handleClick={props.handleClick}
                     >
                 </Button>
             </div> 

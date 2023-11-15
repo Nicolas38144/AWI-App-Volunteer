@@ -26,7 +26,7 @@ export default function HomeView(props){
                     text="Se connecter" 
                     textColor="white"
                     bgColor="#002663"
-                    onClick={handleLoginClick}
+                    handleClick={handleLoginClick}
                     >
                 </Button>
             </div> 
