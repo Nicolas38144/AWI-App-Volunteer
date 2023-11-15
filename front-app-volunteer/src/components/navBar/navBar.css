@@ -6,7 +6,6 @@
 .navBar{
     font-family: 'Olive';
     overflow: hidden;
-    position: fixed;
     top: 0;
     width: 95%;
     display: flex;
@@ -26,7 +25,7 @@
     color: rgb(76, 92, 197);
     text-decoration: none;
     font-weight: 500;
-    margin-left: 40px;
+    margin-left: 4vw;
 }
 
 .navBar .navigation .monprofil{
@@ -36,7 +35,7 @@
     color: rgb(76, 92, 197);
     text-decoration: none;
     font-weight: 500;
-    margin-left: 40px;
+    margin-right: 4vw;
 }
 
 .navBar .navigation .current::after {
@@ -80,6 +79,16 @@
     transform: scaleX(0);
     transition: transform .5s;
 }
+
+.navBar .navigation .notification::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    margin-bottom: 8px;
+  }
 
 .navBar .navigation .monprofil:hover::after {
     transform-origin: right;
