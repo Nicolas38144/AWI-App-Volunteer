@@ -18,7 +18,7 @@ export default function GeneralView(props){
     return(
         <div className='generalView'>
             <div>
-                <NavBar></NavBar>
+            <NavBar hasReceivedMessages={true} hasNews={false} />
             </div>
             <div className="logout-button">
                 <Button 
