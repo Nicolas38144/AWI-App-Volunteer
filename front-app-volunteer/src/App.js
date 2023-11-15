@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeView from './views/homeView/homeView.js'
 import LoginView from './views/loginView/loginView.js';
 import RegisterSiteView from './views/registerSiteView/registerSiteView.js'
+import GeneralView from './views/generalView/generalView.js';
 
 /*import ImageFond from './images/fond.jpg'*/
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path='/home' exact element={<HomeView />} />
                 <Route path='/login' exact element={<LoginView />} />
                 <Route path='/register' exact element={<RegisterSiteView />} />
+                <Route path='/general' exact element={<GeneralView />} />
                 {/*<Route path='/contact' exact element={<ContactView changeUrl={changeUrl} />}/>
                 
                 <Route path={"/Sessions/:id"} exact element={<InfoViewSession />} />

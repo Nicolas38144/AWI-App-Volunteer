@@ -1,6 +1,8 @@
 import React,{useEffect} from 'react';
 import { useNavigate  } from 'react-router-dom';
 import NavBar from '../../components/navBar/navBar'
+import Button from '../../components/button/button'
+
 
 import './generalView.css';
 
