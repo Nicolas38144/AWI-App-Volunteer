@@ -1,13 +1,10 @@
 import React,{useEffect} from 'react';
 import { useNavigate  } from 'react-router-dom';
+import NavBar from '../../components/navBar/navBar'
 
-import Button from '../../components/button/button.js';
+import './generalView.css';
 
-import ImageFond from '../../images/logo31_couleur.png';
-
-import './homeView.css';
-
-export default function HomeView(props){
+export default function GeneralView(props){
     useEffect(() => {},[]);
 
     const navigate = useNavigate();
@@ -17,13 +14,13 @@ export default function HomeView(props){
     };
 
     return(
-        <div className='homeView'>
-            <div className='image-container'>
-                <img className="background" src={ImageFond} alt="Fond"></img>
+        <div className='generalView'>
+            <div>
+                <NavBar></NavBar>
             </div>
-            <div className="login-button">
+            <div className="logout-button">
                 <Button 
-                    text="Se connecter" 
+                    text="Se déconnecter" 
                     textColor="white"
                     bgColor="#002663"
                     onClick={handleLoginClick}

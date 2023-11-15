@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import './textField.css'; // Importer le fichier CSS
+
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
+import './texteField.css';
 
-export default function textField() {
+export default function TexteField(props) {
 
     const CssTextField = styled(TextField)({
         '& label.Mui-focused': {
@@ -30,8 +31,8 @@ export default function textField() {
       });
 
   return (
-    <div className='TextField'>
-        <CssTextField />
+    <div className='texteField'>
+        <CssTextField label={props.label} ></CssTextField>
     </div>
   );
 }
