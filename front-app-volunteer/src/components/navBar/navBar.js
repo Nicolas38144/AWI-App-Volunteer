@@ -10,6 +10,7 @@ export default function NavBar() {
             <NavLink className="current" to="/"> Planning </NavLink>
             <NavLink className="current" to="/"> Inscription </NavLink>
             <NavLink className="current" to="/"> Messagerie </NavLink>
+            <NavLink className="current" to="/"> Forum </NavLink>
             <NavLink className="monprofil" to="/"> Mon Profil </NavLink>
         </nav>
     </div>
