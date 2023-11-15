@@ -1,0 +1,23 @@
+.card {
+    width: 300px;
+    margin: auto;
+    background-color: #ddd;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card .form-data {
+    margin-bottom: 20px;
+}
+
+.card .login-button {
+    text-align: center;
+}
+
+.card .signup-link {
+    text-align: center;
+    margin-top: 10px;
+    color: #4C5CC5; /* Couleur du lien */
+}

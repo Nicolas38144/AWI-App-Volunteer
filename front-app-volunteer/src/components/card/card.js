@@ -15,13 +15,13 @@ export default function Card(props) {
             </div>
             <div className="login-button">
                 <Button 
-                    text="Se connecter" 
+                    text="S'inscrire" 
                     textColor="white"
                     bgColor="#002663"
                     handleClick={props.handleClick}
                     >
                 </Button>
-            </div> 
+            </div>
         </div>
     )
 }

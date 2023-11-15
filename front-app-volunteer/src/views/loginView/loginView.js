@@ -11,12 +11,12 @@ export default function LoginView(props){
     const navigate = useNavigate();
     
     const handleClick = () => {
-        
+
         navigate('/general');
     };
 
     return(
-        <div className='loginview'>
+        <div className='loginView'>
             <h1>LoginView</h1>
             <Card handleClick={handleClick}></Card>
         </div>

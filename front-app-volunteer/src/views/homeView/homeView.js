@@ -1,6 +1,5 @@
 import React,{useEffect} from 'react';
-import { useNavigate  } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/button.js';
 
 import ImageFond from '../../images/logo31_couleur.png';
@@ -29,7 +28,7 @@ export default function HomeView(props){
                     handleClick={handleLoginClick}
                     >
                 </Button>
-            </div> 
+            </div>
         </div>
     );
 }
