@@ -12,6 +12,7 @@ export default function Button(props) {
                     backgroundColor: props.bgColor,
                     cursor: 'pointer',
                 }}
+                onClick={props.onClick}
             >
                 {props.text}
             </button>

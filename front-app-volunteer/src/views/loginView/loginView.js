@@ -1,7 +1,6 @@
 import React,{useEffect} from 'react';
 
 import './loginView.css';
-import TextField from '../../components/textField/textField';
 
 export default function LoginView(props){
     useEffect(() => {},[]);
@@ -10,7 +9,7 @@ export default function LoginView(props){
 
     return(
         <div className='loginview'>
-            <TextField></TextField>
+            <h1>LoginView</h1>
         </div>
     );
 }

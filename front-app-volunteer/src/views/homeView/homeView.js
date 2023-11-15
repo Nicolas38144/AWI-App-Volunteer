@@ -1,4 +1,5 @@
 import React,{useEffect} from 'react';
+import { useNavigate  } from 'react-router-dom';
 import Button from '../../components/button/button.js';
 
 import ImageFond from '../../images/logo31_couleur.png';
@@ -8,6 +9,11 @@ import './homeView.css';
 export default function HomeView(props){
     useEffect(() => {},[]);
 
+    const navigate = useNavigate();
+
+    const handleLoginClick = () => {
+        navigate('/login');
+    };
 
     return(
         <div className='homeView'>
@@ -19,6 +25,7 @@ export default function HomeView(props){
                     text="Se connecter" 
                     textColor="white"
                     bgColor="#002663"
+                    onClick={handleLoginClick}
                     >
                 </Button>
             </div> 
