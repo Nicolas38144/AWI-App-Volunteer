@@ -10,7 +10,7 @@ export default function NavBar({ hasReceivedMessages, hasNews }) {
             <NavLink className="current" to="/general"> Informations {hasNews ? <span className='notification'></span> : ''}</NavLink>
             <NavLink className="current" to="/general"> Planning </NavLink>
             <NavLink className="current" to="/general"> Inscription </NavLink>
-            <NavLink className='current' to="/general"> Messagerie </NavLink>
+            <NavLink className='current' to="/general"> Messagerie {hasReceivedMessages ? <span className='notification'></span> : ''}</NavLink>
             <NavLink className="current" to="/general"> Forum </NavLink>
             <NavLink className="monprofil" to="/general"> Mon Profil </NavLink>
         </nav>
