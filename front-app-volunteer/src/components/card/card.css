@@ -12,11 +12,15 @@
     margin-bottom: 20px;
 }
 
+.card .form-data {
+    margin-bottom: 20px;
+}
+
 .card .login-button {
     text-align: center;
 }
 
-.card .signup-link {
+.card .subscribe {
     text-align: center;
     margin-top: 10px;
     color: #4C5CC5; /* Couleur du lien */

@@ -12,7 +12,7 @@ export default function GeneralView(props){
     const navigate = useNavigate();
 
     const handleLogoutClick = () => {
-        navigate('/login');
+        navigate('/');
     };
 
     return(
