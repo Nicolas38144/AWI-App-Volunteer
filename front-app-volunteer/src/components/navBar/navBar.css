@@ -16,7 +16,9 @@
 }
 
 .navBar .navigation {
-    padding: 20px 50px;
+    padding: 3vh 4vw;
+    display: flex;
+    align-items: center;
 }
 
 .navBar .navigation .current{
@@ -26,6 +28,7 @@
     text-decoration: none;
     font-weight: 500;
     margin-left: 4vw;
+    height: min-content;
 }
 
 .navBar .navigation .monprofil{
@@ -82,13 +85,19 @@
 
 .navBar .navigation .notification::after {
     content: '';
+    position: absolute;
     display: inline-block;
     width: 8px;
     height: 8px;
-    background-color: red;
+    background-color: #FA14FF;
     border-radius: 50%;
     margin-bottom: 8px;
   }
+
+.navBar .navigation .logo{
+    height: 10vh;
+    position:initial;
+}
 
 .navBar .navigation .monprofil:hover::after {
     transform-origin: right;
