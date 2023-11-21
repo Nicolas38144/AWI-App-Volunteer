@@ -32,8 +32,8 @@
 }
 
 .navBar .navigation .monprofil{
-    position: absolute;
-    right: 0;
+    position: relative;
+    left: 18vw;
     font-size: 1.4em;
     color: rgb(76, 92, 197);
     text-decoration: none;
