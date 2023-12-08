@@ -5,9 +5,11 @@ import logo from '../../images/logo31_couleur.png'
 import LogoutIcon from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
 
+
 export default function NavBar({ hasReceivedMessages, hasNews, setVal }) {
   return (
     <div className='navBar'>
+      <NavLink id="nav-menu-button" to='/general' onClick={() => console.log("affiche le menu")}> Menu </NavLink>
         <nav className='navigation'>
             <Link onClick={() => setVal(0)} to={'/general'}><img src={logo} className='logo' ></img></Link>
             <NavLink className="current" to='/general' onClick={() => setVal(0)}> Informations {hasNews ? <span className='notification'></span> : ''}</NavLink>
