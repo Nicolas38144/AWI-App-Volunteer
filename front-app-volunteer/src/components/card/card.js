@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import TexteField from "../texteField/texteField.js";
 import Button from "../button/button.js";
 
@@ -7,8 +7,13 @@ import './card.css';
 
 export default function Card(props) {
 
+    const location = useLocation();
+
     return (     
         <div className="card">
+            <div className="text">
+                <p>Se connecter</p>
+            </div>
             <div className="form-data">
                 <div className="mail">
                     <TexteField label="Mail"></TexteField>
@@ -26,9 +31,20 @@ export default function Card(props) {
                     >
                 </Button>
             </div>
-            <div className="subscribe">
-                <Link to="/register">Pas encore inscrit ?</Link>
+            <div className="link">
+                {   
+                    location.pathname === "/login" ?
+                    <div className="register">
+                        <Link to="/register">Pas encore inscrit ?</Link>
+                    </div>
+                    :
+                    <div className="login">
+                        <Link to="/login">Déjà inscrit ?</Link>
+                    </div>
+                }
             </div>
+            
+            
         </div>
     )
 }

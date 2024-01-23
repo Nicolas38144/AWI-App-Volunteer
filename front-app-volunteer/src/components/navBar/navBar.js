@@ -11,7 +11,7 @@ export default function NavBar({ hasReceivedMessages, hasNews, setVal }) {
     <div className='navBar'>
       <NavLink id="nav-menu-button" to='/general' onClick={() => console.log("affiche le menu")}> Menu </NavLink>
         <nav className='navigation'>
-            <Link onClick={() => setVal(0)} to={'/general'}><img src={logo} className='logo' ></img></Link>
+            <Link onClick={() => setVal(0)} to={'/general'}><img src={logo} className='logo' alt='logo'></img></Link>
             <NavLink className="current" to='/general' onClick={() => setVal(0)}> Informations {hasNews ? <span className='notification'></span> : ''}</NavLink>
             <NavLink className="current" to='/general' onClick={() => setVal(1)}> Planning </NavLink>
             <NavLink className="current" to='/general' onClick={() => setVal(2)}> Inscription </NavLink>

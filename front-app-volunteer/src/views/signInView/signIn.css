@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+.signIn {
+    display: flex;
+}
+
+.signIn .left-panel {
+    margin-top: 2%;
+    padding-left: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.signIn input {
+  font-family: "Poppins", sans-serif;
+}
+
+.signIn h3 {
+    margin-bottom: 4%;
+    font-weight: 600;
+    line-height: 1;
+    font-size: 2.2rem;
+    color: white;
+}
+
+
+.signIn .right-panel {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.signIn .title {
+    font-size: 2.2rem;
+    color: #002663;
+    margin: 0px 10px 30px;
+}
+
+.signIn .fields {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.signIn .input-field {
+  max-width: 380px;
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  padding: 0 1rem;
+}
+
+.signIn .input-field input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.signIn .input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.signIn .right-panel .btn {
+    margin-top: 30px;
+}
+
+
+/***************BOUTONS***************/
+.signIn .btn {
+    width: 150px;
+    background: none;
+    border: solid white 2px;
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 1s;
+}
+
+.signIn .btn:hover {
+  background: #002663;
+}
+

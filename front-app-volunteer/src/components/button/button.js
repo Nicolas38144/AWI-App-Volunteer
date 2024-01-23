@@ -9,8 +9,7 @@ export default function Button(props) {
             <button
                 style={{
                     color: props.textColor,
-                    backgroundColor: props.bgColor,
-                    cursor: 'pointer',
+                    background: props.bgColor,
                 }}
                 onClick={props.handleClick}
             >
