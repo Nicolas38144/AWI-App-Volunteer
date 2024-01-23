@@ -33,10 +33,38 @@ export default function PlanningView(props){
           }
         ]
       }
+
+      const zone = {
+        "zones" : [
+          {
+            "id": 1,
+            "titre": "Espace A1"
+          },
+          {
+            "id": 2,
+            "titre": "Espace A2"
+          },
+          {
+            "id": 5,
+            "titre": "Espace A3"
+          },
+          {
+            "id": 3,
+            "titre": "Espace B2"
+          },
+          {
+            "id": 4,
+            "titre": "Espace B4"
+          },
+          {
+            "id": 4,
+            "titre": "Espace B5"
+          }
+        ]
+      }
       
     const [postes, setPostes] = useState(poste.activites);
-
-    console.log(postes)
+    const [zones, setZones] = useState(zone.zones);
 
     return(
         <div className='planningView'>
@@ -104,9 +132,9 @@ export default function PlanningView(props){
                     </tr>
                 </thead>
                 <tbody>
-                    {postes.map((unposte) => (
-                    <tr key={unposte.id}>
-                        <td>{unposte.titre}</td>
+                    {zones.map((unezone) => (
+                    <tr key={unezone.id}>
+                        <td>{unezone.titre}</td>
                     </tr>
                     ))}
                 </tbody>
