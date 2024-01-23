@@ -12,7 +12,13 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    background: linear-gradient(to left, #002663, #4C5CC5);
   }
+
+.planningView .planning table{
+    margin: 15px;
+    border: 1px solid #fff;
+}
 
 .planningView .planning table .quadrille{
     padding: 15px;
