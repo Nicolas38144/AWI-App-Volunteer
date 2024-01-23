@@ -51,15 +51,6 @@ export default function GeneralView(props){
             <div className='renderView'>
                 {renderView()}
             </div>
-            <div className="logout-button">
-                <Button 
-                    text="Se déconnecter" 
-                    textColor="white"
-                    bgColor="#002663"
-                    handleClick={handleLogoutClick}
-                    >
-                </Button>
-            </div> 
         </div>
     );
 }
