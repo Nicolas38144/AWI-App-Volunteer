@@ -1,4 +1,4 @@
-import React from 'react'; /*,{useEffect, useState}*/
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import SignIn from './views/signInView/signIn.js';
@@ -11,15 +11,6 @@ function App() {
   return (
     <div className="App">
         <Router>
-            {/*<img className="background" src={ImageFond} alt="Fond"></img>
-            <NavBar className="navBar" 
-                btnLogin={btnLogin} 
-                changeStateBtnLogin={changeStateBtnLogin} 
-                isLogged={isLogged}
-                changeIsLogged={changeIsLogged}
-                changeIsAdmin={changeIsAdmin}> 
-            </NavBar>
-            */}
             <Routes>
                 <Route path="*" element={<h1>404: page not found</h1>}/>
                 <Route path='/' exact element={<SignIn />} />

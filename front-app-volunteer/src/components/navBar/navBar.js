@@ -23,12 +23,13 @@ export default function NavBar({ hasReceivedMessages, hasNews, setVal }) {
             <NavLink className='current' to='/home' onClick={() => setVal(3)}> Messagerie {hasReceivedMessages ? <span className='notification'></span> : ''}</NavLink>
             <NavLink className="current" to='/home' onClick={() => setVal(4)}> Forum </NavLink>
             <NavLink className="monprofil" to='/home' onClick={() => setVal(5)}> Mon Profil </NavLink>
-            <IconButton color="primary" aria-label="Se déconnecter" variant="outlined" onClick={logout}
-            sx={{position: 'relative', left: '14vw',
-            '&:hover': {
-              color: 'rgb(0, 38, 99)',
-            },}}>
-              <LogoutIcon />
+            <IconButton 
+                color="primary" 
+                aria-label="Se déconnecter" 
+                variant="outlined" 
+                onClick={logout}
+                sx={{position: 'relative', left: '16vw', color: 'rgb(213, 215, 225)', '&:hover': { color: 'white', },}}>
+                <LogoutIcon />
             </IconButton >
         </nav>
     </div>
