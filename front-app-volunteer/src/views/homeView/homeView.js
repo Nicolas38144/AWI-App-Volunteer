@@ -12,9 +12,9 @@ import NavBar from '../../components/navBar/navBar'
 import Button from '../../components/button/button'
 
 
-import './generalView.css';
+import './homeView.css';
 
-export default function GeneralView(props){
+export default function HomeView(props){
     
     const [val, setVal] = useState(0);
     useEffect(() => {
@@ -44,7 +44,7 @@ export default function GeneralView(props){
     };
 
     return(
-        <div className='generalView'>
+        <div className='HomeView'>
             <div>
                 <NavBar hasReceivedMessages={true} hasNews={true} setVal={setVal}/>
             </div>

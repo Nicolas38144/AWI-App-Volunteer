@@ -1,33 +1,63 @@
-// SignUp.js
-import React from 'react';
-import './SignInSignUp.css';
+import React,{ useEffect, useState } from 'react';
+import { useNavigate  } from 'react-router-dom';
 
-const SignUp = ({ onSignInClick }) => {
-  return (
-    <form className="sign-up-form">
-      <h2 className="title">Sign Up</h2>
-      <div className="input-field">
-        <i className="fas fa-user"></i>
-        <input type="text" placeholder="Username" />
-      </div>
-      <div className="input-field">
-        <i className="fas fa-envelope"></i>
-        <input type="email" placeholder="Email" />
-      </div>
-      <div className="input-field">
-        <i className="fas fa-lock"></i>
-        <input type="password" placeholder="Password" />
-      </div>
-      <input type="submit" value="Sign Up" className="btn solid" />
-      <p className="social-text">Or Sign up with social platforms</p>
-      <div className="social-media">
-        {/* ... Le reste du code JSX pour les icônes de médias sociaux ... */}
-      </div>
-      <button type="button" className="btn transparent" onClick={onSignInClick}>
-        Sign In
-      </button>
-    </form>
-  );
-};
+import './signUp.css';
+import ImageFond from '../../images/logo31_couleur.png';
 
-export default SignUp;
+export default function SignUp(props){
+    useEffect(() => {},[]);
+
+    const navigate = useNavigate();
+    const handleClickLogin = () => { navigate('/'); };
+    const handleClickRegister = () => { navigate('/home'); };
+
+    const [selectedOption, setSelectedOption] = useState('');
+    const handleInputChange = (e) => { setSelectedOption(e.target.value); };
+
+    return(
+        <div className='signUp'>
+            <div className="left-panel">
+                <div className='content'>
+                    <h3>Déjà inscrit ? </h3>
+                    <div className="register-button">
+                        <button className="btn" onClick={handleClickLogin}>Se connecter</button>
+                    </div>
+                </div>
+                <img className="background" src={ImageFond} alt="Fond"></img>
+            </div>
+            <div className="right-panel">
+                    <h2 className="title">Inscription</h2>
+                    <div className='fields'>
+                        <div className="input-field">
+                            <input type="text" placeholder="Prénom" maxLength={20} pattern="[a-zA-Z]+" />
+                        </div>
+                        <div className="input-field">
+                            <input type="text" placeholder="Nom" maxLength={20}  pattern="[a-zA-Z]+" />
+                        </div>
+                        <div className="input-field">
+                            <input type="email" placeholder="Mail" pattern="[a-zA-Z]+@[a-z]+\.[a-z]+"/>
+                        </div>
+                        <div className="input-field">
+                            <input type="text" placeholder="Mot de passe" maxLength={20} />
+                        </div>
+                        <div className='others'>
+                            <div className="input-field other">
+                                <input type="number" placeholder="Participation" maxLength={20} min={0} />
+                            </div>
+                            <div className="input-field other">
+                                <select value={selectedOption} onChange={handleInputChange}>
+                                    <option value="" disabled hidden>Hebergement ?</option>
+                                    <option value="proposer">Proposer</option>
+                                    <option value="recherche">Recherche</option>
+                                    <option value="rien">Rien</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="login-button">
+                            <button className="btn " onClick={handleClickRegister}>S'inscrire</button>
+                        </div>
+                    </div>             
+            </div>
+        </div>
+    );
+}

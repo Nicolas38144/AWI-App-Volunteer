@@ -2,8 +2,8 @@ import React from 'react'; /*,{useEffect, useState}*/
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import SignIn from './views/signInView/signIn.js';
-import RegisterSiteView from './views/registerSiteView/registerSiteView.js'
-import GeneralView from './views/generalView/generalView.js';
+import SignUp from './views/signUpView/signUp.js';
+import HomeView from './views/homeView/homeView.js';
 
 import './App.css';
 
@@ -23,8 +23,9 @@ function App() {
             <Routes>
                 <Route path="*" element={<h1>404: page not found</h1>}/>
                 <Route path='/' exact element={<SignIn />} />
-                <Route path='/register' exact element={<RegisterSiteView />} />
-                <Route path='/general' exact element={<GeneralView />} />
+                <Route path='/register' exact element={<SignUp />} />
+                <Route path='/home' exact element={<HomeView />} />
+                
                 {/*<Route path='/contact' exact element={<ContactView changeUrl={changeUrl} />}/>
                 
                 <Route path={"/Sessions/:id"} exact element={<InfoViewSession />} />

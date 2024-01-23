@@ -8,7 +8,8 @@ export default function SignIn(props){
     useEffect(() => {},[]);
 
     const navigate = useNavigate();
-    const handleClick = () => { navigate('/general'); };
+    const handleClickLogin = () => { navigate('/home'); };
+    const handleClickRegister = () => { navigate('/register'); };
 
     return(
         <div className='signIn'>
@@ -16,7 +17,7 @@ export default function SignIn(props){
                 <div className='content'>
                     <h3>Nouveau ici ?</h3>
                     <div className="register-button">
-                        <button className="btn" onClick={handleClick}>S'inscrire</button>
+                        <button className="btn" onClick={handleClickRegister}>S'inscrire</button>
                     </div>
                 </div>
                 <img className="background" src={ImageFond} alt="Fond"></img>
@@ -25,13 +26,13 @@ export default function SignIn(props){
                     <h2 className="title">Se connecter</h2>
                     <div className='fields'>
                         <div className="input-field">
-                            <input type="text" placeholder="Username" />
+                            <input type="text" placeholder="Mail" />
                         </div>
                         <div className="input-field">
-                            <input type="password" placeholder="Password" />
+                            <input type="password" placeholder="Mot de passe" />
                         </div>
                         <div className="login-button">
-                            <button className="btn " onClick={handleClick}>Connexion</button>
+                            <button className="btn " onClick={handleClickLogin}>Connexion</button>
                         </div>
                     </div>             
             </div>
