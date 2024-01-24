@@ -7,7 +7,25 @@
     background-color: #002663;*/
     background: linear-gradient(to right, #002663, #4C5CC5);
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 15px; /* Largeur de la barre de défilement */
+}
+
+::-webkit-scrollbar-thumb {
+background: #4C5CC5; /* Couleur de la poignée de la barre de défilement */
+border-radius: 6px; /* Bord arrondi de la poignée */
+}
+
+::-webkit-scrollbar-track {
+background: #002663; /* Couleur de fond de la barre de défilement */
+border-radius: 6px; /* Bord arrondi de la piste de la barre de défilement */
+}
+
+::-webkit-scrollbar-thumb:hover{
+background : blueviolet;
 }
 
 .App-logo {
