@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate  } from 'react-router-dom';
 
 import InfoView from '../infoView/infoView';
 import PlanningView from '../planningView/planningView'; 
@@ -9,7 +8,6 @@ import ForumView from '../forumView/forumView';
 import ProfilView from '../profilView/profilView';
 
 import NavBar from '../../components/navBar/navBar'
-import Button from '../../components/button/button'
 
 
 import './homeView.css';
@@ -17,12 +15,8 @@ import './homeView.css';
 export default function HomeView(props){
     
     const [val, setVal] = useState(0);
-    useEffect(() => {
-        //console.log('Updating state:', val);
+    useEffect(() => { //console.log('Updating state:', val); 
     }, [val]);
-
-    const navigate = useNavigate();
-    const handleLogoutClick = () => { navigate('/'); };
 
     const renderView = () => {
         switch (val) {

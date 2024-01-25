@@ -1,5 +1,8 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import { useNavigate  } from 'react-router-dom';
+import { auth, db } from '../../firebase';
+import { doc, getDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import './signIn.css';
 import ImageFond from '../../images/logo31_couleur.png';
@@ -7,9 +10,47 @@ import ImageFond from '../../images/logo31_couleur.png';
 export default function SignIn(props){
     useEffect(() => {},[]);
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const navigate = useNavigate();
-    const handleClickLogin = () => { navigate('/home'); };
     const handleClickRegister = () => { navigate('/register'); };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log("User logged : OK");
+
+            const uid = userCredential.user.uid;
+            console.log("get uid : OK");
+
+            const userDocRef = doc(db, 'users', uid);
+            const docSnap = await getDoc(userDocRef);
+            var user = {};
+            if (docSnap.exists()) {
+                const dataUser = docSnap.data();
+                user = {
+                    uid: uid,
+                    prenom: dataUser.prenom,
+                    nom: dataUser.nom,
+                    email: dataUser.email,
+                    nbParticipation: dataUser.nbParticipation,
+                    herbergement: dataUser.herbergement,
+                };
+            } else {
+                console.log("No such document!");
+            }
+            
+            localStorage.setItem('token', userCredential.user.accessToken);
+            localStorage.setItem('user', JSON.stringify(user));
+            console.log("user stored in localStorage: OK");
+            navigate('/');
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     return(
         <div className='signIn'>
@@ -25,15 +66,17 @@ export default function SignIn(props){
             <div className="right-panel">
                     <h2 className="title">Se connecter</h2>
                     <div className='fields'>
-                        <div className="input-field">
-                            <input type="text" placeholder="Mail" />
-                        </div>
-                        <div className="input-field">
-                            <input type="password" placeholder="Mot de passe" />
-                        </div>
-                        <div className="login-button">
-                            <button className="btn " onClick={handleClickLogin}>Connexion</button>
-                        </div>
+                        <form onSubmit={handleSubmit} className='signin-form'>
+                            <div className="input-field">
+                                <input type="email" placeholder="Mail" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                            </div>
+                            <div className="input-field">
+                                <input type="password" placeholder="Mot de passe" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+                            <div className="login-button">
+                                <button type="submit" className="btn">Connexion</button>
+                            </div>
+                        </form>
                     </div>             
             </div>
         </div>
