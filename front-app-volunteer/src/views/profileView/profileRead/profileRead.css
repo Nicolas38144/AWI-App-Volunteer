@@ -1,0 +1,15 @@
+.signIn .btn {
+    width: 150px;
+    background: none;
+    border: solid white 2px;
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 1s;
+}

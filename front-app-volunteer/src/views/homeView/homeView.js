@@ -5,7 +5,7 @@ import PlanningView from '../planningView/planningView';
 import RegisterPlanningView from '../registerPlanningView/registerPlanningView';
 import ChatView from '../chatView/chatView';
 import ForumView from '../forumView/forumView';
-import ProfilView from '../profilView/profilView';
+import ProfileView from '../profileView/profileView';
 
 import NavBar from '../../components/navBar/navBar'
 
@@ -31,7 +31,7 @@ export default function HomeView(props){
             case 4:
                 return <ForumView />;
             case 5:
-                return <ProfilView />;
+                return <ProfileView />;
             default:
                 return <InfoView />;
         }
