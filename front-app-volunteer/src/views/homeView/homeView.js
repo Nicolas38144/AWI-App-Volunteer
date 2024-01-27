@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../firebase';
 
 import InfoView from '../infoView/infoView';
 import PlanningView from '../planningView/planningView'; 
@@ -16,13 +18,39 @@ import './homeView.css';
 export default function HomeView(props){
     
     const [val, setVal] = useState(0);
-    useEffect(() => { //console.log('Updating state:', val); 
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        const fetchGamesData = async () => {
+            if (localStorage.getItem('games') == null || typeof(localStorage.getItem('games')) == 'undefined') {
+                console.log("heyy");
+                try {
+                    const querySnapshot = await getDocs(collection(db, "games"));;
+                    var listGames = []
+                    querySnapshot.forEach((doc) => {
+                        // console.log(doc.id, " => ", doc.data());
+                        listGames.push(doc.data())
+                    });
+                    setGames(listGames)
+                    console.log(listGames);
+                    localStorage.setItem('games', JSON.stringify(listGames));
+                } catch (error) {
+                    console.error('Error fetching games data:', error);
+                }
+            }
+            else {
+                setGames(JSON.parse(localStorage.getItem('games')));
+            }
+        }
+        
+        fetchGamesData();
+
     }, [val]);
 
     const renderView = () => {
         switch (val) {
             case 0:
-                return <InfoView />;
+                return <InfoView games={games} />;
             case 1:
                 return <PlanningView />;
             case 2:

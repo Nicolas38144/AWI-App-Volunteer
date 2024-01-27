@@ -1,0 +1,78 @@
+.infoView .allGames {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoView .allGames ul {
+    margin: 0px;
+    padding: 0px;
+    min-width: 85%;
+}
+
+.infoView .allGames .text-filed {
+    max-width: 300px;
+    width: 100%;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: grid;
+    padding: 0 1rem;
+}
+
+.infoView .allGames .text-filed input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    text-align: center;
+}
+
+.infoView .allGames .text-filed input::placeholder {
+    color: #aaa;
+    font-weight: 500;
+    text-align: center;
+}
+
+.infoView .allGames .radio {
+    color: white;
+    display: flex;
+    gap: 20px;
+    margin-top: 1%;
+}
+
+.infoView .allGames .gamesBox {
+    width: 85%;
+    margin: 3% auto;
+    border: 2px solid rgb(255, 255, 255, 0.5);
+    border-radius: 15px;background: linear-gradient(to right, #002663, #4C5CC5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column; 
+}
+
+.infoView .allGames .gamesBox .infoGame {
+    margin: 1% auto 1% 5%;
+    text-align: left;
+}
+
+.infoView .allGames .gamesBox strong {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.infoView .allGames .gamesBox p,a {
+    margin: 10px 0;
+    align-items: flex-start;
+    color: white;
+}

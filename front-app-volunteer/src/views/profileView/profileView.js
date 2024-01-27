@@ -26,7 +26,6 @@ export default function ProfileView(props){
     });
 
     useEffect(() => {
-
         const fetchUserData = async () => {
             try {
                 const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));

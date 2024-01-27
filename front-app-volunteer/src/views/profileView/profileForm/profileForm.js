@@ -1,7 +1,7 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useState } from 'react';
 import { db, auth } from '../../../firebase';
-import { doc, updateDoc, getDoc } from "firebase/firestore";
-import jsonData from '../../../components/awi_games.json';
+import { doc, updateDoc } from "firebase/firestore";
+// import jsonData from '../../../components/awi_games.json';
 import './profileForm.css';
 
 export default function ProfileForm(props){
@@ -154,7 +154,7 @@ export default function ProfileForm(props){
                         onChange={handleChange}
                         />
                     </label>
-                    <label>
+                    {/* <label>
                         Jeu préféré :
                         <select
                         type="text"
@@ -167,7 +167,7 @@ export default function ProfileForm(props){
                                 <option value={row['Nom_jeu']}>{row['Nom_jeu']}</option>
                             ))}
                         </select>
-                    </label>
+                    </label> */}
                     </div>
                     <button type="submit" className='updateBtn'> Sauvegarder</button>
             </form>
