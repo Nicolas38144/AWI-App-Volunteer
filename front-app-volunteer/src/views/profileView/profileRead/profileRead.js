@@ -4,11 +4,13 @@ import './profileRead.css';
 
 export default function ProfileRead(props){
     const user = props.user;
+    const setVal = props.setVal;
     return (
         <div className='profileRead'>
+            {/*{user.isadmin ? <button className='btnadmin' onClick={() => setVal(6)}> Administration</button> : ''}*/}
+            <button className='btnadmin' onClick={() => setVal(6)}> Administration</button>
             <h2 className='title'>Mon profil</h2>
-            <p className='info'>Prenom : {user.prenom}</p>
-            <p className='info'>Nom : {user.nom}</p>
+            <p className='info'>Nom : {user.prenom} {user.nom} </p>
             {user.pseudo ? <p className='info'>Pseudo: {user.pseudo}</p> : ''}
             <p className='info'>Email : {user.email}</p>
             <p className='info'>Participation(s) : {user.nbParticipation}</p>
@@ -19,12 +21,3 @@ export default function ProfileRead(props){
         </div>
     )
 }
-
-/* 
-pseudo
-adreese
- tel
- admin
- referent soirée
- jeu pref
-*/

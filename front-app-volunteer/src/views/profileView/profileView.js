@@ -87,10 +87,11 @@ export default function ProfileView(props){
         setBtnText(!changeBtn ? 'Modifier mon profil' : 'Annuler');
     }
 
+    const setVal = props.setVal;
 
     return (
         <div className='profilView'>
-            {changeBtn ? <ProfileRead user={user} /> : <ProfileForm setChangeBtn={setChangeBtn} setBtnText={setBtnText} user={user} setUser={setUser}/>}
+            {changeBtn ? <ProfileRead user={user} setVal={setVal} /> : <ProfileForm setChangeBtn={setChangeBtn} setBtnText={setBtnText} user={user} setUser={setUser}/>}
             <div className='btn'>
                 <button type='button' className='updateBtn' onClick={changeRender}>{btnText}</button>
             </div>

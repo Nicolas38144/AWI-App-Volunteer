@@ -13,3 +13,26 @@
     font-size: 0.8rem;
     transition: 1s;
 }
+
+.profilView .btnadmin {
+    background: none;
+    border: solid white 2px;
+    outline: none;
+    height: 49px;
+    border-radius: 49px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    padding: 0px 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.5s;
+    position: absolute;
+    left: 5%;
+}
+
+.profilView .btnadmin:hover {
+    background: #002663;
+}
+  
