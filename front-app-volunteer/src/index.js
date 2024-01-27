@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom'
 
 import SignIn from './views/signInView/signIn.js';
-import SignUp from './views/signUpView/signUp.js';
+import SignUp from './views/signUpView/SignUp.js';
 import Protected from './components/Protected.jsx';
 import HomeView from './views/homeView/homeView.js';
 

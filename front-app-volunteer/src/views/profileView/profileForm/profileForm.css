@@ -1,0 +1,24 @@
+.profileRead form .form-row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .profileRead label{
+    position: relative;
+    height: 0px;
+    width: 100%;
+    margin: 5%;
+  }
+
+  .profileRead form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+  }
+
+  .profileRead input{
+    width: auto;
+    margin-left: 5px;
+  }

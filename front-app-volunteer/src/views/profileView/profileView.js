@@ -84,12 +84,13 @@ export default function ProfileView(props){
 
     const changeRender = () => { 
         setChangeBtn(!changeBtn);
-        setBtnText(!changeBtn ? 'Modifier mon profil' : 'Sauvegarder les changements');
+        setBtnText(!changeBtn ? 'Modifier mon profil' : 'Annuler');
     }
+
 
     return (
         <div className='profilView'>
-            {changeBtn ? <ProfileRead user={user} /> : <ProfileForm user={user} setUser={setUser}/>}
+            {changeBtn ? <ProfileRead user={user} /> : <ProfileForm setChangeBtn={setChangeBtn} setBtnText={setBtnText} user={user} setUser={setUser}/>}
             <div className='btn'>
                 <button type='button' className='updateBtn' onClick={changeRender}>{btnText}</button>
             </div>
