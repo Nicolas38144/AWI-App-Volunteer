@@ -1,7 +1,7 @@
-import React,{useEffect, useState} from 'react';
+import React,{useState} from 'react';
 import { useNavigate  } from 'react-router-dom';
 import { auth, db } from '../../firebase';
-import { addDoc, doc, getDoc, collection } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 // import jsonData from '../../components/awi_games.json';
 
@@ -31,12 +31,16 @@ export default function SignIn(props){
             if (docSnap.exists()) {
                 const dataUser = docSnap.data();
                 user = {
-                    uid: uid,
                     prenom: dataUser.prenom,
                     nom: dataUser.nom,
                     email: dataUser.email,
                     nbParticipation: dataUser.nbParticipation,
                     herbergement: dataUser.herbergement,
+                    pseudo: dataUser.pseudo,
+                    adresse:dataUser.adresse,
+                    tel:dataUser.tel,
+                    jeuPrefere: dataUser.jeuPrefere,
+                    role: dataUser.role,
                 };
             } else {
                 console.log("No such document!");

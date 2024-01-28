@@ -1,4 +1,4 @@
-.profilView {
+.profileView {
     width: 66%;
     margin: auto;
     padding: 20px;
@@ -15,7 +15,7 @@
     background: linear-gradient(to right, #002663, #4C5CC5);
 }
 
-.profilView .updateBtn {
+.profileView .updateBtn {
     background: none;
     border: solid white 2px;
     outline: none;
@@ -31,7 +31,7 @@
     transition: 0.5s;
 }
 
-.profilView .updateBtn:hover {
+.profileView .updateBtn:hover {
     background: #002663;
 }
   

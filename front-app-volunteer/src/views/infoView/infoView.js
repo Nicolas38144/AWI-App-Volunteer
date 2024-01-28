@@ -8,14 +8,6 @@ export default function InfoView(props){
     const [filterOption, setFilterOption] = useState('all');
 
     useEffect(() => {
-        console.log(filteredGames);
-    }, [filteredGames]);
-
-    useEffect(() => {
-        // // Filter games based on the search query
-        // const filteredResults = props.games.filter((game) =>
-        //     game['Nom_jeu'].toLowerCase().includes(searchQuery.toLowerCase())
-        // );
         const filteredResults = props.games.filter((game) => {
             const matchSearchQuery =
               game['Nom_jeu'].toLowerCase().includes(searchQuery.toLowerCase());
@@ -99,7 +91,7 @@ export default function InfoView(props){
                     ))}
                 </ul>
                 ) : (
-                    <p>Aucun jeu correspondant trouvé.</p>
+                    <p className='notFound'>Aucun jeu correspondant trouvé</p>
                 )}
             </div>
         </div>  

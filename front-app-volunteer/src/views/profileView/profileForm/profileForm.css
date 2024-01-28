@@ -1,24 +1,38 @@
-.profileRead form .form-row{
+.profileForm {
+    width: 70%;
+}
+
+.profileForm .boxs {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-  }
+    margin: 7% 0%;
+    justify-content: space-between;
+}
 
-  .profileRead label{
-    position: relative;
-    height: 0px;
-    width: 100%;
-    margin: 5%;
-  }
-
-  .profileRead form{
+.profileForm .boxInfo {
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 45%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 60vw;
-  }
+    gap: 15px;
+    padding-bottom: 15px;
+}
 
-  .profileRead input{
-    width: auto;
-    margin-left: 5px;
-  }
+
+.profileForm .boxInfo .info{
+    text-align: left;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profileForm .boxInfo .info input {
+    width: 150px;
+    border: none;
+}
+
+.profileForm .boxInfo .info select {
+    background: white;
+    width: 154px;
+    border: none;
+}

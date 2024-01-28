@@ -60,7 +60,7 @@ export default function HomeView(props){
             case 4:
                 return <ForumView />;
             case 5:
-                return <ProfileView setVal={setVal}/>;
+                return <ProfileView setVal={setVal} games={games} />;
             case 6: 
                 return <AdminView/>;
             default:

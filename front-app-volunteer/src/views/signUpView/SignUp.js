@@ -23,6 +23,7 @@ export default function SignUp(props){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             console.log("User created : OK");
@@ -31,26 +32,26 @@ export default function SignUp(props){
             console.log("get uid : OK");
 
             const userDocRef = doc(db, 'users', uid);
-            await setDoc(userDocRef, {
-                prenom: prenom,
-                nom: nom,
-                email: email,
-                password: password,
-                nbParticipation: nbParticipation,
-                herbergement: herbergement 
-            });
-            console.log("user stored in db: OK");
-
             const user = {
-                uid: uid,
                 prenom: prenom,
                 nom: nom,
                 email: email,
+                pw: password,
                 nbParticipation: nbParticipation,
                 herbergement: herbergement,
+                pseudo: '',
+                adresse:'',
+                tel:'',
+                role: 'benevole',
+                jeuPrefere: '',
             };
+            const { pw, ...localUser } = user; 
+            await setDoc(userDocRef, user );
+            console.log("user stored in db: OK");
+
+            
             localStorage.setItem('token', userCredential.user.accessToken);
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(localUser));
             console.log("user stored in localStorage: OK");
             navigate('/');
         }

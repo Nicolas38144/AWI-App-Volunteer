@@ -76,3 +76,15 @@
     align-items: flex-start;
     color: white;
 }
+
+.infoView .allGames .notFound {
+    width: 20%;
+    margin: 3% auto;
+    padding: 5px 0%;
+    border: 2px solid rgb(255, 255, 255, 0.5);
+    border-radius: 15px;background: linear-gradient(to right, #002663, #4C5CC5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+    color: white;
+}

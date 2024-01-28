@@ -8,74 +8,63 @@ import ProfileForm from './profileForm/profileForm';
 
 export default function ProfileView(props){
 
-    const [user, setUser] = useState({
-        //obligatoires
-        uid: '',
-        prenom: '',
-        nom: '',
-        email: '',
-        nbParticipation: '',
-        herbergement: '',
-        //optionnels
-        pseudo: '',
-        adreese: '',
-        tel: '',
-        admin: '',
-        referent_soiree: '',
-        jeu_pref: '',
-    });
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
-                if (userDoc.exists()) {
-                    const userInfo = {
-                        uid: auth.currentUser.uid,
-                        prenom: userDoc.data().prenom,
-                        nom: userDoc.data().nom,
-                        email: auth.currentUser.email,
-                        nbParticipation: userDoc.data().nbParticipation,
-                        herbergement: userDoc.data().herbergement,
-                        pseudo: userDoc.data().pseudo,
-                        adreese: userDoc.data().adreese,
-                        tel: userDoc.data().tel,
-                        admin: userDoc.data().admin,
-                        referent_soiree: userDoc.data().referent_soiree,
-                        jeu_pref: userDoc.data().jeu_pref,
+                const userData = JSON.parse(localStorage.getItem('user'));
+                // console.log("userData : ",userData);
+                if (userData === null) {
+                    const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
+                    if (userDoc.exists()) {
+                        const userInfo = {
+                            //obligatoires
+                            uid: auth.currentUser.uid,
+                            prenom: userDoc.data().prenom,
+                            nom: userDoc.data().nom,
+                            email: auth.currentUser.email,
+                            nbParticipation: userDoc.data().nbParticipation,
+                            herbergement: userDoc.data().herbergement,
+                            //optionnels
+                            pseudo: userDoc.data().pseudo,
+                            adresse: userDoc.data().adresse,
+                            tel: userDoc.data().tel,
+                            role: userDoc.data().role,
+                            jeuPrefere: userDoc.data().jeuPrefere,
+                        }
+                        setUser(userInfo);
+                        const token = await auth.currentUser.getIdToken();
+                        localStorage.setItem('token', JSON.stringify(token));
+                        localStorage.setItem('user', JSON.stringify(userInfo));
                     }
-                    setUser(userInfo);
-                    const token = await auth.currentUser.getIdToken();
-                    localStorage.setItem('token', JSON.stringify(token));
-                    localStorage.setItem('user', JSON.stringify(userInfo));
+                }
+                else {
+                    setUser({
+                        uid: userData.uid,
+                        prenom: userData.prenom,
+                        nom: userData.nom,
+                        email: userData.email,
+                        nbParticipation: userData.nbParticipation,
+                        herbergement: userData.herbergement,
+                        pseudo: userData.pseudo,
+                        adresse: userData.adresse,
+                        tel: userData.tel,
+                        role: userData.role,
+                        jeuPrefere: userData.jeuPrefere,
+                    })
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
         };
+        
+        const fetchData = async () => {
+            await fetchUserData();
+        };
 
-        const userData = JSON.parse(localStorage.getItem('user'));
-        if (userData === null) {
-            console.log("hey");
-            fetchUserData();
-            
-        }
-        else {
-            setUser({
-                uid: userData.uid,
-                prenom: userData.prenom,
-                nom: userData.nom,
-                email: userData.email,
-                nbParticipation: userData.nbParticipation,
-                herbergement: userData.herbergement,
-                pseudo: userData.pseudo,
-                adreese: userData.adreese,
-                tel: userData.tel,
-                admin: userData.admin,
-                referent_soiree: userData.referent_soiree,
-                jeu_pref: userData.jeu_pref,
-            })
-        }
+        fetchData();
+
     }, []);    
 
     const [changeBtn, setChangeBtn] = useState(true);
@@ -87,10 +76,13 @@ export default function ProfileView(props){
     }
 
     const setVal = props.setVal;
-
+    // console.log("user: ", user);
     return (
-        <div className='profilView'>
-            {changeBtn ? <ProfileRead user={user} setVal={setVal} /> : <ProfileForm setChangeBtn={setChangeBtn} setBtnText={setBtnText} user={user} setUser={setUser}/>}
+        <div className='profileView'>
+            {changeBtn ? 
+                <ProfileRead user={user} setVal={setVal} /> 
+                : 
+                <ProfileForm games={props.games} setChangeBtn={setChangeBtn} setBtnText={setBtnText} user={user} setUser={setUser} />}
             <div className='btn'>
                 <button type='button' className='updateBtn' onClick={changeRender}>{btnText}</button>
             </div>

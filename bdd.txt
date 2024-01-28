@@ -37,7 +37,8 @@ id_zone
 presence
 
 FESTIVAL
-idannee
+id
+annee
 date_debut
 date_fin
 
