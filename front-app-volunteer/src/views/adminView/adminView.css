@@ -34,3 +34,7 @@
 .adminView .updateBtn:hover {
     background: #002663;
 }
+
+.adminView .error {
+    color: #FA14FF;
+}
