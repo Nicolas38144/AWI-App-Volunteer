@@ -18,6 +18,7 @@ export default function SignUp(props){
     const [nom, setNom] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
     const [nbParticipation, setNbParticipation] = useState('');
     const [herbergement, setHerbergement] = useState('');
 
@@ -25,45 +26,50 @@ export default function SignUp(props){
         e.preventDefault();
         
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            console.log("User created : OK");
-
-            const uid = userCredential.user.uid;
-            console.log("get uid : OK");
-
-            const userDocRef = doc(db, 'users', uid);
-            const user = {
-                prenom: prenom,
-                nom: nom,
-                email: email,
-                pw: password,
-                nbParticipation: nbParticipation,
-                herbergement: herbergement,
-                pseudo: '',
-                adresse:'',
-                tel:'',
-                role: 'benevole',
-                jeuPrefere: '',
-            };
-            const { pw, ...localUser } = user; 
-            await setDoc(userDocRef, user );
-            console.log("user stored in db: OK");
-
-            
-            localStorage.setItem('token', userCredential.user.accessToken);
-            localStorage.setItem('user', JSON.stringify(localUser));
-            console.log("user stored in localStorage: OK");
-            navigate('/');
+            if (password === password2) {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log("User created : OK");
+    
+                const uid = userCredential.user.uid;
+                console.log("get uid : OK");
+    
+                const userDocRef = doc(db, 'users', uid);
+                const user = {
+                    prenom: prenom,
+                    nom: nom,
+                    email: email,
+                    pw: password,
+                    nbParticipation: nbParticipation,
+                    herbergement: herbergement,
+                    pseudo: '',
+                    adresse:'',
+                    tel:'',
+                    role: 'benevole',
+                    jeuPrefere: '',
+                };
+                const { pw, ...localUser } = user; 
+                await setDoc(userDocRef, user );
+                console.log("user stored in db: OK");
+    
+                
+                localStorage.setItem('token', userCredential.user.accessToken);
+                localStorage.setItem('user', JSON.stringify(localUser));
+                console.log("user stored in localStorage: OK");
+                navigate('/');
+            }
+            else {
+                alert("Les mots de passe ne correspondent pas");
+            }
         }
         catch (error) {
             if (error.code === "auth/email-already-in-use") {
-                alert("The email address is already in use");
+                alert("L'adresse email est déjà utilisée");
             } else if (error.code === "auth/invalid-email") {
-                alert("The email address is not valid.");
+                alert("L'adresse email n'est pas valide.");
             } else if (error.code === "auth/operation-not-allowed") {
-                alert("Operation not allowed.");
+                alert("L'opération n'est pas permise.");
             } else if (error.code === "auth/weak-password") {
-                alert("The password is too weak.");
+                alert("Le mot de passe est trop petit.");
             }
         }
     }
@@ -93,7 +99,10 @@ export default function SignUp(props){
                                 <input type="email" placeholder="Mail" required value={email} onChange={(e) => setEmail(e.target.value)} /> {/*pattern="[a-zA-Z]+@[a-z]+\.[a-z]+" */}
                             </div>
                             <div className="input-field">
-                                <input type="text" placeholder="Mot de passe" maxLength={20} required value={password} onChange={(e) => setPassword(e.target.value)} />
+                                <input type="password" placeholder="Mot de passe" maxLength={20} required value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+                            <div className="input-field">
+                                <input type="password" placeholder="Confirmer le mot de passe" maxLength={20} required value={password2} onChange={(e) => setPassword2(e.target.value)} />
                             </div>
                             <div className='others'>
                                 <div className="input-field other">

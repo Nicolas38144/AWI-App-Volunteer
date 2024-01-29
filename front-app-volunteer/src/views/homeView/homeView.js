@@ -25,7 +25,7 @@ export default function HomeView(props){
             if (localStorage.getItem('games') == null || typeof(localStorage.getItem('games')) == 'undefined') {
                 console.log("heyy");
                 try {
-                    const querySnapshot = await getDocs(collection(db, "games"));;
+                    const querySnapshot = await getDocs(collection(db, "games"));
                     var listGames = []
                     querySnapshot.forEach((doc) => {
                         // console.log(doc.id, " => ", doc.data());

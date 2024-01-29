@@ -34,14 +34,15 @@
 .signUp .title {
     font-size: 2.2rem;
     color: #002663;
-    margin: 0px 10px 30px;
+    margin: 40px 10px 30px;
 }
 
-.signUp .fields {
+.signup-form {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    margin: auto;
 }
 
 .signUp .others {
