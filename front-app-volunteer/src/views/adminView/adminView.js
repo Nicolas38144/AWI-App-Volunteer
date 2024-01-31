@@ -11,7 +11,7 @@ export default function AdminView(props){
 
     const [listUser, setListUser] = useState([]);
     const [activeTab, setActiveTab] = useState(null);
-    const handleTabChange = (tab) => { setActiveTab(tab); };
+    const handleTabChange = (tab) => { setActiveTab((prevActiveTab) => (prevActiveTab === tab ? null : tab)); };
 
     useEffect(() => {
         const fetchUsersData = async () => {
