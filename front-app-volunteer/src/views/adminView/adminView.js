@@ -10,8 +10,25 @@ import './adminView.css';
 export default function AdminView(props){
 
     const [listUser, setListUser] = useState([]);
+    const [listPoste, setListPoste] = useState([]);
     const [activeTab, setActiveTab] = useState(null);
     const handleTabChange = (tab) => { setActiveTab((prevActiveTab) => (prevActiveTab === tab ? null : tab)); };
+
+    useEffect(() => {
+        const fetchPostesData = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "postes"));
+                var listPostes = []
+                querySnapshot.forEach((doc) => {
+                    listPostes.push({id: doc.id, data: doc.data()});
+                });
+                setListPoste(listPostes)
+            } catch (error) {
+                console.error('Error fetching postes data:', error);
+            }
+        }
+        fetchPostesData(); 
+    }, []);
 
     useEffect(() => {
         const fetchUsersData = async () => {
@@ -34,7 +51,6 @@ export default function AdminView(props){
     }, []);
 
     
-    
     return(
         <div className='adminView'>
             <h1>AdminView</h1>
@@ -46,7 +62,7 @@ export default function AdminView(props){
             {activeTab === 'roles' && <RoleView listUser={listUser} setListUser={setListUser} />}
 
             <button type='button' className={`updateBtn ${activeTab === 'festival' ? 'active' : ''}`} onClick={() => handleTabChange('festival')}> Créer un festival </button>
-            {activeTab === 'festival' && <FestivalView />}
+            {activeTab === 'festival' && <FestivalView listPoste={listPoste} listUser={listUser} setListPoste={setListPoste}/>}
         </div>
     );
 }

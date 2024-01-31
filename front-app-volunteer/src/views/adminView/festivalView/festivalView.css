@@ -1,0 +1,27 @@
+.festivalView form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.festivalView .row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.festivalView .newposte{
+    margin-top: 25px;
+    padding: 0px 50px;
+    border-radius: 20px;
+}
+
+.festivalView .newposte:nth-child(odd) {
+    background-color: #002663;
+}
+
+.festivalView .newposte:nth-child(even) {
+  background-color: #032151;
+}
