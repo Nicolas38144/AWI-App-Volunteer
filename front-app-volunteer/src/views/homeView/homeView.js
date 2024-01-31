@@ -23,7 +23,7 @@ export default function HomeView(props){
     useEffect(() => {
         const fetchGamesData = async () => {
             if (localStorage.getItem('games') == null || typeof(localStorage.getItem('games')) == 'undefined') {
-                console.log("heyy");
+                // console.log("heyy");
                 try {
                     const querySnapshot = await getDocs(collection(db, "games"));
                     var listGames = []
@@ -32,7 +32,7 @@ export default function HomeView(props){
                         listGames.push(doc.data())
                     });
                     setGames(listGames)
-                    console.log(listGames);
+                    // console.log(listGames);
                     localStorage.setItem('games', JSON.stringify(listGames));
                 } catch (error) {
                     console.error('Error fetching games data:', error);

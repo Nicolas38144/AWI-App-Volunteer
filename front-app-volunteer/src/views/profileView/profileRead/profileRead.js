@@ -27,7 +27,7 @@ export default function ProfileRead(props){
 
     return (
         <div className='profileRead'>
-           {user.role === 'admin' && <button className='btnadmin' onClick={() => setVal(6)}>Administration</button>}
+           {(user.role === 'admin' || user.role === 'superAdmin') && <button className='btnadmin' onClick={() => setVal(6)}>Administration</button>}
             <h2 className='title'>Mon profil</h2>
             <div className='boxs'>
                 <div className='boxInfo'>

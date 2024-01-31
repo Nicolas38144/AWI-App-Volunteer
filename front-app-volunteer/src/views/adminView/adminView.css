@@ -35,6 +35,10 @@
     background: #002663;
 }
 
+.adminView .active {
+    background-color: #002663;
+    /* Autres styles souhaités pour le bouton actif */
+}
 .adminView .error {
     color: #FA14FF;
 }
