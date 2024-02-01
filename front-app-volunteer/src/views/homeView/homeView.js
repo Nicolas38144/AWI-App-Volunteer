@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, getCountFromServer } from 'firebase/firestore'
 import { db } from '../../firebase';
 
 import InfoView from '../infoView/infoView';
@@ -19,6 +19,7 @@ export default function HomeView(props){
     
     const [val, setVal] = useState(0);
     const [games, setGames] = useState([]);
+    const [countUsers, setCountUsers] = useState([]);
 
     useEffect(() => {
         const fetchGamesData = async () => {
@@ -42,15 +43,22 @@ export default function HomeView(props){
                 setGames(JSON.parse(localStorage.getItem('games')));
             }
         }
-        
         fetchGamesData();
-
     }, [val]);
+
+    useEffect(() => {
+        const fetchUsersCount = async () => {
+            const coll = collection(db, "users");
+            const snapshot = await getCountFromServer(coll);
+            setCountUsers(snapshot.data().count);
+        };
+        fetchUsersCount();
+    }, []);
 
     const renderView = () => {
         switch (val) {
             case 0:
-                return <InfoView games={games} />;
+                return <InfoView games={games} countUsers={countUsers}/>;
             case 1:
                 return <PlanningView />;
             case 2:

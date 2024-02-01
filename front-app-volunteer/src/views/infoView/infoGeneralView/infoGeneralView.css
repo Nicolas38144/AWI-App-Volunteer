@@ -1,0 +1,39 @@
+.infoGeneralView {
+    width: 66%;
+    margin: 3% auto;
+    border: 2px solid rgb(255, 255, 255, 0.5);
+    border-radius: 15px;background: linear-gradient(to right, #002663, #4C5CC5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column; 
+}
+
+.editors ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    gap: 2%;
+    justify-content: center;
+}
+
+.editors li {
+    width: 19%; /* Set width for each editor to cover 7 editors in a row */
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 10px 0%;
+    border-radius: 15px;
+}
+
+.editors li:nth-child(even) {
+    background-color: #002663;
+}
+
+.editors li:nth-child(odd) {
+    background-color: #032151;
+}
