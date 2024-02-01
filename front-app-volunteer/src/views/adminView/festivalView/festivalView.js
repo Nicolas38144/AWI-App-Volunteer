@@ -38,6 +38,8 @@ export default function FestivalView(props) {
             try {
                 const jeux_col = collection(db, 'games');
                 const jeux_doc = await getDocs(jeux_col);
+
+                localStorage.removeItem('games');
         
                 jeux_doc.forEach(async (document) => {
                     await deleteDoc(doc(jeux_col, document.id));
