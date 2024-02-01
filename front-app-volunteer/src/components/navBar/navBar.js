@@ -28,15 +28,16 @@ export default function NavBar({ hasReceivedMessages, hasNews, setVal }) {
             <NavLink className="current" to='/' onClick={() => setVal(0)}> Informations {hasNews ? <span className='notification'></span> : ''}</NavLink>
             <NavLink className="current" to='/' onClick={() => setVal(1)}> Planning </NavLink>
             <NavLink className="current" to='/' onClick={() => setVal(2)}> Inscription </NavLink>
-            <NavLink className='current' to='/' onClick={() => setVal(3)}> Messagerie {hasReceivedMessages ? <span className='notification'></span> : ''}</NavLink>
+            {/* <NavLink className='current' to='/' onClick={() => setVal(3)}> Messagerie {hasReceivedMessages ? <span className='notification'></span> : ''}</NavLink> */}
             <NavLink className="current" to='/' onClick={() => setVal(4)}> Forum </NavLink>
             <NavLink className="monprofil" to='/' onClick={() => setVal(5)}> Mon Profil </NavLink>
             <IconButton 
+                className='icon'
                 color="primary" 
                 aria-label="Se déconnecter" 
                 variant="outlined" 
                 onClick={handleLogout}
-                sx={{position: 'relative', left: '16vw', color: 'rgb(213, 215, 225)', '&:hover': { color: 'white', },}}>
+                sx={{position: 'relative', left: '22vw', color: 'rgb(213, 215, 225)', '&:hover': { color: 'white', },}}>
                 <LogoutIcon />
             </IconButton >
         </nav>
