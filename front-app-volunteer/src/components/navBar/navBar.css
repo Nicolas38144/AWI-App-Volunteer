@@ -5,14 +5,12 @@
 
 .navBar{
     font-family: 'Olive';
-    overflow: hidden;
-    top: 0;
+    /*overflow: hidden;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 99;
-    opacity: 0.99;
+    opacity: 0.99;*/
 }
 
 .navBar .navigation {
@@ -44,12 +42,12 @@
 
 .navBar .navigation .monprofil{
     position: relative;
-    left: 18vw;
+    left: 25vw;
+    margin-right: 4vw;
     font-size: 1.4em;
     color: rgb(193, 195, 206);
     text-decoration: none;
     font-weight: 500;
-    margin-right: 4vw;
 }
 
 .navBar .navigation .current::after {
