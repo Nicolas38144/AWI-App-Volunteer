@@ -19,12 +19,26 @@ export default function FestivalView(props) {
   const [zone_benevole, setZone_benevole] = useState(new Set());
   const [zone_plan, setZone_plan] = useState(new Set());
   const [jeux, setJeux] = useState([]);
+  const [joursfest, setJoursFest] = useState([]);
+  const joursDeLaSemaine = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+
+  const getDatesBetween = () =>  {
+    let datedebut = new Date(formData.startDate)
+    let datefin = new Date(formData.endDate)
+    const currentDate = new Date(datedebut);
+  
+    while (currentDate <= datefin) {
+      joursfest.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+  }
 
   let ajd = new Date();
 
   const create_festival = async () => { 
     let datedebut = new Date(formData.startDate)
     let datefin = new Date(formData.endDate)
+    getDatesBetween();
     if (datedebut < ajd || datefin<ajd){
         setErreur('Veuillez saisir une date ultérieure à aujourdhui')
     // au cas ou c'est que samedi
@@ -117,6 +131,31 @@ export default function FestivalView(props) {
                 console.error('Erreur bdd :', error);
             }
 
+            try {
+              const creneaucol = collection(db, 'plage_horaire');
+              const creneaudoc = await getDocs(creneaucol);
+      
+              creneaudoc.forEach(async (document) => {
+                  await deleteDoc(doc(creneaucol, document.id));
+              });
+      
+              joursfest.forEach(async (unjour) => {
+                  try {
+                    let cejour = new Date(unjour);
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "9h-11h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "11h-14h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "17h-20h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "14h-17h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "20h-22h"});
+                  } catch (error) {
+                      console.error('Erreur lors de l\'ajout des créneaux :', error);
+                  }
+              });
+      
+          } catch (error) {
+              console.error('Erreur bdd :', error);
+          }
+
 
             const nvfestival = {
                 date_debut: datedebut,
@@ -135,6 +174,8 @@ export default function FestivalView(props) {
           } catch (error) {
             console.error('Erreur bdd :', error);
           }
+
+          console.log('Festival créé !! Amuse toi bien')
     }
     
 }
