@@ -49,6 +49,7 @@ export default function FestivalView(props) {
     } else {
         console.log(jeux)
         try {
+          // ajout de jeux
             try {
                 const jeux_col = collection(db, 'games');
                 const jeux_doc = await getDocs(jeux_col);
@@ -71,6 +72,8 @@ export default function FestivalView(props) {
                 console.error('Erreur bdd :', error);
             }
 
+
+            // zones benevoles
             try {
                 const zones_ben_col = collection(db, 'zone_benevole');
                 const zones_ben_doc = await getDocs(zones_ben_col);
@@ -90,7 +93,8 @@ export default function FestivalView(props) {
             } catch (error) {
                 console.error('Erreur bdd :', error);
             }
-
+            
+            // zone plan
             try {
                 const zones_plan_col = collection(db, 'zone_plan');
                 const zones_plan_doc = await getDocs(zones_plan_col);
@@ -111,6 +115,7 @@ export default function FestivalView(props) {
                 console.error('Erreur bdd :', error);
             }
 
+            // postes
             try {
                 const postes_col = collection(db, 'postes');
                 const postes_doc = await getDocs(postes_col);
@@ -131,6 +136,7 @@ export default function FestivalView(props) {
                 console.error('Erreur bdd :', error);
             }
 
+            // créneaux horaire
             try {
               const creneaucol = collection(db, 'plage_horaire');
               const creneaudoc = await getDocs(creneaucol);
@@ -156,7 +162,7 @@ export default function FestivalView(props) {
               console.error('Erreur bdd :', error);
           }
 
-
+          // crée le festival 
             const nvfestival = {
                 date_debut: datedebut,
                 date_fin: datefin,
@@ -186,6 +192,7 @@ export default function FestivalView(props) {
     endDate: new Date(),
   });
 
+  // pour les input date
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -208,6 +215,7 @@ export default function FestivalView(props) {
     setInputLines(nouvellesLignes);
   };
 
+  // pour les postes saisis
   const handleInputChange = (value, index, champ) => {
     const nouvellesLignes = [...inputLines];
     const ligneModifiee = { ...nouvellesLignes[index], data: { ...nouvellesLignes[index].data, [champ]: value } };
@@ -243,7 +251,9 @@ export default function FestivalView(props) {
     reader.readAsText(file);
   };
 
+  // recupère les données du csv
   const parseCSVData = (csvData) => {
+    
     const results = Papa.parse(csvData, { header: true, skipEmptyLines: true });
     
   
