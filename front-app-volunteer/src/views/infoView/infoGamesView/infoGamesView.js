@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import urlExist from "url-exist"
 
 import Img_not from './img_not_available.png';
 
