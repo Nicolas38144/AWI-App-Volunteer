@@ -84,7 +84,7 @@ export default function FestivalView(props) {
         
                 zone_benevole.forEach(async (intitule) => {
                     try {
-                        await addDoc(zones_ben_col, {intitule});
+                      if (intitule !==''){await addDoc(zones_ben_col, {intitule});}
                     } catch (error) {
                         console.error('Erreur lors de l\'ajout de la zone :', error);
                     }
@@ -105,7 +105,7 @@ export default function FestivalView(props) {
         
                 zone_plan.forEach(async (intitule) => {
                     try {
-                        await addDoc(zones_plan_col, {intitule});
+                        if (intitule !==''){await addDoc(zones_plan_col, {intitule});}
                     } catch (error) {
                         console.error('Erreur lors de l\'ajout de la zone :', error);
                     }
