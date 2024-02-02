@@ -1,0 +1,24 @@
+.forumView {
+    width: 90vw;
+    margin: auto;
+}
+
+.forumView .chatContainer {
+    background: white;
+    max-width: 30vw;
+}
+
+.forumView .chatContainer .userInfo p {
+    font-size: 10px;
+    margin: 0px;
+}
+
+.forumView .ownMessage {
+    text-align: right;
+    background-color: #e2f8ff; /* Couleur de fond pour les messages de l'utilisateur connecté */
+}
+
+.forumView .otherMessage {
+    text-align: left;
+    background-color: #f3f3f3; /* Couleur de fond pour les messages des autres utilisateurs */
+}

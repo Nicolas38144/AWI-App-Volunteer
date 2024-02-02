@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, getCountFromServer } from 'firebase/firestore'
-import { db } from '../../firebase';
+import { collection, doc, getDocs, getDoc, getCountFromServer } from 'firebase/firestore'
+import { db, auth } from '../../firebase';
 
 import InfoView from '../infoView/infoView';
 import PlanningView from '../planningView/planningView'; 
@@ -20,6 +20,7 @@ export default function HomeView(props){
     const [val, setVal] = useState(0);
     const [games, setGames] = useState([]);
     const [countUsers, setCountUsers] = useState([]);
+    const [actualUser, setActualUser] = useState();
 
     useEffect(() => {
         const fetchGamesData = async () => {
@@ -55,6 +56,24 @@ export default function HomeView(props){
         fetchUsersCount();
     }, []);
 
+    useEffect(() => {
+        const getUserData = async () => {
+            const user = auth.currentUser;
+            if (user) {
+                try {
+                    // console.log("auth.currentUser.uid : ", user.uid);
+                    const docRef = doc(db, 'users', auth.currentUser.uid);
+                    const docSnap = await getDoc(docRef);
+                    setActualUser(docSnap)
+                }
+                catch (err) {
+                    console.log(err);
+                }
+            }
+        }
+        getUserData();
+    }, [])
+
     const renderView = () => {
         switch (val) {
             case 0:
@@ -66,7 +85,7 @@ export default function HomeView(props){
             case 3:
                 return <ChatView />;
             case 4:
-                return <ForumView />;
+                return <ForumView actualUser={actualUser} />;
             case 5:
                 return <ProfileView setVal={setVal} games={games} />;
             case 6: 
