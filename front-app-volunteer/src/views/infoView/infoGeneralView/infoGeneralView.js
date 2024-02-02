@@ -8,17 +8,23 @@ export default function InfoGeneralView(props){
     const [showEditors, setShowEditors] = useState(false);
 
     useEffect(() => {
+        // console.log(props.games);
         const filteredResults = props.games.filter((game) => {
-            if (game['Editeur']) { setUniqueEditors((prevEditors) => new Set([...prevEditors, game['Editeur']])); }
-            return game['Nom_jeu'].toLowerCase();
+            // console.log(game);
+            if (game.data['Editeur']) { setUniqueEditors((prevEditors) => new Set([...prevEditors, game.data['Editeur']])); }
+            return game.data['Nom_jeu'].toLowerCase();
         });
         setFilteredGames(filteredResults);
     }, [props.games]);
 
     const filteredGamesCount = filteredGames.length;
-    const receivedGamesCount = filteredGames.filter(game => game['Recu'] === 'oui').length;
-    const notReceivedGamesCount = filteredGames.filter(game => game['Recu'] === 'non').length;
+    const receivedGamesCount = filteredGames.filter(game => game.data['Recu'] === 'oui').length;
+    const notReceivedGamesCount = filteredGames.filter(game => game.data['Recu'] === 'non').length;
     const uniqueEditorsCount = uniqueEditors.size;
+
+    const getGamesCountForEditor = (editor) => {
+        return filteredGames.filter(game => game.data['Editeur'] === editor).length;
+    };
 
     return (
         <div className="infoGeneralView"> 
@@ -33,7 +39,7 @@ export default function InfoGeneralView(props){
                 {showEditors && (
                     <ul>
                     {[...uniqueEditors].map((editor) => (
-                        <li key={editor}>{editor}</li>
+                        <li key={editor}>{editor} ({getGamesCountForEditor(editor)})</li>
                     ))}
                 </ul>
                 )}

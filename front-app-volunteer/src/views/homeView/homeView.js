@@ -30,7 +30,7 @@ export default function HomeView(props){
                     var listGames = []
                     querySnapshot.forEach((doc) => {
                         // console.log(doc.id, " => ", doc.data());
-                        listGames.push(doc.data())
+                        listGames.push({id: doc.id, data: doc.data()})
                     });
                     setGames(listGames)
                     // console.log(listGames);

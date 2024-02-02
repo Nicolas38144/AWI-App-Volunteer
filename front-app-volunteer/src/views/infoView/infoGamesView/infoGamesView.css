@@ -56,7 +56,7 @@
 }
 
 .infoGamesView .allGames .gamesBox {
-    width: 85%;
+    max-width: 75vw;
     margin: 3% auto;
     border: 2px solid rgb(255, 255, 255, 0.5);
     border-radius: 15px;background: linear-gradient(to right, #002663, #4C5CC5);
@@ -71,13 +71,31 @@
 }
 
 .infoGamesView .allGames .gamesBox .infoGame {
-    margin: 1% auto 1% 5%;
+    width: 90%;
     text-align: left;
+    margin-bottom: 1%;
 }
 
-.infoGamesView .allGames .gamesBox strong {
-    margin-top: 10px;
-    font-size: 20px;
+.infoGamesView .allGames .gamesBox h2 {
+    margin-top: 20px;
+}
+
+.infoGamesView .allGames .gamesBox .infoGen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.infoGamesView .img {
+    margin-right: 100px;
+}
+
+.infoGamesView .allGames .gamesBox .texts {
+   margin-left: 100px; 
+} 
+
+.infoGamesView .allGames .gamesBox h3 {
+    text-align: center;
 }
 
 .infoGamesView .allGames .gamesBox p,a {
