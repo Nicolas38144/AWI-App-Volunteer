@@ -6,95 +6,25 @@ import './planningView.css';
 
 export default function PlanningView(props){
     useEffect(() => {
-      getData();
     },[]);
 
-      const [postes, setPostes] = useState([]);
-      const [zones, setZones] = useState([]);
-      const [plages, setPlages] = useState([]);
-      const [jours, setJours] = useState([]);
-      const joursDeLaSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    const jours = props.jours;
+    const zones = props.zones;
+    const plages = props.plages;
+    const postes = props.postes;
+    const actualUser = props.actualUser;
+    const isRegisteredPoste = props.isRegisteredPoste;
+    const isRegisteredZone = props.isRegisteredZone;
 
 
-      const getData = async () => {
-        // get zones
-        if (localStorage.getItem('zones') == null || typeof(localStorage.getItem('zones')) == 'undefined') {
-          try {
-              const querySnapshot = await getDocs(collection(db, "zone_benevole"));
-              var listZones = [];
-              querySnapshot.forEach((doc) => {
-                  listZones.push(doc.data())
-              });
-              setZones(listZones)
-              localStorage.setItem('zones', JSON.stringify(listZones));
-          } catch (error) {
-              console.error('Error fetching zones data:', error);
-          }
-      }
-      else {
-          setZones(JSON.parse(localStorage.getItem('zones')));
-      }
-
-      // get postes
-      if (localStorage.getItem('postes') == null || typeof(localStorage.getItem('postes')) == 'undefined') {
-        try {
-            const querySnapshot = await getDocs(collection(db, "postes"));
-            var listPostes = []
-            querySnapshot.forEach((doc) => {
-                listPostes.push(doc.data())
-            });
-            setPostes(listPostes)
-            localStorage.setItem('postes', JSON.stringify(listPostes));
-        } catch (error) {
-            console.error('Error fetching postes data:', error);
-        }
-      }
-      else {
-          setPostes(JSON.parse(localStorage.getItem('postes')));
-      }
-
-      // get plages
-      if (localStorage.getItem('plages') === null || typeof(localStorage.getItem('plages')) == 'undefined') {
-        try {
-            const querySnapshot = await getDocs(collection(db, "plage_horaire"));
-            var listPlage = []
-            var listJours = new Set()
-            querySnapshot.forEach((doc) => {
-                listPlage.push(doc.data())
-                listJours.add(doc.data().jour)
-            });
-
-            const joursNonOrdonnesArray = Array.from(listJours);
-            const joursOrdonnesResultat = joursNonOrdonnesArray.sort((a, b) => {
-              return joursDeLaSemaine.indexOf(a) - joursDeLaSemaine.indexOf(b);
-            });
-
-            console.log(joursNonOrdonnesArray)
-            
-            joursOrdonnesResultat.forEach((unjour) => {
-              jours.push({"jour": unjour})
-            });
-            setPlages(listPlage)
-
-
-            localStorage.setItem('jours', JSON.stringify(jours));
-            localStorage.setItem('plages', JSON.stringify(listPlage));
-        } catch (error) {
-            console.error('Error fetching postes data:', error);
-        }
-      }
-      else {
-          setPlages(JSON.parse(localStorage.getItem('plages')));
-          setJours(JSON.parse(localStorage.getItem('jours')));
-      }
-    }
-      
     return(
-        <div className='planningView'>
-            <h1>PlanningView</h1>
+        <div className='registerplanning'>
+            <h1>Planning Personnel</h1>
             <div className='planning'>
+          {jours && postes && zones && plages?
             <table>
                 <thead>
+                  <tr>
                     <th className='borderright'></th>
                     {jours.map((unjour) => (
                     <>
@@ -106,6 +36,7 @@ export default function PlanningView(props){
                     </>
                     
                     ))}
+                    </tr>
                 </thead>
                 <thead>
                     <tr>
@@ -123,15 +54,24 @@ export default function PlanningView(props){
                     </tr>
                 </thead>
                 <tbody>
-                    {postes.map((unposte) => (
-                    <tr>
-                        <td>{unposte.intitule}</td>
+                    {postes.map((unposte,index) => (
+                    <tr key={index}>
+                        <td>{unposte.data.intitule}</td>
+                        {plages.map((plage) => (
+                          <td>
+                          {isRegisteredPoste(actualUser.id, plage.id, unposte.data.intitule) ?
+                          <span className='travaille'></span>
+                          :
+                          ''
+                          }
+                          </td>
+                          ))}
                     </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> :''}
 
-            {jours ? 
+            {jours && postes && zones && plages ? 
             <table>
                 <thead>
                 <tr >
@@ -150,23 +90,35 @@ export default function PlanningView(props){
                 </thead>
                 <thead>
                     <tr>
-                    <th className='quadrille'>Zones bénévoles</th>
+                    <td className='quadrille'>Zones bénévoles</td>
                     {jours.map(() => (
                     <>
-                    <th className='quadrille'>9h-11h</th>
-                        <th className='quadrille'>11h-14h</th>
-                        <th className='quadrille'>14h-17h</th>
-                        <th className='quadrille'>17h-20h</th>
-                        <th className='quadrille'>20h-22h</th>
+                    <td className='quadrille'>9h-11h</td>
+                        <td className='quadrille'>11h-14h</td>
+                        <td className='quadrille'>14h-17h</td>
+                        <td className='quadrille'>17h-20h</td>
+                        <td className='quadrille'>20h-22h</td>
                     </>
                     
                     ))}
                     </tr>
                 </thead>
                 <tbody>
-                    {zones.map((unezone) => (
-                    <tr>
-                        <td>{unezone.intitule}</td>
+                    {zones.map((unezone, index) => (
+                    <tr key={index}>
+                        <td>{unezone.data.intitule}</td>
+                        {plages.map((plage) => (
+
+                          
+                          <td>
+                              {isRegisteredZone(actualUser.id, plage.id, unezone.data.intitule) ?
+                              <div className='travaille'></div>
+                              :
+                              ''
+                              }
+                             
+                          </td>
+                          ))}
                     </tr>
                     ))}
                 </tbody>

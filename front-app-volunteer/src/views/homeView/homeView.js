@@ -234,7 +234,7 @@ export default function HomeView(props){
             case 0:
                 return <InfoView games={games} countUsers={countUsers}/>;
             case 1:
-                return <PlanningView />;
+                return <PlanningView isRegisteredPoste={isRegisteredPoste} isRegisteredZone={isRegisteredZone} actualUser={actualUser} postes={postes} affectations_p={affectations_p} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
             case 2:
                 return <RegisterPlanningView isRegisteredPoste={isRegisteredPoste} isRegisteredZone={isRegisteredZone} setVal={setVal} actualUser={actualUser} postes={postes} affectations_p={affectations_p} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
             case 3:

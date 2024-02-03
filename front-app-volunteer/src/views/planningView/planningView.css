@@ -29,6 +29,8 @@
 .planningView .planning table td{
     padding: 10px;
     border: 1px solid #fff;
+    align-items: center;
+    flex-direction: column;
 }
 
 .planningView .planning table .borderright{
@@ -39,4 +41,12 @@
 .planningView .planning table .borderleft{
     padding: 10px;
     border-left: 1px solid #fff;
+}
+
+.registerplanning .travaille{
+    width: 5vw;
+    height: 5vh;
+    margin: 0;
+    display: block;
+    background-color: pink;
 }

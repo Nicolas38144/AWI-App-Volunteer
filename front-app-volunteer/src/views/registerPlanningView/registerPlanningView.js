@@ -17,7 +17,7 @@ export default function RegisterPlanningView(props){
       const affectations_p = props.affectations_p;
       const setVal = props.setVal;
       const isRegisteredPoste = props.isRegisteredPoste;
-      const isRegisteredZone = props.isRegisteredZone
+      const isRegisteredZone = props.isRegisteredZone;
 
 
     // retourne le nombre d'inscrit a tel zone pour tel créneau
