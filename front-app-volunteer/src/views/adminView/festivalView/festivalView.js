@@ -20,6 +20,7 @@ export default function FestivalView(props) {
   const [zone_plan, setZone_plan] = useState(new Set());
   const [jeux, setJeux] = useState([]);
   const [joursfest, setJoursFest] = useState([]);
+  const setVal = props.setVal;
   const joursDeLaSemaine = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
   const getDatesBetween = () =>  {
@@ -182,6 +183,7 @@ export default function FestivalView(props) {
           }
 
           console.log('Festival créé !! Amuse toi bien')
+          setVal(0);
     }
     
 }
@@ -283,6 +285,7 @@ export default function FestivalView(props) {
     
     return parsedData;
   };
+
 
     return (
         <div className='festivalView'>

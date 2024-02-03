@@ -66,7 +66,7 @@ export default function AdminView(props){
             {activeTab === 'roles' && <RoleView listUser={listUserRole} setListUser={setListUserRole} />}
 
             <button type='button' className={`updateBtn ${activeTab === 'festival' ? 'active' : ''}`} onClick={() => handleTabChange('festival')}> Créer un festival </button>
-            {activeTab === 'festival' && <FestivalView listPoste={listPoste} listUser={listUserFestival} setListPoste={setListPoste}/>}
+            {activeTab === 'festival' && <FestivalView setVal={props.setVal} listPoste={listPoste} listUser={listUserFestival} setListPoste={setListPoste}/>}
         </div>
     );
 }

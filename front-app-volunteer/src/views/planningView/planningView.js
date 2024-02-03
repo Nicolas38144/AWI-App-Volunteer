@@ -21,7 +21,7 @@ export default function PlanningView(props){
         if (localStorage.getItem('zones') == null || typeof(localStorage.getItem('zones')) == 'undefined') {
           try {
               const querySnapshot = await getDocs(collection(db, "zone_benevole"));
-              var listZones = []
+              var listZones = [];
               querySnapshot.forEach((doc) => {
                   listZones.push(doc.data())
               });
