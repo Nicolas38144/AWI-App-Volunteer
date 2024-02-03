@@ -287,7 +287,7 @@ export default function FestivalView(props) {
     return (
         <div className='festivalView'>
             <form onSubmit={handleSubmit}>
-                <div className='row'>
+                <div className='rowdate'>
                     <label>Date de début :</label>
                     <input
                         type="date"
@@ -297,7 +297,7 @@ export default function FestivalView(props) {
                         required
                     />
                 </div>
-                <div className='row'>
+                <div className='rowdate'>
                     <label>Date de fin :</label>
                     <input
                         type="date"
@@ -311,18 +311,38 @@ export default function FestivalView(props) {
                 <div>
                     {inputLines.map((ligne, index) => (
                         <div className='newposte'>
-                            <div className='row' key={index}>
+                        <div className='column left'>
+                        <div className='row'>
                                 <label> Intitulé du poste : </label>
                                 <input
                                     type="text"
                                     name='intitule'
+                                    className='input acti'
                                     value={ligne.data.intitule}
                                     required
                                     onChange={(e) => handleInputChange(e.target.value, index, 'intitule')}
                                 />
-                                <label> Capacité : </label>
+                                </div>
+                            <div className='row'>
+                            <label> Description : </label>
+                                <input
+                                type="text"
+                                className='desc '
+                                rows='2'
+                                name='desc'
+                                value={ligne.data.desc}
+                                required
+                                onChange={(e) => handleInputChange(e.target.value, index, 'desc')}
+                                />
+                                </div>
+                                </div>
+
+                                <div className='column middle'>
+                                <div className='row'>
+                                <label className='right'> Capacité : </label>
                                 <input
                                     type="number"
+                                    className='input capa'
                                     name="capacite"
                                     max={20}
                                     min={1}
@@ -332,38 +352,36 @@ export default function FestivalView(props) {
                                     onKeyDown={(e) => e.preventDefault()}
                                     onChange={(e) => handleInputChange(e.target.value, index, 'capacite')}
                                 />
-                                <label> Référent : 
+                                </div>  
+                                
+                                <div className='row'>
+                                <label className='right'> Référent : 
                                     <select type="text" name="referent" value={ligne.data.referent} onChange={(e) => handleInputChange(e.target.value, index, 'referent')}>
                                         <option value="">Sélectionner</option>
                                         {listUser.map((row) => (
                                             <option key={row.id}  value={row.id}>{row.data.prenom} {row.data.nom}</option>
                                         ))}
                                     </select>
-                                </label>               
-                                <button onClick={() => supprimerLigne(index)}>-</button>
-                            </div>
-                            <div className='row'>
-                                <label> Description : </label>
-                                <input
-                                type="text"
-                                name='desc'
-                                value={ligne.data.desc}
-                                required
-                                onChange={(e) => handleInputChange(e.target.value, index, 'desc')}
-                                />
-                            </div>
+                                </label>   
+                                </div>
+                        </div>
+                        <div className='column right'>
+                        <button className='updateBtn btn' onClick={() => supprimerLigne(index)}>-</button>
+                        </div>
                         </div>
                     ))}
-                    <button onClick={ajouterLigne}>+</button>
+                    <button className='updateBtn btn' onClick={ajouterLigne}>+</button>
                 </div>
-                <label htmlFor="csvInput">Import CSV:</label>
+                <h3 htmlFor="csvInput">Import CSV:</h3>
                 <input
+                className='inputfile'
                     type="file"
                     id="csvInput"
                     accept=".csv"
+                    required
                     onChange={handleFileChange}
                 />
-                <button type="submit">Soumettre</button>
+                <button className='updateBtn' type="submit">Soumettre</button>
                 <p className='error'>{erreur}</p>
             </form>
         </div>
