@@ -9,7 +9,8 @@ import './adminView.css';
 
 export default function AdminView(props){
 
-    const [listUser, setListUser] = useState([]);
+    const [listUserRole, setListUserRole] = useState([]);
+    const [listUserFestival, setListUserFestival] = useState([]);
     const [listPoste, setListPoste] = useState([]);
     const [activeTab, setActiveTab] = useState(null);
     const handleTabChange = (tab) => { setActiveTab((prevActiveTab) => (prevActiveTab === tab ? null : tab)); };
@@ -34,15 +35,18 @@ export default function AdminView(props){
         const fetchUsersData = async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, "users"));
-                var listUsers = []
+                var listUsersRole = [];
+                var listUsersFestival = []
                 querySnapshot.forEach((doc) => {
                     // console.log(auth.currentUser.uid);
+                    listUsersFestival.push({id: doc.id, data: doc.data()});
                     if (auth.currentUser.uid !== doc.id) {
-                        listUsers.push({id: doc.id, data: doc.data()});
+                        listUsersRole.push({id: doc.id, data: doc.data()});
                         // console.log(doc.id, " => ", doc.data());
                     }                    
                 });
-                setListUser(listUsers)
+                setListUserFestival(listUsersFestival)
+                setListUserRole(listUsersRole)
             } catch (error) {
                 console.error('Error fetching games data:', error);
             }
@@ -59,10 +63,10 @@ export default function AdminView(props){
             {activeTab === 'horaires' && <h2>Choix des horaires</h2>}
 
             <button type='button' className={`updateBtn ${activeTab === 'roles' ? 'active' : ''}`} onClick={() => handleTabChange('roles')}> Modifier les rôles </button>
-            {activeTab === 'roles' && <RoleView listUser={listUser} setListUser={setListUser} />}
+            {activeTab === 'roles' && <RoleView listUser={listUserRole} setListUser={setListUserRole} />}
 
             <button type='button' className={`updateBtn ${activeTab === 'festival' ? 'active' : ''}`} onClick={() => handleTabChange('festival')}> Créer un festival </button>
-            {activeTab === 'festival' && <FestivalView listPoste={listPoste} listUser={listUser} setListPoste={setListPoste}/>}
+            {activeTab === 'festival' && <FestivalView setVal={props.setVal} listPoste={listPoste} listUser={listUserFestival} setListPoste={setListPoste}/>}
         </div>
     );
 }

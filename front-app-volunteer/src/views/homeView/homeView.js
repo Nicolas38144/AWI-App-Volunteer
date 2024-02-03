@@ -89,7 +89,7 @@ export default function HomeView(props){
             case 5:
                 return <ProfileView setVal={setVal} games={games} />;
             case 6: 
-                return <AdminView/>;
+                return <AdminView setVal={setVal}/>;
             default:
                 return <InfoView />;
         }
