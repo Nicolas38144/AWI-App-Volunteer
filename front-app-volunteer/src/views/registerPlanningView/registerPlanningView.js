@@ -37,13 +37,13 @@ export default function RegisterPlanningView(props){
 
         try {
             
-            await addDoc(postecol, { id_user: iduser, id_plage: id_creneau, poste: poste });
-            affectations_p.push({ id_user: iduser, id_plage: id_creneau, poste: poste });
+            const decref = await addDoc(postecol, { id_user: iduser, id_plage: id_creneau, poste: poste });
+            affectations_p.push({id: decref.id , data:{ id_user: iduser, id_plage: id_creneau, poste: poste }});
             console.log('Inscription terminée');
-            setVal(1)
         } catch (error) {
             console.error('Erreur lors de l\'inscription :', error);
         }
+        setVal(1)
     };
 
     // Supprime l'inscription d'un utilisateur à un poste
@@ -59,8 +59,8 @@ export default function RegisterPlanningView(props){
             await deleteDoc(doc.ref);
             console.log('Inscription supprimée');
             }
+            setVal(1)
         });
-        setVal(1)
         } catch (error) {
         console.error('Erreur lors de la suppression de l\'inscription :', error);
         }
@@ -72,8 +72,8 @@ export default function RegisterPlanningView(props){
 
         try {
             
-            await addDoc(zonecol, { id_user: iduser, id_plage: id_creneau, zone: zone });
-            affectations_z.push({ id_user: iduser, id_plage: id_creneau, zone: zone });
+            const docref = await addDoc(zonecol, { id_user: iduser, id_plage: id_creneau, zone: zone });
+            affectations_z.push({id: docref.id, data:{id_user: iduser, id_plage: id_creneau, zone: zone} });
             console.log('Inscription terminée');
             setVal(1)
         } catch (error) {

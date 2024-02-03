@@ -217,6 +217,7 @@ export default function HomeView(props){
 
     // check si l'utilisateur est inscrit dans une zone à un créneau donné
     const isRegisteredZone = (id_user, id_plage, zone) => {
+        console.log(affectations_z)
         return affectations_z.some((affect) => {
         return affect.data.id_user === id_user && affect.data.id_plage === id_plage && affect.data.zone === zone;
         });
@@ -234,7 +235,7 @@ export default function HomeView(props){
             case 0:
                 return <InfoView games={games} countUsers={countUsers}/>;
             case 1:
-                return <PlanningView isRegisteredPoste={isRegisteredPoste} isRegisteredZone={isRegisteredZone} actualUser={actualUser} postes={postes} affectations_p={affectations_p} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
+                return <PlanningView isRegisteredPoste={isRegisteredPoste} isRegisteredZone={isRegisteredZone} actualUser={actualUser} postes={postes} jours={jours} plages={plages} zones={zones}/>;
             case 2:
                 return <RegisterPlanningView isRegisteredPoste={isRegisteredPoste} isRegisteredZone={isRegisteredZone} setVal={setVal} actualUser={actualUser} postes={postes} affectations_p={affectations_p} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
             case 3:
