@@ -87,8 +87,6 @@ export default function PlanningView(props){
           setPlages(JSON.parse(localStorage.getItem('plages')));
           setJours(JSON.parse(localStorage.getItem('jours')));
       }
-
-      console.log(JSON.parse(localStorage.getItem('jours')))
     }
       
     return(

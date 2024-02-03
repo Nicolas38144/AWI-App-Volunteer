@@ -3,9 +3,16 @@
     border: none;
 }
 
-.registerplanning .inscription{
+.registerplanning button{
     border-radius: 20px;
     height:75%;
+}
+
+.registerplanning .inscription{
+    color: green;
+}
+.registerplanning .desinscription{
+    color: red;
 }
 
 .registerplanning .planning {

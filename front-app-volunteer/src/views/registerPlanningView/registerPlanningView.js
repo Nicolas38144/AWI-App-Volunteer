@@ -16,6 +16,8 @@ export default function RegisterPlanningView(props){
       const affectations_z = props.affectations_z;
       const affectations_p = props.affectations_p;
       const setVal = props.setVal;
+      const isRegisteredPoste = props.isRegisteredPoste;
+      const isRegisteredZone = props.isRegisteredZone
 
 
     // retourne le nombre d'inscrit a tel zone pour tel créneau
@@ -45,6 +47,40 @@ export default function RegisterPlanningView(props){
     };
 
     // Supprime l'inscription d'un utilisateur à un poste
+    async function unregisterPoste(iduser, id_creneau, poste) {
+        const postescol = collection(db, 'affecter_poste');
+    
+        try {
+        const querySnapshot = await getDocs(postescol);
+        
+        querySnapshot.forEach(async (doc) => {
+            const data = doc.data();
+            if (data.id_user === iduser && data.id_plage === id_creneau && data.poste === poste) {
+            await deleteDoc(doc.ref);
+            console.log('Inscription supprimée');
+            }
+        });
+        } catch (error) {
+        console.error('Erreur lors de la suppression de l\'inscription :', error);
+        }
+    }
+
+    // Inscrit l'utilisateur à une zone
+    const registerZone = async (iduser, id_creneau, zone) => {
+        const zonecol = collection(db, 'affecter_zone');
+
+        try {
+            
+            await addDoc(zonecol, { id_user: iduser, id_plage: id_creneau, zone: zone });
+            affectations_z.push({ id_user: iduser, id_plage: id_creneau, zone: zone });
+            console.log('Inscription terminée');
+            setVal(1)
+        } catch (error) {
+            console.error('Erreur lors de l\'inscription :', error);
+        }
+    };
+
+    // Supprime l'inscription d'un utilisateur à une zone d'acti
     async function unregisterPoste(iduser, id_creneau, poste) {
         const postescol = collection(db, 'affecter_poste');
     
@@ -118,11 +154,15 @@ export default function RegisterPlanningView(props){
                           <td>{unposte.data.intitule}</td>
                           {plages.map((plage) => (
                             <td>
-                            <>{
-                            }</>
+                            {isRegisteredPoste(actualUser.id, plage.id, unposte.data.intitule) ?
+                            <button className='desinscription'
+                            onClick={()=>registerPoste(actualUser.id, plage.id, unposte.data.intitule)}
+                            >{nbinscrits_poste(plage.id, unposte.data.intitule)}/{unposte.data.capacite}</button>
+                            :
                             <button className='inscription'
                             onClick={()=>registerPoste(actualUser.id, plage.id, unposte.data.intitule)}
                             >{nbinscrits_poste(plage.id, unposte.data.intitule)}/{unposte.data.capacite}</button>
+                            }
                             </td>
                             ))}
                       </tr>
@@ -170,9 +210,16 @@ export default function RegisterPlanningView(props){
 
                             
                             <td>
-                            <>{
-                            }</>
-                               <button className='inscription'>{nbinscrits_zone(plage.id, unezone.intitule)} / 2</button>
+                                {isRegisteredZone(actualUser.id, plage.id, unezone.data.intitule) ?
+                                <button className='desinscription'
+                                onClick={()=>registerZone(actualUser.id, plage.id, unezone.data.intitule)}
+                                >{nbinscrits_zone(plage.id, unezone.data.intitule)} / 2</button>
+                                :
+                                <button className='inscription'
+                                onClick={()=>registerZone(actualUser.id, plage.id, unezone.data.intitule)}
+                                >{nbinscrits_zone(plage.id, unezone.data.intitule)} / 2</button>
+                                }
+                               
                             </td>
                             ))}
                       </tr>
