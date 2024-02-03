@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { db } from '../../firebase';
 import { collection, onSnapshot, addDoc, serverTimestamp, orderBy, query } from 'firebase/firestore';
+import Send from '../../images/send.png';
 
 import './forumView.css';
 
@@ -9,6 +10,7 @@ export default function ForumView(props) {
     const [newMessage, setNewMessage] = useState('');
     const userId = props.actualUser.id;
     const userData = props.actualUser.data();
+    const messagesContainerRef = useRef(null);
 
     useEffect(() => {
         const messagesRef = collection(db, 'messages');
@@ -18,14 +20,17 @@ export default function ForumView(props) {
                 id: doc.id,
                 ...doc.data(),
             }));
+            scrollToBottom();
             setMessages(newMessages);
         });
         return () => unsubscribe();
     }, []);
 
-    // useEffect(() => {
-    //     console.log(props.actualUser);
-    // }, [props.actualUser]);
+    const scrollToBottom = () => {
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+        }
+    };
 
     const handleSendMessage = async () => {
         await addDoc(collection(db, 'messages'), {
@@ -38,34 +43,50 @@ export default function ForumView(props) {
         setNewMessage('');
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Empêche le saut de ligne dans le champ de texte
+            handleSendMessage();
+        }
+    };
+
     
     return (
         <div className='forumView'>
             <h1>ForumView</h1>
             <div className='chatContainer'>
                 <h2>Chat général</h2>
-                <div className='messagesContainer'>
-                    {messages.map((message) => (
+                <div className='messagesContainer' ref={messagesContainerRef}>
+                    {messages.map((message, index) => (
                         <div
                             key={message.id}
                             className={`message ${message.userId === userId ? 'ownMessage' : 'otherMessage'}`}
                         >
-                             <div className='userInfo'>
-                                <p>{userData.prenom} {userData.nom}</p>
+                            {(index === 0 || messages[index - 1].userId !== message.userId) && (
+                                <div className='userInfo'>
+                                    <p>{message.prenom} {message.nom}</p>
+                                </div>
+                            )}
+                            <div className='msg'>
+                                <p>{message.text}</p>
                             </div>
-                            <p>{message.text}</p>
                         </div>
                     ))}
                 </div>
                 <hr />
                 <div className='inputContainer'>
-                    <input
-                        type='text'
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        placeholder='Votre message...'
-                    />
-                    <button onClick={handleSendMessage}>Envoyer</button>
+                    <div className='inputWithButton'>
+                        <input
+                            type='text'
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyDown={handleKeyPress}
+                            placeholder='Votre message...'
+                        />
+                        <button onClick={handleSendMessage}>
+                            <img src={Send} alt='Envoyer' style={{ maxWidth: '20px', width: '100%'}}/>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

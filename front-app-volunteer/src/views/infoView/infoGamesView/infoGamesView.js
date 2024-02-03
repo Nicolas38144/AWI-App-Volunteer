@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Img_not from './img_not_available.png';
+import Img_not from '../../../images/img_not_available.png';
 
 import './infoGamesView.css';
 

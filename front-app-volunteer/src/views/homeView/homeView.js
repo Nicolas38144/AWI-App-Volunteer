@@ -20,7 +20,7 @@ export default function HomeView(props){
     const [val, setVal] = useState(0);
     const [games, setGames] = useState([]);
     const [countUsers, setCountUsers] = useState([]);
-    const [actualUser, setActualUser] = useState();
+    const [actualUser, setActualUser] = useState(null);
 
     useEffect(() => {
         const fetchGamesData = async () => {
@@ -57,22 +57,22 @@ export default function HomeView(props){
     }, []);
 
     useEffect(() => {
-        const getUserData = async () => {
-            const user = auth.currentUser;
+        const getUserData = auth.onAuthStateChanged(async (user) => {
             if (user) {
                 try {
                     // console.log("auth.currentUser.uid : ", user.uid);
-                    const docRef = doc(db, 'users', auth.currentUser.uid);
+                    const docRef = doc(db, 'users', user.uid);
                     const docSnap = await getDoc(docRef);
-                    setActualUser(docSnap)
-                }
-                catch (err) {
+                    setActualUser(docSnap);
+                } catch (err) {
                     console.log(err);
                 }
+            } else {
+                setActualUser(null);
             }
-        }
-        getUserData();
-    }, [])
+        });
+        return () => getUserData(); 
+    }, []);
 
     const renderView = () => {
         switch (val) {
