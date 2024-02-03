@@ -12,9 +12,9 @@ export default function FaqView(props) {
     const [replyingQuestionId, setReplyingQuestionId] = useState(null);
     const [replyText, setReplyText] = useState('');
 
-    useEffect(() => {
-        console.log("props.questions : ",props.questions); 
-    }, [props.questions])
+    // useEffect(() => {
+    //     console.log("props.questions : ",props.questions); 
+    // }, [props.questions])
 
     const sendQuestion = async (e) => {
         e.preventDefault();
@@ -51,28 +51,48 @@ export default function FaqView(props) {
     const handleSaveReply = async (questionId) => {
         try {
             const questionDocRef = doc(db, 'questions', questionId);
-            await updateDoc(questionDocRef, {
-                estRepondue: true,
-                reponse: replyText,
-            });
+            if (replyText === "") {
+                await updateDoc(questionDocRef, {
+                    estRepondue: false,
+                    reponse: replyText,
+                });
+            }
+            else {
+                await updateDoc(questionDocRef, {
+                    estRepondue: true,
+                    reponse: replyText,
+                });
+            }
 
             // Mise à jour de la liste locale props.questions avec la nouvelle valeur
             const updatedQuestions = props.questions.map((question) => {
                 if (question.id === questionId) {
-                    return {
-                        ...question,
-                        data: {
-                            auteur: question.data.auteur,
-                            question: question.data.question,
-                            estRepondue: true,
-                            reponse: replyText,
-                        }
-                        
-                    };
+                    if (replyText === "") {
+                        return {
+                            ...question,
+                            data: {
+                                auteur: question.data.auteur,
+                                question: question.data.question,
+                                estRepondue: false,
+                                reponse: replyText,
+                            }
+                        };
+                    }
+                    else {
+                        return {
+                            ...question,
+                            data: {
+                                auteur: question.data.auteur,
+                                question: question.data.question,
+                                estRepondue: true,
+                                reponse: replyText,
+                            }
+                        }; 
+                    }  
                 }
                 return question;
             });
-            console.log("updatedQuestions : ",updatedQuestions);
+            // console.log("updatedQuestions : ",updatedQuestions);
             props.setQuestions(updatedQuestions)
             
             setReplyingQuestionId(null);
@@ -172,8 +192,8 @@ export default function FaqView(props) {
                         <div className='answer common'>
                             <div className='box'>
                                 {props.questions.map((question, index) => (
-                                    question.data.estRepondue === false && (
-                                        <div key={question.id} className='data'>
+                                    <div key={question.id} className='data'>
+                                        <div>
                                             <div className='aut'>
                                                 <p className='first_p'>Auteur : </p>
                                                 <p className='seconde_p' >{question.data.auteur}</p>
@@ -182,27 +202,38 @@ export default function FaqView(props) {
                                                 <p className='first_p'>Question : </p>
                                                 <p className='seconde_p'>{question.data.question}</p>
                                             </div>
-                                            <div className='buttons'>
-                                                {question.id === replyingQuestionId ? (
-                                                    <div>
-                                                        <textarea
-                                                            value={replyText}
-                                                            onChange={(e) => setReplyText(e.target.value)}
-                                                            placeholder='Répondez à la question...'
-                                                        />
-                                                        <button onClick={() => handleSaveReply(question.id)}>
-                                                            Enregistrer la réponse
-                                                        </button>
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <button onClick={() => handleReply(question.id)}>Répondre</button>
-                                                        <button onClick={() => handleDelete(question.id)}>Supprimer</button>
-                                                    </div>
-                                                )}
-                                            </div>
+                                            {question.data.estRepondue === true && (
+                                                <div className='rep'>    
+                                                    <p className='first_p'>Réponse : </p>
+                                                    <p className='seconde_p'>{question.data.reponse}</p>
+                                                </div>
+                                            )}
                                         </div>
-                                    )
+                                        
+                                        <div className='buttons'>
+                                            {question.id === replyingQuestionId ? (
+                                                <div className='btn'>
+                                                    <textarea
+                                                        value={replyText}
+                                                        onChange={(e) => setReplyText(e.target.value)}
+                                                        placeholder='Répondez à la question...'
+                                                    />
+                                                    <button className="saveBtn" onClick={() => handleSaveReply(question.id)}>
+                                                        Enregistrer
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className='btn'>
+                                                    {question.data.estRepondue === false ? 
+                                                        <button className="otherBtn" onClick={() => handleReply(question.id)}>Répondre</button>
+                                                        :
+                                                        <button className="otherBtn" onClick={() => {handleReply(question.id); setReplyText(question.data.reponse); }}>Modifier</button>
+                                                    }
+                                                    <button className="deleteBtn" onClick={() => handleDelete(question.id)}>Supprimer</button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
