@@ -153,8 +153,8 @@ export default function FestivalView(props) {
                     let cejour = new Date(unjour);
                       await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "9h-11h"});
                       await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "11h-14h"});
-                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "17h-20h"});
                       await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "14h-17h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "17h-20h"});
                       await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "20h-22h"});
                   } catch (error) {
                       console.error('Erreur lors de l\'ajout des créneaux :', error);

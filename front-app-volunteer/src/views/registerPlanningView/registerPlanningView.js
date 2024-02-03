@@ -7,13 +7,16 @@ import './registerPlanningView.css';
 export default function RegisterPlanningView(props){
     useEffect(() => {
         getData();
+        if (plages.length===0){getData()}
       },[]);
   
         const [postes, setPostes] = useState([]);
+        const [affectations_z, setAffectations_z]=useState([]) // affectations zones
         const [zones, setZones] = useState([]);
         const [plages, setPlages] = useState([]);
         const [jours, setJours] = useState([]);
         const joursDeLaSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+        const ordrecreneaux = ['9h-11h', '11h-14h', '14h-17h', '17h-20h', '20h-22h'];
   
   
         const getData = async () => {
@@ -23,7 +26,7 @@ export default function RegisterPlanningView(props){
                 const querySnapshot = await getDocs(collection(db, "zone_benevole"));
                 var listZones = [];
                 querySnapshot.forEach((doc) => {
-                    listZones.push(doc.data())
+                    listZones.push({id: doc.id, data: doc.data()})
                 });
                 setZones(listZones)
                 localStorage.setItem('zones', JSON.stringify(listZones));
@@ -34,6 +37,23 @@ export default function RegisterPlanningView(props){
         else {
             setZones(JSON.parse(localStorage.getItem('zones')));
         }
+
+        // get affectations zones
+        if (localStorage.getItem('affectation_z') == null || typeof(localStorage.getItem('affectation_z')) == 'undefined') {
+        try {
+            const querySnapshot = await getDocs(collection(db, "affecter_zone"));
+            var listaffectZones = [];
+            querySnapshot.forEach((doc) => {
+                listaffectZones.push({id: doc.id, data: doc.data()})
+            });
+            setAffectations_z(listaffectZones)
+        } catch (error) {
+            console.error('Error fetching zones data:', error);
+        }
+    }
+        else {
+            setPostes(JSON.parse(localStorage.getItem('postes')));
+        }
   
         // get postes
         if (localStorage.getItem('postes') == null || typeof(localStorage.getItem('postes')) == 'undefined') {
@@ -41,7 +61,7 @@ export default function RegisterPlanningView(props){
               const querySnapshot = await getDocs(collection(db, "postes"));
               var listPostes = []
               querySnapshot.forEach((doc) => {
-                  listPostes.push(doc.data())
+                  listPostes.push({id: doc.id, data: doc.data()})
               });
               setPostes(listPostes)
               localStorage.setItem('postes', JSON.stringify(listPostes));
@@ -54,49 +74,68 @@ export default function RegisterPlanningView(props){
         }
   
         // get plages
-        if (localStorage.getItem('plages') === null || typeof(localStorage.getItem('plages')) == 'undefined') {
           try {
               const querySnapshot = await getDocs(collection(db, "plage_horaire"));
               var listPlage = []
+              var listPlage2 = []
               var listJours = new Set()
               querySnapshot.forEach((doc) => {
-                  listPlage.push(doc.data())
+                  listPlage.push({id: doc.id, data: doc.data()})
                   listJours.add(doc.data().jour)
               });
   
+            // classe les jours dans l'ordre
               const joursNonOrdonnesArray = Array.from(listJours);
               const joursOrdonnesResultat = joursNonOrdonnesArray.sort((a, b) => {
                 return joursDeLaSemaine.indexOf(a) - joursDeLaSemaine.indexOf(b);
               });
-  
-              console.log(joursNonOrdonnesArray)
               
+              listJours = []
               joursOrdonnesResultat.forEach((unjour) => {
-                jours.push({"jour": unjour})
+                listJours.push({"jour": unjour})
               });
-              setPlages(listPlage)
-  
-  
-              localStorage.setItem('jours', JSON.stringify(jours));
-              localStorage.setItem('plages', JSON.stringify(listPlage));
+              setJours(listJours);
+
+              // classe les plages horaires dans l'ordre
+              // parcourt les créneaux et les jours dans l'ordre puis les ajoute dans une 2e listePlage
+              jours.map((unjour)=>{
+                ordrecreneaux.forEach((creneau)=>{
+                    listPlage.map((uneplage)=>{
+                        if (uneplage.data.jour === unjour.jour && uneplage.data.horaire===creneau){ listPlage2.push(uneplage)}
+                    })
+                })
+              })
+              setPlages(listPlage2)
           } catch (error) {
               console.error('Error fetching postes data:', error);
           }
         }
-        else {
-            setPlages(JSON.parse(localStorage.getItem('plages')));
-            setJours(JSON.parse(localStorage.getItem('jours')));
+
+
+        // retourne le nombre d'inscrit a tel poste pour tel créneau
+        const nbinscrits_zone = (id_creneau, zone_benevole) => { 
+            var nb=0;
+            affectations_z.map((affectation)=>{
+                console.log(affectation.data.id_plage, id_creneau, affectation.data.id_plage==id_creneau)
+                if (affectation.data.id_plage===id_creneau && affectation.data.zone===zone_benevole){
+                    nb++
+                    console.log(nb);
+                }
+            })
+            return nb;
         }
-  
-        console.log(JSON.parse(localStorage.getItem('jours')))
-      }
+
+        console.log(jours)
+      
         
       return(
-          <div className='planningView'>
+          <div className='registerplanning'>
               <h1>Inscription</h1>
               <div className='planning'>
+            {jours && postes && zones && plages?
               <table>
                   <thead>
+                    <tr>
                       <th className='borderright'></th>
                       {jours.map((unjour) => (
                       <>
@@ -108,6 +147,7 @@ export default function RegisterPlanningView(props){
                       </>
                       
                       ))}
+                      </tr>
                   </thead>
                   <thead>
                       <tr>
@@ -125,15 +165,15 @@ export default function RegisterPlanningView(props){
                       </tr>
                   </thead>
                   <tbody>
-                      {postes.map((unposte) => (
-                      <tr key={unposte.id}>
+                      {postes.map((unposte,index) => (
+                      <tr key={index}>
                           <td>{unposte.intitule}</td>
                       </tr>
                       ))}
                   </tbody>
-              </table>
+              </table> :''}
   
-              {jours ? 
+              {jours && postes && zones && plages ? 
               <table>
                   <thead>
                   <tr >
@@ -152,23 +192,32 @@ export default function RegisterPlanningView(props){
                   </thead>
                   <thead>
                       <tr>
-                      <th className='quadrille'>Zones bénévoles</th>
+                      <td className='quadrille'>Zones bénévoles</td>
                       {jours.map(() => (
                       <>
-                      <th className='quadrille'>9h-11h</th>
-                          <th className='quadrille'>11h-14h</th>
-                          <th className='quadrille'>14h-17h</th>
-                          <th className='quadrille'>17h-20h</th>
-                          <th className='quadrille'>20h-22h</th>
+                      <td className='quadrille'>9h-11h</td>
+                          <td className='quadrille'>11h-14h</td>
+                          <td className='quadrille'>14h-17h</td>
+                          <td className='quadrille'>17h-20h</td>
+                          <td className='quadrille'>20h-22h</td>
                       </>
                       
                       ))}
                       </tr>
                   </thead>
                   <tbody>
-                      {zones.map((unezone) => (
-                      <tr key={unezone.id}>
+                      {zones.map((unezone, index) => (
+                      <tr key={index}>
                           <td>{unezone.intitule}</td>
+                          {plages.map((plage) => (
+
+                            
+                            <td>
+                            <>{
+                            }</>
+                               <button className='inscription'>{nbinscrits_zone(plage.id, unezone.intitule)}</button>
+                            </td>
+                            ))}
                       </tr>
                       ))}
                   </tbody>

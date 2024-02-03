@@ -126,7 +126,7 @@ export default function PlanningView(props){
                 </thead>
                 <tbody>
                     {postes.map((unposte) => (
-                    <tr key={unposte.id}>
+                    <tr>
                         <td>{unposte.intitule}</td>
                     </tr>
                     ))}
@@ -167,7 +167,7 @@ export default function PlanningView(props){
                 </thead>
                 <tbody>
                     {zones.map((unezone) => (
-                    <tr key={unezone.id}>
+                    <tr>
                         <td>{unezone.intitule}</td>
                     </tr>
                     ))}
