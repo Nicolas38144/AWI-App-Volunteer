@@ -28,8 +28,6 @@ export default function ForumView(props) {
         getAllQuestions();
     }, [])
     
-    
-    
     return (
         <div className='forumView'>
             <ChatGeneralView actualUser={props.actualUser}/>

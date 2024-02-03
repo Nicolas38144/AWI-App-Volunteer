@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { db, auth } from '../../../firebase'
+import { getDoc, doc } from 'firebase/firestore';
 
 import './profileRead.css';
 
@@ -6,28 +8,28 @@ export default function ProfileRead(props){
 
     const user = props.user;
     const setVal = props.setVal;
-    // const [role, setRole] = useState();
+    const [role, setRole] = useState();
     
     useEffect(() => {
-        // const fetchUserData = async () => {
-        //     try {
-        //         const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
-        //         if (userDoc.exists()) {
-        //             // console.log('role : ', userDoc.data().role);
-        //             setRole(userDoc.data().role);
-        //         }
-        //     } catch (error) {
-        //         console.error('Error fetching user data:', error);
-        //     }
-        // }
-        // fetchUserData();
+        const fetchUserRole = async () => {
+            try {
+                const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
+                if (userDoc.exists()) {
+                    // console.log('role : ', userDoc.data().role);
+                    setRole(userDoc.data().role);
+                }
+            } catch (error) {
+                console.error('Error fetching user role:', error);
+            }
+        }
+        fetchUserRole();
     }, []);
 
    
 
     return (
         <div className='profileRead'>
-           {(user.role === 'admin' || user.role === 'superAdmin') && <button className='btnadmin' onClick={() => setVal(6)}>Administration</button>}
+           {(role === 'admin' || role === 'superAdmin') && <button className='btnadmin' onClick={() => setVal(6)}>Administration</button>}
             <h2 className='title'>Mon profil</h2>
             <div className='boxs'>
                 <div className='boxInfo'>

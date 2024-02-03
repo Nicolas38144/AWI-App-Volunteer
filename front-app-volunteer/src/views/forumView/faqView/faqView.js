@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { db } from "../../../firebase" 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -9,10 +9,12 @@ import './faqView.css';
 export default function FaqView(props) {
     
     const [question, setQuestion] = useState('');
+    const [replyingQuestionId, setReplyingQuestionId] = useState(null);
+    const [replyText, setReplyText] = useState('');
 
     useEffect(() => {
         console.log("props.questions : ",props.questions); 
-    }, [])
+    }, [props.questions])
 
     const sendQuestion = async (e) => {
         e.preventDefault();
@@ -42,6 +44,57 @@ export default function FaqView(props) {
         setQuestion('');
     }
 
+    const handleReply = async (questionId) => {
+        setReplyingQuestionId(questionId);
+    };
+
+    const handleSaveReply = async (questionId) => {
+        try {
+            const questionDocRef = doc(db, 'questions', questionId);
+            await updateDoc(questionDocRef, {
+                estRepondue: true,
+                reponse: replyText,
+            });
+
+            // Mise à jour de la liste locale props.questions avec la nouvelle valeur
+            const updatedQuestions = props.questions.map((question) => {
+                if (question.id === questionId) {
+                    return {
+                        ...question,
+                        data: {
+                            auteur: question.data.auteur,
+                            question: question.data.question,
+                            estRepondue: true,
+                            reponse: replyText,
+                        }
+                        
+                    };
+                }
+                return question;
+            });
+            console.log("updatedQuestions : ",updatedQuestions);
+            props.setQuestions(updatedQuestions)
+            
+            setReplyingQuestionId(null);
+            setReplyText(''); // Réinitialiser le texte de la réponse
+        } catch (error) {
+            console.error('Erreur lors de la sauvegarde de la réponse :', error);
+        }
+    };
+
+    const handleDelete = async (questionId) => {
+        try {
+            // Supprimer la question de la base de données
+            const questionDocRef = doc(db, 'questions', questionId);
+            await deleteDoc(questionDocRef);
+            // Mettre à jour props.questions en supprimant la question avec l'ID donné
+            const updatedQuestions = props.questions.filter((question) => question.id !== questionId);
+            props.setQuestions(updatedQuestions);
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la question :', error);
+        }
+    };
+
     return (
         <div className='faqView'>
             <h2>FAQ</h2>
@@ -50,6 +103,7 @@ export default function FaqView(props) {
                     <Tab className='custom-tab'>Poser une question</Tab>
                     <Tab className='custom-tab'>Question(s) en attente</Tab>
                     <Tab className='custom-tab'>Question(s) répondue(s)</Tab>
+                    <Tab className='custom-tab'>Gérer les questions</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -64,12 +118,11 @@ export default function FaqView(props) {
                                 />
                             <button type='submit'>Envoyer</button>
                         </form>
-                        
                     </div>
                 </TabPanel>
 
                 <TabPanel>
-                    <div className='pending'>
+                    <div className='pending common'>
                         <div className='box'>
                             {props.questions.map((question, index) => (
                                 question.data.estRepondue === false && (
@@ -90,20 +143,71 @@ export default function FaqView(props) {
                 </TabPanel>
 
                 <TabPanel>
-                    <div className='answered'>
-                    {props.questions.map((question, index) => (
-                            <div key={question.id}>
-                                {question.data.estRepondue === true &&
-                                    <div>
-                                        <p> Auteur : {question.data.auteur}</p>
-                                        <p> Question : {question.data.question}</p>
-                                        <p> Réponse : {question.data.reponse}</p>
-                                    </div>   
-                                }
+                <div className='answered common'>
+                        <div className='box'>
+                            {props.questions.map((question, index) => (
+                                question.data.estRepondue === true && (
+                                    <div key={question.id} className='data'>
+                                        <div className='aut'>
+                                            <p className='first_p'>Auteur : </p>
+                                            <p className='seconde_p' >{question.data.auteur}</p>
+                                        </div>
+                                        <div className='ques'>    
+                                            <p className='first_p'>Question : </p>
+                                            <p className='seconde_p'>{question.data.question}</p>
+                                        </div>
+                                        <div className='rep'>    
+                                            <p className='first_p'>Réponse : </p>
+                                            <p className='seconde_p'>{question.data.reponse}</p>
+                                        </div>
+                                    </div>
+                                )
+                            ))}
                         </div>
-                        ))}
                     </div>
                 </TabPanel>
+
+                {props.actualUser.data().role !== 'benevole' && (
+                    <TabPanel>
+                        <div className='answer common'>
+                            <div className='box'>
+                                {props.questions.map((question, index) => (
+                                    question.data.estRepondue === false && (
+                                        <div key={question.id} className='data'>
+                                            <div className='aut'>
+                                                <p className='first_p'>Auteur : </p>
+                                                <p className='seconde_p' >{question.data.auteur}</p>
+                                            </div>
+                                            <div className='ques'>    
+                                                <p className='first_p'>Question : </p>
+                                                <p className='seconde_p'>{question.data.question}</p>
+                                            </div>
+                                            <div className='buttons'>
+                                                {question.id === replyingQuestionId ? (
+                                                    <div>
+                                                        <textarea
+                                                            value={replyText}
+                                                            onChange={(e) => setReplyText(e.target.value)}
+                                                            placeholder='Répondez à la question...'
+                                                        />
+                                                        <button onClick={() => handleSaveReply(question.id)}>
+                                                            Enregistrer la réponse
+                                                        </button>
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        <button onClick={() => handleReply(question.id)}>Répondre</button>
+                                                        <button onClick={() => handleDelete(question.id)}>Supprimer</button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )
+                                ))}
+                            </div>
+                        </div>
+                    </TabPanel>
+                )}
             </Tabs>
         </div>
     );

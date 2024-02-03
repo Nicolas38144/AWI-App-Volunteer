@@ -22,9 +22,14 @@ export default function ChatGeneralView(props) {
             }));
             scrollToBottom();
             setMessages(newMessages);
+            
         });
         return () => unsubscribe();
     }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     const scrollToBottom = () => {
         if (messagesContainerRef.current) {
