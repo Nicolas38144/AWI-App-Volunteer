@@ -12,7 +12,7 @@ export default function ProfileForm(props){
         nom: user.nom,
         email: user.email,
         nbParticipation: user.nbParticipation,
-        herbergement: user.herbergement,
+        hebergement: user.hebergement,
         pseudo: user.pseudo,
         tel: user.tel,
         adresse: user.adresse,
@@ -28,7 +28,7 @@ export default function ProfileForm(props){
                 nom: updatedData.nom,
                 email: user.email,
                 nbParticipation: updatedData.nbParticipation,
-                herbergement: updatedData.herbergement,
+                hebergement: updatedData.hebergement,
                 pseudo: updatedData.pseudo,
                 tel: updatedData.tel,
                 adresse: updatedData.adresse,
@@ -101,8 +101,8 @@ export default function ProfileForm(props){
                             <input type="number" name="nbParticipation" value={formData.nbParticipation} onChange={handleChange} />
                         </label>
                         <label className='info'>
-                            Herbergement :
-                            <select name="herbergement" value={formData.herbergement} onChange={handleChange} >
+                            Hébergement :
+                            <select name="hebergement" value={formData.hebergement} onChange={handleChange} >
                             <option value="" disabled hidden>Selectionner...</option>
                             <option value="proposer">Proposer</option>
                             <option value="recherche">Recherche</option>

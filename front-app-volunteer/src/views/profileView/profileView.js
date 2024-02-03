@@ -25,7 +25,7 @@ export default function ProfileView(props){
                             nom: userDoc.data().nom,
                             email: auth.currentUser.email,
                             nbParticipation: userDoc.data().nbParticipation,
-                            herbergement: userDoc.data().herbergement,
+                            hebergement: userDoc.data().hebergement,
                             //optionnels
                             pseudo: userDoc.data().pseudo,
                             adresse: userDoc.data().adresse,
@@ -46,7 +46,7 @@ export default function ProfileView(props){
                         nom: userData.nom,
                         email: userData.email,
                         nbParticipation: userData.nbParticipation,
-                        herbergement: userData.herbergement,
+                        hebergement: userData.hebergement,
                         pseudo: userData.pseudo,
                         adresse: userData.adresse,
                         tel: userData.tel,

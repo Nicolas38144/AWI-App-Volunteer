@@ -1,30 +1,52 @@
 import React,{ useEffect, useState } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import { auth, db } from '../../firebase';
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import './signUp.css';
 import ImageFond from '../../images/logo31_couleur.png';
 
 export default function SignUp(props){
-    useEffect(() => {},[]);
+    const [users, setUsers] = useState([])
+    useEffect(() => {
+        getUsers();
+    },[]);
 
     const navigate = useNavigate();
     const handleClickLogin = () => { navigate('/login'); };
     
-
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [nbParticipation, setNbParticipation] = useState('');
-    const [herbergement, setHerbergement] = useState('');
+    const [hebergement, setHebergement] = useState('');
+
+    const getUsers = async (e) => {
+        const col = collection(db, "users");
+        const snapshot = await getDocs(col);
+        var listUsers = [];
+        snapshot.forEach((doc) => {
+            // console.log(doc.id, " => ", doc.data().prenom, doc.data().nom);
+            listUsers.push([doc.data().prenom, doc.data().nom])
+        });
+        setUsers(listUsers);
+    }
+
+    const setPseudo = (prenom1, nom1) => {
+        var count = 0;
+        for (let i=0; i<users.length; i++) {
+            if (users[i][0] === prenom1 && users[i][1] === nom1) {
+                count++;
+            }
+        }
+        return prenom1+'.'+nom1+count;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
         try {
             if (password === password2) {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -33,6 +55,7 @@ export default function SignUp(props){
                 const uid = userCredential.user.uid;
                 console.log("get uid : OK");
     
+                const pseudo = setPseudo(prenom, nom);
                 const userDocRef = doc(db, 'users', uid);
                 const user = {
                     prenom: prenom,
@@ -40,8 +63,8 @@ export default function SignUp(props){
                     email: email,
                     pw: password,
                     nbParticipation: nbParticipation,
-                    herbergement: herbergement,
-                    pseudo: '',
+                    hebergement: hebergement,
+                    pseudo: pseudo,
                     adresse:'',
                     tel:'',
                     role: 'benevole',
@@ -109,7 +132,7 @@ export default function SignUp(props){
                                     <input type="number" placeholder="Participation" maxLength={3} min={0} required value={nbParticipation} onChange={(e) => setNbParticipation(e.target.value)} />
                                 </div>
                                 <div className="input-field other">
-                                    <select value={herbergement} onChange={(e) => setHerbergement(e.target.value)} required >
+                                    <select value={hebergement} onChange={(e) => setHebergement(e.target.value)} required >
                                         <option value="" disabled hidden>Hebergement ?</option>
                                         <option value="proposer">Proposer</option>
                                         <option value="recherche">Recherche</option>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { collection, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { db } from "../../../firebase" 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';

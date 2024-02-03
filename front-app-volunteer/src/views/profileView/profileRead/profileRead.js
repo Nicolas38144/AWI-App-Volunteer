@@ -44,7 +44,7 @@ export default function ProfileRead(props){
                     <h3>Autres</h3>
                     <p className='info'>Pseudo : {user.pseudo || 'Non renseigné'} </p>
                     <p className='info'>Participation(s) : {user.nbParticipation}</p>
-                    <p className='info'>Herbergement : {user.herbergement}</p>
+                    <p className='info'>Hebergement : {user.hebergement}</p>
                     <p className='info'>Jeu préféré : {user.jeuPrefere || 'Non renseigné'} </p>
                     <p className='info'>Role : {user.role} </p>
                 </div>            
