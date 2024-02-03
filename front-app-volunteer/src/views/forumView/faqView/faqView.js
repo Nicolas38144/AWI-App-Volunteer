@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from "../../../firebase" 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -8,8 +10,36 @@ export default function FaqView(props) {
     
     const [question, setQuestion] = useState('');
 
-    const sendQuestion = async () => {
-        console.log("envoie de ", question);
+    useEffect(() => {
+        // console.log("props.questions : ",props.questions); 
+    }, [])
+
+    const sendQuestion = async (e) => {
+        e.preventDefault();
+        const auteur = props.actualUser.data().prenom + " " + props.actualUser.data().nom
+        try {
+            const newDoc = await addDoc(collection(db, "questions"), {
+                auteur: auteur,
+                estRepondue: false,
+                question: question,
+                reponse: ""
+            });
+            props.setQuestions(prevQuestions => [
+                ...prevQuestions,
+                {
+                    id: newDoc.id,
+                    data: {
+                        auteur: auteur,
+                        estRepondue: false,
+                        question: question,
+                        reponse: ""
+                    }
+                }
+            ]);
+        } catch (error) {
+            console.log(error);
+        }
+        setQuestion('');
     }
 
     return (
@@ -40,17 +70,35 @@ export default function FaqView(props) {
 
                 <TabPanel>
                     <div className='pending'>
-                        <p>en attente</p>
+                        {props.questions.map((question, index) => (
+                            <div key={question.id}>
+                                {question.data.estRepondue === false &&
+                                    <div>
+                                        <p> Auteur : {question.data.auteur}</p>
+                                        <p> Question : {question.data.question}</p>
+                                    </div>
+                                }
+                        </div>
+                        ))}
                     </div>
                 </TabPanel>
 
                 <TabPanel>
                     <div className='answered'>
-                    <p>répondue</p>
+                    {props.questions.map((question, index) => (
+                            <div key={question.id}>
+                                {question.data.estRepondue === true &&
+                                    <div>
+                                        <p> Auteur : {question.data.auteur}</p>
+                                        <p> Question : {question.data.question}</p>
+                                        <p> Réponse : {question.data.reponse}</p>
+                                    </div>   
+                                }
+                        </div>
+                        ))}
                     </div>
                 </TabPanel>
             </Tabs>
-            
         </div>
     );
 }
