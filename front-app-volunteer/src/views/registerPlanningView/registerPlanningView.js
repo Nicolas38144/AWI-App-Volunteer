@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import { db } from '../../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc } from 'firebase/firestore';
 
 import './registerPlanningView.css';
 
@@ -12,8 +12,10 @@ export default function RegisterPlanningView(props){
       const zones = props.zones;
       const plages = props.plages;
       const postes = props.postes;
+      const actualUser = props.actualUser
       const affectations_z = props.affectations_z;
       const affectations_p = props.affectations_p;
+      const setVal = props.setVal;
 
 
     // retourne le nombre d'inscrit a tel zone pour tel créneau
@@ -25,6 +27,40 @@ export default function RegisterPlanningView(props){
             }
         })
         return nb;
+    }
+
+    // Inscrit l'utilisateur à un poste
+    const registerPoste = async (iduser, id_creneau, poste) => {
+        const postecol = collection(db, 'affecter_poste');
+
+        try {
+            
+            await addDoc(postecol, { id_user: iduser, id_plage: id_creneau, poste: poste });
+            affectations_p.push({ id_user: iduser, id_plage: id_creneau, poste: poste });
+            console.log('Inscription terminée');
+            setVal(1)
+        } catch (error) {
+            console.error('Erreur lors de l\'inscription :', error);
+        }
+    };
+
+    // Supprime l'inscription d'un utilisateur à un poste
+    async function unregisterPoste(iduser, id_creneau, poste) {
+        const postescol = collection(db, 'affecter_poste');
+    
+        try {
+        const querySnapshot = await getDocs(postescol);
+        
+        querySnapshot.forEach(async (doc) => {
+            const data = doc.data();
+            if (data.id_user === iduser && data.id_plage === id_creneau && data.poste === poste) {
+            await deleteDoc(doc.ref);
+            console.log('Inscription supprimée');
+            }
+        });
+        } catch (error) {
+        console.error('Erreur lors de la suppression de l\'inscription :', error);
+        }
     }
 
     // retourne le nombre d'inscrit a tel poste pour tel créneau
@@ -79,12 +115,14 @@ export default function RegisterPlanningView(props){
                   <tbody>
                       {postes.map((unposte,index) => (
                       <tr key={index}>
-                          <td>{unposte.intitule}</td>
+                          <td>{unposte.data.intitule}</td>
                           {plages.map((plage) => (
                             <td>
                             <>{
                             }</>
-                            <button className='inscription'>{nbinscrits_poste(plage.id, unposte.intitule)}/{unposte.capacite}</button>
+                            <button className='inscription'
+                            onClick={()=>registerPoste(actualUser.id, plage.id, unposte.data.intitule)}
+                            >{nbinscrits_poste(plage.id, unposte.data.intitule)}/{unposte.data.capacite}</button>
                             </td>
                             ))}
                       </tr>
@@ -127,7 +165,7 @@ export default function RegisterPlanningView(props){
                   <tbody>
                       {zones.map((unezone, index) => (
                       <tr key={index}>
-                          <td>{unezone.intitule}</td>
+                          <td>{unezone.data.intitule}</td>
                           {plages.map((plage) => (
 
                             

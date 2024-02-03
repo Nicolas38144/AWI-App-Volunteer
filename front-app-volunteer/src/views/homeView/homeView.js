@@ -214,8 +214,6 @@ export default function HomeView(props){
         return () => getUserData(); 
     }, []);
 
-    console.log(affectations_z)
-
     const renderView = () => {
         switch (val) {
             case 0:
@@ -223,7 +221,7 @@ export default function HomeView(props){
             case 1:
                 return <PlanningView />;
             case 2:
-                return <RegisterPlanningView postes={postes} affectations_p={affectations_p} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
+                return <RegisterPlanningView setVal={setVal} actualUser={actualUser} postes={postes} affectations_p={affectations_p} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
             case 3:
                 return <ChatView />;
             case 4:
