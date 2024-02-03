@@ -60,6 +60,7 @@ export default function RegisterPlanningView(props){
             console.log('Inscription supprimée');
             }
         });
+        setVal(1)
         } catch (error) {
         console.error('Erreur lors de la suppression de l\'inscription :', error);
         }
@@ -81,19 +82,20 @@ export default function RegisterPlanningView(props){
     };
 
     // Supprime l'inscription d'un utilisateur à une zone d'acti
-    async function unregisterPoste(iduser, id_creneau, poste) {
-        const postescol = collection(db, 'affecter_poste');
+    async function unregisterZone(iduser, id_creneau, zone) {
+        const zonecol = collection(db, 'affecter_zone');
     
         try {
-        const querySnapshot = await getDocs(postescol);
+        const querySnapshot = await getDocs(zonecol);
         
         querySnapshot.forEach(async (doc) => {
             const data = doc.data();
-            if (data.id_user === iduser && data.id_plage === id_creneau && data.poste === poste) {
+            if (data.id_user === iduser && data.id_plage === id_creneau && data.zone === zone) {
             await deleteDoc(doc.ref);
             console.log('Inscription supprimée');
             }
         });
+        setVal(1)
         } catch (error) {
         console.error('Erreur lors de la suppression de l\'inscription :', error);
         }
@@ -156,7 +158,7 @@ export default function RegisterPlanningView(props){
                             <td>
                             {isRegisteredPoste(actualUser.id, plage.id, unposte.data.intitule) ?
                             <button className='desinscription'
-                            onClick={()=>registerPoste(actualUser.id, plage.id, unposte.data.intitule)}
+                            onClick={()=>unregisterPoste(actualUser.id, plage.id, unposte.data.intitule)}
                             >{nbinscrits_poste(plage.id, unposte.data.intitule)}/{unposte.data.capacite}</button>
                             :
                             <button className='inscription'
@@ -212,7 +214,7 @@ export default function RegisterPlanningView(props){
                             <td>
                                 {isRegisteredZone(actualUser.id, plage.id, unezone.data.intitule) ?
                                 <button className='desinscription'
-                                onClick={()=>registerZone(actualUser.id, plage.id, unezone.data.intitule)}
+                                onClick={()=>unregisterZone(actualUser.id, plage.id, unezone.data.intitule)}
                                 >{nbinscrits_zone(plage.id, unezone.data.intitule)} / 2</button>
                                 :
                                 <button className='inscription'
