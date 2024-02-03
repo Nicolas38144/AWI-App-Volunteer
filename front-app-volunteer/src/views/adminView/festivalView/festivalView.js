@@ -28,10 +28,12 @@ export default function FestivalView(props) {
     let datefin = new Date(formData.endDate)
     const currentDate = new Date(datedebut);
   
+    var listJoursFest = []
     while (currentDate <= datefin) {
-      joursfest.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
+        listJoursFest.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
     }
+    setJoursFest(listJoursFest)
   }
 
   let ajd = new Date();
