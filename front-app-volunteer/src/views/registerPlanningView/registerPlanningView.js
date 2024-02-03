@@ -12,20 +12,31 @@ export default function RegisterPlanningView(props){
       const zones = props.zones;
       const plages = props.plages;
       const postes = props.postes;
-      const affectations_z = props.affectations_z
+      const affectations_z = props.affectations_z;
+      const affectations_p = props.affectations_p;
 
 
+    // retourne le nombre d'inscrit a tel zone pour tel créneau
+    const nbinscrits_zone = (id_creneau, zone_benevole) => { 
+        var nb=0;
+        affectations_z.map((affectation)=>{
+            if (affectation.data.id_plage===id_creneau && affectation.data.zone===zone_benevole){
+                nb++
+            }
+        })
+        return nb;
+    }
 
-        // retourne le nombre d'inscrit a tel poste pour tel créneau
-        const nbinscrits_zone = (id_creneau, zone_benevole) => { 
-            var nb=0;
-            affectations_z.map((affectation)=>{
-                if (affectation.data.id_plage===id_creneau && affectation.data.zone===zone_benevole){
-                    nb++
-                }
-            })
-            return nb;
-        }
+    // retourne le nombre d'inscrit a tel poste pour tel créneau
+    const nbinscrits_poste = (id_creneau, poste) => { 
+        var nb=0;
+        affectations_p.map((affectation)=>{
+            if (affectation.data.id_plage===id_creneau && affectation.data.poste===poste){
+                nb++
+            }
+        })
+        return nb;
+    }
 
       
         
@@ -69,6 +80,13 @@ export default function RegisterPlanningView(props){
                       {postes.map((unposte,index) => (
                       <tr key={index}>
                           <td>{unposte.intitule}</td>
+                          {plages.map((plage) => (
+                            <td>
+                            <>{
+                            }</>
+                            <button className='inscription'>{nbinscrits_poste(plage.id, unposte.intitule)}/{unposte.capacite}</button>
+                            </td>
+                            ))}
                       </tr>
                       ))}
                   </tbody>

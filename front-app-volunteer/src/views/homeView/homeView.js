@@ -23,6 +23,7 @@ export default function HomeView(props){
     const [actualUser, setActualUser] = useState(null);
     const [postes, setPostes] = useState([]);
     const [affectations_z, setAffectations_z]=useState([]) // affectations zones
+    const [affectations_p, setAffectations_p]=useState([]) // affectations postes
     const [zones, setZones] = useState([]);
     const [plages, setPlages] = useState([]);
     const [jours, setJours] = useState([]);
@@ -68,10 +69,32 @@ export default function HomeView(props){
             }
         }
             else {
-                setPostes(JSON.parse(localStorage.getItem('affectation_z')));
+                setAffectations_z(JSON.parse(localStorage.getItem('affectation_z')));
             }
         }
         fetchAffectZonesData();
+    }, [val]);
+
+    useEffect(() => {
+        const fetchAffectPostesData = async () => {
+          // get affectations postes
+        if (localStorage.getItem('affectation_p') == null || typeof(localStorage.getItem('affectation_p')) == 'undefined') {
+            try {
+                const querySnapshot = await getDocs(collection(db, "affecter_poste"));
+                var listaffectPostes = [];
+                querySnapshot.forEach((doc) => {
+                    listaffectPostes.push({id: doc.id, data: doc.data()})
+                });
+                setAffectations_p(listaffectPostes)
+            } catch (error) {
+                console.error('Error fetching postes data:', error);
+            }
+        }
+            else {
+                setAffectations_p(JSON.parse(localStorage.getItem('affectation_p')));
+            }
+        }
+        fetchAffectPostesData();
     }, [val]);
 
     useEffect(() => {
@@ -200,7 +223,7 @@ export default function HomeView(props){
             case 1:
                 return <PlanningView />;
             case 2:
-                return <RegisterPlanningView postes={postes} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
+                return <RegisterPlanningView postes={postes} affectations_p={affectations_p} affectations_z={affectations_z} jours={jours} plages={plages} zones={zones}/>;
             case 3:
                 return <ChatView />;
             case 4:
