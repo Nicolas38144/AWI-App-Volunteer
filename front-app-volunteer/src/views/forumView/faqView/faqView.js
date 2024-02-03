@@ -11,7 +11,7 @@ export default function FaqView(props) {
     const [question, setQuestion] = useState('');
 
     useEffect(() => {
-        // console.log("props.questions : ",props.questions); 
+        console.log("props.questions : ",props.questions); 
     }, [])
 
     const sendQuestion = async (e) => {
@@ -53,7 +53,7 @@ export default function FaqView(props) {
                 </TabList>
 
                 <TabPanel>
-                    <div className='question'>
+                    <div className='askQuestion'>
                         <form onSubmit={sendQuestion}>
                                 <textarea
                                     placeholder='Votre question'
@@ -70,16 +70,22 @@ export default function FaqView(props) {
 
                 <TabPanel>
                     <div className='pending'>
-                        {props.questions.map((question, index) => (
-                            <div key={question.id}>
-                                {question.data.estRepondue === false &&
-                                    <div>
-                                        <p> Auteur : {question.data.auteur}</p>
-                                        <p> Question : {question.data.question}</p>
+                        <div className='box'>
+                            {props.questions.map((question, index) => (
+                                question.data.estRepondue === false && (
+                                    <div key={question.id} className='data'>
+                                        <div className='aut'>
+                                            <p className='first_p'>Auteur : </p>
+                                            <p className='seconde_p' >{question.data.auteur}</p>
+                                        </div>
+                                        <div className='ques'>    
+                                            <p className='first_p'>Question : </p>
+                                            <p className='seconde_p'>{question.data.question}</p>
+                                        </div>
                                     </div>
-                                }
+                                )
+                            ))}
                         </div>
-                        ))}
                     </div>
                 </TabPanel>
 

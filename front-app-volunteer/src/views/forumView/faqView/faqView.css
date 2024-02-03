@@ -15,7 +15,7 @@
 
 /**************************** Début pour gérer la question ****************************/
 
-.faqView .question form {
+.faqView .askQuestion form {
     display: flex;
     flex-direction: column;
     margin: 5% 8% 0% 8%;
@@ -24,7 +24,7 @@
 
 
 
-.faqView .question textarea {
+.faqView .askQuestion textarea {
     max-width: 45vw;
     height: 180px;
     margin-bottom: 5%;
@@ -35,7 +35,7 @@
     font-size: 1.7em;
 }
 
-.faqView .question button {
+.faqView .askQuestion button {
     max-width: 25vw;
     min-width: 25vw;
     min-height: 20px;
@@ -53,10 +53,47 @@
     transition: 0.7s;
 }
 
-.faqView .question button:hover {
+.faqView .askQuestion button:hover {
     background: #002663;
   }
-  
+
+
+/**************************** Début pour gérer l'attante ****************************/
+.faqView .pending .box {
+    max-width: 90%;
+    margin: 0% auto;
+    max-height: 380px;
+    overflow-y: auto; 
+} 
+
+.faqView .pending .box .data {
+    margin: 0px 10px 15px 0px;
+    text-align: left;
+    padding: 5px 15px;
+    border: solid 1px white;
+    border-radius: 15px;
+    background: #002663;
+}
+
+.faqView .pending .box .data p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.faqView .pending .box .data .aut,.ques {
+    display: flex;
+}
+
+.faqView .pending .box .data .first_p {
+    width: 80px;
+}
+
+.faqView .pending .box .data .seconde_p {
+    max-width: 540px;
+    width: fit-content;
+    overflow-wrap: break-word;
+}
+
 /**************************** Début pour gérer les Tab ****************************/
 .faqView .custom-tab-list {
     display: flex;
