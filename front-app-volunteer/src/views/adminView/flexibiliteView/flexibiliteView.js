@@ -121,7 +121,6 @@ export default function FlexibiliteView(props){
 
     return(
         <div className='flexibiliteView'>
-            <h2>Gestion des flexibilités</h2>
             <label > Bénévole flexible : 
             <select type="text" name="benevole" value={userFlexible} onChange={(e) => setUserFlexible(e.target.value)}>
                 <option value="">Sélectionner</option>
