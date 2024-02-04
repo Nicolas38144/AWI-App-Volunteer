@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 
 import RoleView from './roleView/roleView';
 import FestivalView from './festivalView/festivalView';
+import FlexibiliteView from './flexibiliteView/flexibiliteView';
 
 import './adminView.css';
 
@@ -59,8 +60,8 @@ export default function AdminView(props){
         <div className='adminView'>
             <h1>AdminView</h1>
 
-            <button type='button' className={`updateBtn ${activeTab === 'horaires' ? 'active' : ''}`} onClick={() => handleTabChange('horaires')}> Choix des horaires </button>
-            {activeTab === 'horaires' && <h2>Choix des horaires</h2>}
+            <button type='button' className={`updateBtn ${activeTab === 'horaires' ? 'active' : ''}`} onClick={() => handleTabChange('horaires')}> Gestion des flexibilités </button>
+            {activeTab === 'horaires' && <FlexibiliteView listUser={listUserRole} setListUser={setListUserRole} />}
 
             <button type='button' className={`updateBtn ${activeTab === 'roles' ? 'active' : ''}`} onClick={() => handleTabChange('roles')}> Modifier les rôles </button>
             {activeTab === 'roles' && <RoleView listUser={listUserRole} setListUser={setListUserRole} />}
