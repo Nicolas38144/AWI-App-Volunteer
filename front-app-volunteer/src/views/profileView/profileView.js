@@ -76,13 +76,13 @@ export default function ProfileView(props){
     }
 
     const setVal = props.setVal;
-    // console.log("user: ", user);
     return (
         <div className='profileView'>
             {changeBtn ? 
                 <ProfileRead user={user} setVal={setVal} /> 
                 : 
-                <ProfileForm games={props.games} setChangeBtn={setChangeBtn} setBtnText={setBtnText} user={user} setUser={setUser} />}
+                <ProfileForm games={props.games} setChangeBtn={setChangeBtn} setBtnText={setBtnText} user={user} setUser={setUser} />
+            }
             <div className='btn'>
                 <button type='button' className='updateBtn' onClick={changeRender}>{btnText}</button>
             </div>

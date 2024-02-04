@@ -51,8 +51,8 @@ export default function RegisterPlanningView(props){
         querySnapshot.forEach(async (doc) => {
             const data = doc.data();
             if (data.id_user === iduser && data.id_plage === id_creneau && data.poste === poste) {
-            await deleteDoc(doc.ref);
-            console.log('Inscription supprimée');
+                await deleteDoc(doc.ref);
+                console.log('Inscription supprimée');
             }
             setVal(1)
         });

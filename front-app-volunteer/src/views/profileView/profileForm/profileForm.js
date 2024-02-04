@@ -1,10 +1,29 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { db, auth } from '../../../firebase';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import './profileForm.css';
 
 export default function ProfileForm(props){
     
+    const [roleUsers, setRoleUsers] = useState([])
+    useEffect(() => {
+        const getUsersRole = async () => {
+            try {
+                const usersCollection = collection(db, 'users');
+                const querySnapshot = await getDocs(usersCollection);
+                var listUsers = [];
+                querySnapshot.docs.forEach((doc) => {
+                    listUsers.push(doc.data().pseudo); // Extrait le champ 'pseudo' de chaque document
+                });
+                setRoleUsers(listUsers);
+            } 
+            catch (error) {
+                console.log(error);    
+            }
+        }
+        getUsersRole();
+    }, [])
+
     const user = props.user;
     const setUser = props.setUser;
     const [formData, setFormData] = useState({
@@ -20,32 +39,37 @@ export default function ProfileForm(props){
     });
 
     const handleUpdateProfile = async (updatedData) => {
-        try {
-            console.log(updatedData)
-            // Update Firestore user document
-            const updatedUser = {
-                prenom: updatedData.prenom,
-                nom: updatedData.nom,
-                email: user.email,
-                nbParticipation: updatedData.nbParticipation,
-                hebergement: updatedData.hebergement,
-                pseudo: updatedData.pseudo,
-                tel: updatedData.tel,
-                adresse: updatedData.adresse,
-                jeuPrefere: updatedData.jeuPrefere,
-                role: user.role,
-            }
-            // Update the local state with the new data
-            await updateDoc(doc(db, 'users', auth.currentUser.uid), updatedUser);
-            setUser(updatedUser);
-            localStorage.setItem('user', JSON.stringify(updatedUser));
-            console.log('Profile updated successfully!');
-        } 
-        catch (error) { 
-            console.error('Error updating profile:', error);
+        if (roleUsers.includes(updatedData.pseudo)) {
+            alert("Ce pseudo est déjà utilisé")
         }
-        setChangeBtn(true);
-        setBtnText('Modifier mon profil')
+        else {
+            try {
+                console.log(updatedData)
+                // Update Firestore user document
+                const updatedUser = {
+                    prenom: updatedData.prenom,
+                    nom: updatedData.nom,
+                    email: user.email,
+                    nbParticipation: updatedData.nbParticipation,
+                    hebergement: updatedData.hebergement,
+                    pseudo: updatedData.pseudo,
+                    tel: updatedData.tel,
+                    adresse: updatedData.adresse,
+                    jeuPrefere: updatedData.jeuPrefere,
+                    role: user.role,
+                }
+                // Update the local state with the new data
+                await updateDoc(doc(db, 'users', auth.currentUser.uid), updatedUser);
+                setUser(updatedUser);
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                console.log('Profile updated successfully!');
+            } 
+            catch (error) { 
+                console.error('Error updating profile:', error);
+            }
+            setChangeBtn(true);
+            setBtnText('Modifier mon profil')
+        }
     };
         
     const handleChange = (e) => {
