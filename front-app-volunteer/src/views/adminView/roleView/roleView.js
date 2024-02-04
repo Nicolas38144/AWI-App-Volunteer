@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db, auth } from '../../../firebase';
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 
 import './roleView.css';
 
@@ -46,15 +46,13 @@ export default function RoleView(props){
     }
 
     const deleteUserById = async (userId) => {
-        /* TODO supprimer le user dans auth avec l'API */
-        /*
         try {
             const userDocRef = doc(db, 'users', userId);
             await deleteDoc(userDocRef);
             setListUser(prevUsers => prevUsers.filter(user => user.id !== userId));
         } catch (error) {
             console.error('Error deleting user in dataBase:', error);
-        }*/
+        }
     }
 
 
