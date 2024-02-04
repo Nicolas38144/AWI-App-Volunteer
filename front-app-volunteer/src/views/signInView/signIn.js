@@ -3,7 +3,6 @@ import { useNavigate  } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { doc, getDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword } from 'firebase/auth';
-// import jsonData from '../../components/awi_games.json';
 
 import './signIn.css';
 import ImageFond from '../../images/logo31_couleur.png';
@@ -20,10 +19,10 @@ export default function SignIn(props){
         e.preventDefault();
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            console.log("User logged : OK");
+            // console.log("User logged : OK");
 
             const uid = userCredential.user.uid;
-            console.log("get uid : OK");
+            // console.log("get uid : OK");
 
             const userDocRef = doc(db, 'users', uid);
             const docSnap = await getDoc(userDocRef);
@@ -48,28 +47,7 @@ export default function SignIn(props){
             
             localStorage.setItem('token', userCredential.user.accessToken);
             localStorage.setItem('user', JSON.stringify(user));
-            console.log("user stored in localStorage: OK");
-
-
-            //add games
-            /*const myCollection = collection(db, 'games');
-            var game = {};
-            for (let i=1; i<jsonData.length; i++) {
-                game = {
-                    Nom_jeu: jsonData[i].Nom_jeu,
-                    Editeur: jsonData[i].Editeur,
-                    Type: jsonData[i].Type,
-                    Notice: jsonData[i].Notice,
-                    Zone_plan: jsonData[i].Zone_plan,
-                    Zone_benevole: jsonData[i].Zone_benevole,
-                    A_animer: jsonData[i].A_animer,
-                    Recu: jsonData[i].Recu,
-                    Video: jsonData[i].Video
-                }
-                const newDocRef = await addDoc(myCollection, game);
-            }
-            console.log("Games stored in db : OK");               
-            */
+            // console.log("user stored in localStorage: OK");
             navigate('/');
         }
         catch (err) {

@@ -50,10 +50,10 @@ export default function SignUp(props){
         try {
             if (password === password2) {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log("User created : OK");
+                // console.log("User created : OK");
     
                 const uid = userCredential.user.uid;
-                console.log("get uid : OK");
+                // console.log("get uid : OK");
     
                 const pseudo = setPseudo(prenom, nom);
                 const userDocRef = doc(db, 'users', uid);
@@ -72,12 +72,12 @@ export default function SignUp(props){
                 };
                 const { pw, ...localUser } = user; 
                 await setDoc(userDocRef, user );
-                console.log("user stored in db: OK");
+                // console.log("user stored in db: OK");
     
                 
                 localStorage.setItem('token', userCredential.user.accessToken);
                 localStorage.setItem('user', JSON.stringify(localUser));
-                console.log("user stored in localStorage: OK");
+                // console.log("user stored in localStorage: OK");
                 navigate('/');
             }
             else {

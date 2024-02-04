@@ -44,7 +44,7 @@ export default function ProfileForm(props){
         }
         else {
             try {
-                console.log(updatedData)
+                // console.log(updatedData)
                 // Update Firestore user document
                 const updatedUser = {
                     prenom: updatedData.prenom,
@@ -62,7 +62,7 @@ export default function ProfileForm(props){
                 await updateDoc(doc(db, 'users', auth.currentUser.uid), updatedUser);
                 setUser(updatedUser);
                 localStorage.setItem('user', JSON.stringify(updatedUser));
-                console.log('Profile updated successfully!');
+                // console.log('Profile updated successfully!');
             } 
             catch (error) { 
                 console.error('Error updating profile:', error);

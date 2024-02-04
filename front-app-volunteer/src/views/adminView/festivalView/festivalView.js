@@ -50,7 +50,7 @@ export default function FestivalView(props) {
     } else if (datedebut>datefin){
         setErreur('Les dates ne concordent pas')
     } else {
-        console.log(jeux)
+        // console.log(jeux)
         try {
           // ajout de jeux
             try {
@@ -172,7 +172,7 @@ export default function FestivalView(props) {
                 annee: datedebut.getFullYear(),
             };
             
-            console.log(nvfestival);
+            // console.log(nvfestival);
             
             try {
                 const festival_col = collection(db, 'festival');
@@ -184,7 +184,7 @@ export default function FestivalView(props) {
             console.error('Erreur bdd :', error);
           }
 
-          console.log('Festival créé !! Amuse toi bien')
+        //   console.log('Festival créé !! Amuse toi bien')
           setVal(0);
     }
     
@@ -243,7 +243,7 @@ export default function FestivalView(props) {
                 setZone_benevole(zones_ben);
                 setZone_plan(zones_plan);
                 setJeux(parsedData);
-                console.log(jeux)
+                // console.log(jeux)
             };
             reader.readAsText(file);
         }

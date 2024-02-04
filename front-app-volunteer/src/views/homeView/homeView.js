@@ -5,7 +5,6 @@ import { db, auth } from '../../firebase';
 import InfoView from '../infoView/infoView';
 import PlanningView from '../planningView/planningView'; 
 import RegisterPlanningView from '../registerPlanningView/registerPlanningView';
-import ChatView from '../chatView/chatView';
 import ForumView from '../forumView/forumView';
 import ProfileView from '../profileView/profileView';
 import AdminView from '../adminView/adminView';
@@ -147,7 +146,7 @@ export default function HomeView(props){
           // get postes
         if (localStorage.getItem('postes') == null || typeof(localStorage.getItem('postes')) == 'undefined') {
             try {
-                console.log('postes rel')
+                // console.log('postes rel')
                 const querySnapshot = await getDocs(collection(db, "postes"));
                 var listPostes = []
                 querySnapshot.forEach((doc) => {
@@ -252,8 +251,6 @@ export default function HomeView(props){
                             plages={plages} 
                             zones={zones}
                         />;
-            case 3:
-                return <ChatView />;
             case 4:
                 return <ForumView actualUser={actualUser} />;
             case 5:
