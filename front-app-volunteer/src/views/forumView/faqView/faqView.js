@@ -12,10 +12,6 @@ export default function FaqView(props) {
     const [replyingQuestionId, setReplyingQuestionId] = useState(null);
     const [replyText, setReplyText] = useState('');
 
-    // useEffect(() => {
-    //     console.log("props.questions : ",props.questions); 
-    // }, [props.questions])
-
     const sendQuestion = async (e) => {
         e.preventDefault();
         const auteur = props.actualUser.data().prenom + " " + props.actualUser.data().nom
@@ -123,7 +119,9 @@ export default function FaqView(props) {
                     <Tab className='custom-tab'>Poser une question</Tab>
                     <Tab className='custom-tab'>Question(s) en attente</Tab>
                     <Tab className='custom-tab'>Question(s) répondue(s)</Tab>
-                    <Tab className='custom-tab'>Gérer les questions</Tab>
+                    {props.actualUser.data().role !== 'benevole' && (
+                        <Tab className='custom-tab'>Gérer les questions</Tab>
+                    )}
                 </TabList>
 
                 <TabPanel>

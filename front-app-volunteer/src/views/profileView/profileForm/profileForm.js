@@ -127,10 +127,10 @@ export default function ProfileForm(props){
                         <label className='info'>
                             Hébergement :
                             <select name="hebergement" value={formData.hebergement} onChange={handleChange} >
-                            <option value="" disabled hidden>Selectionner...</option>
-                            <option value="proposer">Proposer</option>
-                            <option value="recherche">Recherche</option>
-                            <option value="rien">Rien</option>
+                                <option value="" disabled hidden>Selectionner...</option>
+                                <option value="proposer">Proposer</option>
+                                <option value="recherche">Recherche</option>
+                                <option value="rien">Rien</option>
                             </select>
                         </label>                    
                         <label className='info'>
@@ -138,7 +138,7 @@ export default function ProfileForm(props){
                             <select type="text" name="jeuPrefere" value={formData.jeuPrefere} onChange={handleChange} >
                                 <option value="Non renseigné">Selectionner</option>
                                 {props.games.map((row, index) => (
-                                    <option key={row['Nom_jeu']}  value={row['Nom_jeu']}>{row['Nom_jeu']}</option>
+                                    <option key={index}  value={row['Nom_jeu']}>{row['Nom_jeu']}</option>
                                 ))}
                             </select>
                         </label>
