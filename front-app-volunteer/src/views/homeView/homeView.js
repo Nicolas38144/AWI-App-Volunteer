@@ -26,6 +26,7 @@ export default function HomeView(props){
     const [zones, setZones] = useState([]);
     const [plages, setPlages] = useState([]);
     const [jours, setJours] = useState([]);
+    const [festival, setFestival]= useState();
 
     useEffect(() => {
         const fetchZonesData = async () => {
@@ -50,7 +51,7 @@ export default function HomeView(props){
             }
         }
         fetchZonesData();
-    }, []);
+    }, [festival]);
 
     useEffect(() => {
         const fetchAffectZonesData = async () => {
@@ -74,7 +75,7 @@ export default function HomeView(props){
             }
         }
         fetchAffectZonesData();
-    }, []);
+    }, [festival]);
 
     useEffect(() => {
         const fetchAffectPostesData = async () => {
@@ -98,7 +99,7 @@ export default function HomeView(props){
             }
         }
         fetchAffectPostesData();
-    }, []);
+    }, [festival]);
 
     useEffect(() => {
         const fetchPlagesData = async () => {
@@ -146,7 +147,7 @@ export default function HomeView(props){
             }
         }
         fetchPlagesData();
-    }, []);
+    }, [festival]);
 
     useEffect(() => {
         const fetchPostesData = async () => {
@@ -172,7 +173,7 @@ export default function HomeView(props){
             }
         }
         fetchPostesData();
-    }, [val]);
+    }, [festival]);
 
     useEffect(() => {
         const fetchGamesData = async () => {
@@ -198,7 +199,7 @@ export default function HomeView(props){
             }
         }
         fetchGamesData();
-    }, []);
+    }, [festival]);
 
     useEffect(() => {
         console.log("fetchUsersCount");
@@ -275,6 +276,7 @@ export default function HomeView(props){
                         jours={jours} 
                         plages={plages} 
                         zones={zones}
+                        setFestival={setFestival}
                         />;
             default:
                 return <InfoView />;

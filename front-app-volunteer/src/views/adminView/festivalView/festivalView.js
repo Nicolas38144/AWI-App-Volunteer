@@ -177,6 +177,7 @@ export default function FestivalView(props) {
                 try {
                     const festival_col = collection(db, 'festival');
                     await addDoc(festival_col, nvfestival);
+                    props.setFestival(nvfestival);
                 } catch (error) {
                     console.error('Erreur lors de la création du festival :', error);
                 }
@@ -188,7 +189,6 @@ export default function FestivalView(props) {
             //   console.log('Festival créé !! Amuse toi bien')
             setVal(0);
         }
-        
     }
 
 
