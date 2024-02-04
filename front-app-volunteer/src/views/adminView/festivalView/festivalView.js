@@ -52,35 +52,35 @@ export default function FestivalView(props) {
                 // ajout de jeux
                 try {
                     const jeux_col = collection(db, 'games');
-                    //const jeux_doc = await getDocs(jeux_col);
+                    const jeux_doc = await getDocs(jeux_col);
 
-                        localStorage.removeItem('games');
+                    localStorage.removeItem('games');
                 
-                        /*jeux_doc.forEach(async (document) => {
-                            await deleteDoc(doc(jeux_col, document.id));
-                        });*/
+                    jeux_doc.forEach(async (document) => {
+                        await deleteDoc(doc(jeux_col, document.id));
+                    });
                 
-                        jeux.forEach(async (jeu) => {
-                            try {
-                                await addDoc(jeux_col, jeu.data);
-                            } catch (error) {
-                                console.error('Erreur lors de l\'ajout du jeu :', error);
-                            }
-                        });
+                    jeux.forEach(async (jeu) => {
+                        try {
+                            await addDoc(jeux_col, jeu.data);
+                        } catch (error) {
+                            console.error('Erreur lors de l\'ajout du jeu :', error);
+                        }
+                    });
                 
-                    } catch (error) {
-                        console.error('Erreur bdd :', error);
-                    }
-
-
+                } 
+                catch (error) {
+                    console.error('Erreur bdd :', error);
+                }
+                
                 // zones benevoles
                 try {
                     const zones_ben_col = collection(db, 'zone_benevole');
-                    //const zones_ben_doc = await getDocs(zones_ben_col);
+                    const zones_ben_doc = await getDocs(zones_ben_col);
             
-                    /*zones_ben_doc.forEach(async (document) => {
+                    zones_ben_doc.forEach(async (document) => {
                         await deleteDoc(doc(zones_ben_col, document.id));
-                    });*/
+                    });
             
                     zone_benevole.forEach(async (intitule) => {
                         try {
@@ -100,11 +100,11 @@ export default function FestivalView(props) {
                 // zone plan
                 try {
                     const zones_plan_col = collection(db, 'zone_plan');
-                    //const zones_plan_doc = await getDocs(zones_plan_col);
+                    const zones_plan_doc = await getDocs(zones_plan_col);
             
-                    /*zones_plan_doc.forEach(async (document) => {
+                    zones_plan_doc.forEach(async (document) => {
                         await deleteDoc(doc(zones_plan_col, document.id));
-                    });*/
+                    });
             
                     zone_plan.forEach(async (intitule) => {
                         try {
@@ -121,11 +121,11 @@ export default function FestivalView(props) {
                 // postes
                 try {
                     const postes_col = collection(db, 'postes');
-                    //const postes_doc = await getDocs(postes_col);
+                    const postes_doc = await getDocs(postes_col);
             
-                    /*postes_doc.forEach(async (document) => {
+                    postes_doc.forEach(async (document) => {
                         await deleteDoc(doc(postes_col, document.id));
-                    });*/
+                    });
             
                     inputLines.forEach(async (unposte) => {
                         try {
@@ -142,11 +142,11 @@ export default function FestivalView(props) {
                 // créneaux horaire
                 try {
                 const creneaucol = collection(db, 'plage_horaire');
-                //const creneaudoc = await getDocs(creneaucol);
+                const creneaudoc = await getDocs(creneaucol);
         
-                /*creneaudoc.forEach(async (document) => {
+                creneaudoc.forEach(async (document) => {
                     await deleteDoc(doc(creneaucol, document.id));
-                });*/
+                });
         
                 joursfest.forEach(async (unjour) => {
                     try {
