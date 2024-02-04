@@ -60,8 +60,17 @@ export default function AdminView(props){
         <div className='adminView'>
             <h1>Administration</h1>
 
-            {/*<button type='button' className={`updateBtn ${activeTab === 'horaires' ? 'active' : ''}`} onClick={() => handleTabChange('horaires')}> Gestion des flexibilités </button>
-            {activeTab === 'horaires' && <FlexibiliteView listUser={listUserRole} />}*/}
+            <button type='button' className={`updateBtn ${activeTab === 'horaires' ? 'active' : ''}`} onClick={() => handleTabChange('horaires')}> Gestion des flexibilités </button>
+            {activeTab === 'horaires' && <FlexibiliteView listUser={listUserRole} 
+                                            affectations_p={props.affectations_p} 
+                                            affectations_z={props.affectations_z} 
+                                            jours={props.jours} 
+                                            postes={props.postes} 
+                                            plages={props.plages}
+                                            zones={props.zones}
+                                            setAffectations_p={props.setAffectations_p}
+                                            setAffectations_z={props.setAffectations_z}
+                                            />}
 
             <button type='button' className={`updateBtn ${activeTab === 'roles' ? 'active' : ''}`} onClick={() => handleTabChange('roles')}> Modifier les rôles </button>
             {activeTab === 'roles' && <RoleView listUser={listUserRole} setListUser={setListUserRole} />}
