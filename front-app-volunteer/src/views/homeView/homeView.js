@@ -103,51 +103,48 @@ export default function HomeView(props){
 
     useEffect(() => {
         const fetchPlagesData = async () => {
-            // get plages
             try {
-                console.log("fetchPlagesData");
                 const joursDeLaSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
                 const ordrecreneaux = ['9h-11h', '11h-14h', '14h-17h', '17h-20h', '20h-22h'];
                 const querySnapshot = await getDocs(collection(db, "plage_horaire"));
-                var listPlage = []
-                var listPlage2 = []
-                var listJours = new Set()
+                var listPlage = [];
+                var listPlage2 = [];
+                var listJours = new Set();
+    
                 querySnapshot.forEach((doc) => {
-                    listPlage.push({id: doc.id, data: doc.data()})
-                    listJours.add(doc.data().jour)
+                    listPlage.push({ id: doc.id, data: doc.data() });
+                    listJours.add(doc.data().jour);
                 });
-
-                // classe les jours dans l'ordre
+    
+                // Classe les jours dans l'ordre
                 const joursNonOrdonnesArray = Array.from(listJours);
                 const joursOrdonnesResultat = joursNonOrdonnesArray.sort((a, b) => {
                     return joursDeLaSemaine.indexOf(a) - joursDeLaSemaine.indexOf(b);
                 });
-                
-                listJours = []
-                joursOrdonnesResultat.forEach((unjour) => {
-                    listJours.push({"jour": unjour})
-                });
-                setJours(listJours);
-
-                // classe les plages horaires dans l'ordre
-                // parcourt les créneaux et les jours dans l'ordre puis les ajoute dans une 2e listePlage
-                jours.forEach((unjour)=>{
-                    ordrecreneaux.forEach((creneau)=>{
-                        listPlage.forEach((uneplage)=>{
-                            if (uneplage.data.jour === unjour.jour && uneplage.data.horaire===creneau){ 
-                                listPlage2.push(uneplage)
+    
+                const joursOrdonnes = joursOrdonnesResultat.map(unjour => ({ "jour": unjour }));
+                setJours(joursOrdonnes);
+    
+                // Classe les plages horaires dans l'ordre
+                joursOrdonnes.forEach((unjour) => {
+                    ordrecreneaux.forEach((creneau) => {
+                        listPlage.forEach((uneplage) => {
+                            if (uneplage.data.jour === unjour.jour && uneplage.data.horaire === creneau) {
+                                listPlage2.push(uneplage);
                             }
-                        })
-                    })
+                        });
+                    });
                 });
-                setPlages(listPlage2)
-            } 
-            catch (error) {
-                console.error('Error fetching postes data:', error);
+    
+                setPlages(listPlage2);
+            } catch (error) {
+                console.error('Error fetching plages data:', error);
             }
-        }
+        };
+    
         fetchPlagesData();
     }, [festival]);
+    
 
     useEffect(() => {
         const fetchPostesData = async () => {
