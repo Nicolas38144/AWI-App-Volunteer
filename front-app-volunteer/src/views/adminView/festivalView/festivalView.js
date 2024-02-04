@@ -245,6 +245,7 @@ export default function FestivalView(props) {
                 setJeux(parsedData);
                 // console.log(jeux)
             };
+            getDatesBetween();
             reader.readAsText(file);
         }
     };
