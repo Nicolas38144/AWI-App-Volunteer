@@ -26,6 +26,8 @@ export default function HomeView(props){
     const [zones, setZones] = useState([]);
     const [plages, setPlages] = useState([]);
     const [jours, setJours] = useState([]);
+    const [affecterPoste, setAffecterPoste] = useState([]);
+    const [affecterZone, setAffecterZone] = useState([]);
     
 
     useEffect(() => {
