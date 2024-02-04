@@ -14,6 +14,8 @@ export default function RegisterPlanningView(props){
     const actualUser = props.actualUser
     const affectations_z = props.affectations_z;
     const affectations_p = props.affectations_p;
+    const setAffectations_p = props.setAffectations_p;
+    const setAffectations_z = props.setAffectations_z
     const setVal = props.setVal;
     const isRegisteredPoste = props.isRegisteredPoste;
     const isRegisteredZone = props.isRegisteredZone;
@@ -45,6 +47,7 @@ export default function RegisterPlanningView(props){
 
     // Supprime l'inscription d'un utilisateur à un poste
     async function unregisterPoste(iduser, id_creneau, poste) {
+        console.log(iduser, id_creneau, poste)
         const postescol = collection(db, 'affecter_poste');
         try {
         const querySnapshot = await getDocs(postescol); 
@@ -54,6 +57,9 @@ export default function RegisterPlanningView(props){
                 await deleteDoc(doc.ref);
                 // console.log('Inscription supprimée');
             }
+            setAffectations_p(affectations_p.filter(obj =>
+                !(obj.data.id_user === iduser && obj.data.id_plage === id_creneau && obj.data.poste === poste)
+            ))
             setVal(1)
         });
         } 
@@ -88,6 +94,9 @@ export default function RegisterPlanningView(props){
                         // console.log('Inscription supprimée');
                     }
             });
+            setAffectations_z(affectations_p.filter(obj =>
+                !(obj.data.id_user === iduser && obj.data.id_plage === id_creneau && obj.data.zone === zone)
+            ))
             setVal(1)
         } 
         catch (error) {

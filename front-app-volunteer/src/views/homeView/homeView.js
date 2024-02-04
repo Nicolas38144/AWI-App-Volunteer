@@ -108,16 +108,15 @@ export default function HomeView(props){
                 const joursDeLaSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
                 const ordrecreneaux = ['9h-11h', '11h-14h', '14h-17h', '17h-20h', '20h-22h'];
                 const querySnapshot = await getDocs(collection(db, "plage_horaire"));
-                var listPlage = [];
-                var listPlage2 = [];
-                var listJours = new Set();
-    
+                var listPlage = []
+                var listPlage2 = []
+                var listJours = new Set()
                 querySnapshot.forEach((doc) => {
-                    listPlage.push({ id: doc.id, data: doc.data() });
-                    listJours.add(doc.data().jour);
+                    listPlage.push({id: doc.id, data: doc.data()})
+                    listJours.add(doc.data().jour)
                 });
-    
-                // Classe les jours dans l'ordre
+
+                // classe les jours dans l'ordre
                 const joursNonOrdonnesArray = Array.from(listJours);
                 const joursOrdonnesResultat = joursNonOrdonnesArray.sort((a, b) => {
                     return joursDeLaSemaine.indexOf(a) - joursDeLaSemaine.indexOf(b);
@@ -145,7 +144,7 @@ export default function HomeView(props){
     
         fetchPlagesData();
     }, [festival]);
-    
+
     useEffect(() => {
         const fetchPostesData = async () => {
             // get postes
@@ -267,6 +266,8 @@ export default function HomeView(props){
                             affectations_z={affectations_z} 
                             jours={jours} 
                             plages={plages} 
+                            setAffectations_p={setAffectations_p}
+                            setAffectations_z={setAffectations_z}
                             zones={zones}
                         />;
             case 4:
