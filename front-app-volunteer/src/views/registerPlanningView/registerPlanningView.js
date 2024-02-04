@@ -16,7 +16,6 @@ export default function RegisterPlanningView(props){
     const affectations_p = props.affectations_p;
     const setAffectations_p = props.setAffectations_p;
     const setAffectations_z = props.setAffectations_z
-    const setVal = props.setVal;
     const isRegisteredPoste = props.isRegisteredPoste;
     const isRegisteredZone = props.isRegisteredZone;
 
@@ -37,17 +36,20 @@ export default function RegisterPlanningView(props){
         const postecol = collection(db, 'affecter_poste');
         try {
             const decref = await addDoc(postecol, { id_user: iduser, id_plage: id_creneau, poste: poste });
-            affectations_p.push({id: decref.id , data:{ id_user: iduser, id_plage: id_creneau, poste: poste }});
+            props.setAffectations_p([
+                ...affectations_p, 
+                {id: decref.id , data:{ id_user: iduser, id_plage: id_creneau, poste: poste }}
+            ]);
+            // affectations_p.push({id: decref.id , data:{ id_user: iduser, id_plage: id_creneau, poste: poste }});
             // console.log('Inscription terminée');
         } catch (error) {
             console.error('Erreur lors de l\'inscription :', error);
         }
-        setVal(1)
     };
 
     // Supprime l'inscription d'un utilisateur à un poste
     async function unregisterPoste(iduser, id_creneau, poste) {
-        console.log(iduser, id_creneau, poste)
+        // console.log(iduser, id_creneau, poste)
         const postescol = collection(db, 'affecter_poste');
         try {
         const querySnapshot = await getDocs(postescol); 
@@ -60,7 +62,6 @@ export default function RegisterPlanningView(props){
             setAffectations_p(affectations_p.filter(obj =>
                 !(obj.data.id_user === iduser && obj.data.id_plage === id_creneau && obj.data.poste === poste)
             ))
-            setVal(1)
         });
         } 
         catch (error) {
@@ -73,9 +74,12 @@ export default function RegisterPlanningView(props){
         const zonecol = collection(db, 'affecter_zone');
         try {
             const docref = await addDoc(zonecol, { id_user: iduser, id_plage: id_creneau, zone: zone });
-            affectations_z.push({id: docref.id, data:{id_user: iduser, id_plage: id_creneau, zone: zone} });
+            // affectations_z.push({id: docref.id, data:{id_user: iduser, id_plage: id_creneau, zone: zone} });
+            props.setAffectations_z([
+                ...affectations_z,
+                {id: docref.id, data:{id_user: iduser, id_plage: id_creneau, zone: zone}}
+            ])
             // console.log('Inscription terminée');
-            setVal(1)
         } 
         catch (error) {
             console.error('Erreur lors de l\'inscription :', error);
@@ -97,7 +101,6 @@ export default function RegisterPlanningView(props){
             setAffectations_z(affectations_p.filter(obj =>
                 !(obj.data.id_user === iduser && obj.data.id_plage === id_creneau && obj.data.zone === zone)
             ))
-            setVal(1)
         } 
         catch (error) {
             console.error('Erreur lors de la suppression de l\'inscription :', error);
