@@ -15,6 +15,7 @@ export default function FestivalView(props) {
 
     const [erreur, setErreur] = useState('');
 
+<<<<<<< HEAD
     const [inputLines, setInputLines] = useState(listPoste);
     const [zone_benevole, setZone_benevole] = useState(new Set());
     const [zone_plan, setZone_plan] = useState(new Set());
@@ -22,18 +23,36 @@ export default function FestivalView(props) {
     const [joursfest, setJoursFest] = useState([]);
     const setVal = props.setVal;
     const joursDeLaSemaine = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+=======
+  const [inputLines, setInputLines] = useState(listPoste);
+  const [zone_benevole, setZone_benevole] = useState(new Set());
+  const [zone_plan, setZone_plan] = useState(new Set());
+  const [jeux, setJeux] = useState([]);
+  const [joursfest, setJoursFest] = useState([]);
+  const setVal = props.setVal;
+  const joursDeLaSemaine = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+  var count = 0;
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
 
     const getDatesBetween = () =>  {
         let datedebut = new Date(formData.startDate)
         let datefin = new Date(formData.endDate)
         const currentDate = new Date(datedebut);
   
+<<<<<<< HEAD
         var listJoursFest = []
         while (currentDate <= datefin) {
             listJoursFest.push(new Date(currentDate));
             currentDate.setDate(currentDate.getDate() + 1);
         }
         setJoursFest(listJoursFest)
+=======
+    var listJoursFest = []
+    while (currentDate <= datefin) {
+        listJoursFest.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+        
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
     }
 
     let ajd = new Date();
@@ -49,10 +68,16 @@ export default function FestivalView(props) {
         } else {
             // console.log(jeux)
             try {
+<<<<<<< HEAD
                 // ajout de jeux
                 try {
                     const jeux_col = collection(db, 'games');
                     //const jeux_doc = await getDocs(jeux_col);
+=======
+                const jeux_col = collection(db, 'games');
+                const jeux_doc = await getDocs(jeux_col);
+                count++;
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
 
                         localStorage.removeItem('games');
                 
@@ -78,6 +103,7 @@ export default function FestivalView(props) {
                     const zones_ben_col = collection(db, 'zone_benevole');
                     //const zones_ben_doc = await getDocs(zones_ben_col);
             
+<<<<<<< HEAD
                     /*zones_ben_doc.forEach(async (document) => {
                         await deleteDoc(doc(zones_ben_col, document.id));
                     });*/
@@ -91,6 +117,11 @@ export default function FestivalView(props) {
                         catch (error) {
                             console.error('Erreur lors de l\'ajout de la zone :', error);
                         }
+=======
+                    jeux_doc.forEach(async (document) => {
+                        await deleteDoc(doc(jeux_col, document.id));
+                        count++;
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
                     });
             
                 } catch (error) {
@@ -108,7 +139,12 @@ export default function FestivalView(props) {
             
                     zone_plan.forEach(async (intitule) => {
                         try {
+<<<<<<< HEAD
                             if (intitule !==''){await addDoc(zones_plan_col, {intitule});}
+=======
+                            await addDoc(jeux_col, jeu.data);
+                            count++;
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
                         } catch (error) {
                             console.error('Erreur lors de l\'ajout de la zone :', error);
                         }
@@ -118,10 +154,36 @@ export default function FestivalView(props) {
                     console.error('Erreur bdd :', error);
                 }
 
+<<<<<<< HEAD
                 // postes
                 try {
                     const postes_col = collection(db, 'postes');
                     //const postes_doc = await getDocs(postes_col);
+=======
+
+            // zones benevoles
+            try {
+                const zones_ben_col = collection(db, 'zone_benevole');
+                const zones_ben_doc = await getDocs(zones_ben_col);
+        
+                zones_ben_doc.forEach(async (document) => {
+                    await deleteDoc(doc(zones_ben_col, document.id));
+                    count++;
+                });
+        
+                zone_benevole.forEach(async (intitule) => {
+                    try {
+                      if (intitule !==''){await addDoc(zones_ben_col, {intitule});}
+                      count++;
+                    } catch (error) {
+                        console.error('Erreur lors de l\'ajout de la zone :', error);
+                    }
+                });
+        
+            } catch (error) {
+                console.error('Erreur bdd :', error);
+            }
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
             
                     /*postes_doc.forEach(async (document) => {
                         await deleteDoc(doc(postes_col, document.id));
@@ -144,18 +206,30 @@ export default function FestivalView(props) {
                 const creneaucol = collection(db, 'plage_horaire');
                 //const creneaudoc = await getDocs(creneaucol);
         
+<<<<<<< HEAD
                 /*creneaudoc.forEach(async (document) => {
                     await deleteDoc(doc(creneaucol, document.id));
                 });*/
+=======
+                zones_plan_doc.forEach(async (document) => {
+                    count++;
+                    await deleteDoc(doc(zones_plan_col, document.id));
+                });
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
         
                 joursfest.forEach(async (unjour) => {
                     try {
+<<<<<<< HEAD
                         let cejour = new Date(unjour);
                         await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "9h-11h"});
                         await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "11h-14h"});
                         await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "14h-17h"});
                         await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "17h-20h"});
                         await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "20h-22h"});
+=======
+                        if (intitule !==''){await addDoc(zones_plan_col, {intitule});}
+                        count++;
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
                     } catch (error) {
                         console.error('Erreur lors de l\'ajout des créneaux :', error);
                     }
@@ -165,6 +239,7 @@ export default function FestivalView(props) {
                 console.error('Erreur bdd :', error);
             }
 
+<<<<<<< HEAD
             // crée le festival 
                 const nvfestival = {
                     date_debut: datedebut,
@@ -189,6 +264,82 @@ export default function FestivalView(props) {
             setVal(0);
         }
         
+=======
+            // postes
+            try {
+                const postes_col = collection(db, 'postes');
+                const postes_doc = await getDocs(postes_col);
+        
+                postes_doc.forEach(async (document) => {
+                    count++;
+                    await deleteDoc(doc(postes_col, document.id));
+                });
+        
+                inputLines.forEach(async (unposte) => {
+                    try {
+                        count++;
+                        await addDoc(postes_col, unposte.data);
+                    } catch (error) {
+                        console.error('Erreur lors de l\'ajout du poste :', error);
+                    }
+                });
+        
+            } catch (error) {
+                console.error('Erreur bdd :', error);
+            }
+
+            // créneaux horaire
+            try {
+              const creneaucol = collection(db, 'plage_horaire');
+              const creneaudoc = await getDocs(creneaucol);
+      
+              creneaudoc.forEach(async (document) => {
+                count++;
+                await deleteDoc(doc(creneaucol, document.id));
+              });
+      
+              joursfest.forEach(async (unjour) => {
+                  try {
+                    let cejour = new Date(unjour);
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "9h-11h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "11h-14h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "14h-17h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "17h-20h"});
+                      await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "20h-22h"});
+                      count++;count++;count++;count++;count++;
+                  } catch (error) {
+                      console.error('Erreur lors de l\'ajout des créneaux :', error);
+                  }
+              });
+      
+          } catch (error) {
+              console.error('Erreur bdd :', error);
+          }
+
+          // crée le festival 
+            const nvfestival = {
+                date_debut: datedebut,
+                date_fin: datefin,
+                annee: datedebut.getFullYear(),
+            };
+            
+            // console.log(nvfestival);
+            
+            try {
+                const festival_col = collection(db, 'festival');
+                await addDoc(festival_col, nvfestival);
+                count++;
+            } catch (error) {
+                console.error('Erreur lors de la création du festival :', error);
+            }
+          } catch (error) {
+            console.error('Erreur bdd :', error);
+          }
+
+        //   console.log('Festival créé !! Amuse toi bien')
+            console.log(count);
+          setVal(0);
+>>>>>>> 893667eafa9007a873f5e9df828a08111cc07033
     }
 
 
