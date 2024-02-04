@@ -26,14 +26,12 @@ export default function HomeView(props){
     const [zones, setZones] = useState([]);
     const [plages, setPlages] = useState([]);
     const [jours, setJours] = useState([]);
-    const [affecterPoste, setAffecterPoste] = useState([]);
-    const [affecterZone, setAffecterZone] = useState([]);
-    
 
     useEffect(() => {
         const fetchZonesData = async () => {
             // get zones
             if (localStorage.getItem('zones') == null || typeof(localStorage.getItem('zones')) == 'undefined') {
+                console.log("fetchZonesData");
                 try {
                     const querySnapshot = await getDocs(collection(db, "zone_benevole"));
                     var listZones = [];
@@ -48,121 +46,130 @@ export default function HomeView(props){
             }
             else {
                 setZones(JSON.parse(localStorage.getItem('zones')));
+                console.log("fetchZonesData");
             }
         }
         fetchZonesData();
-    }, [val]);
+    }, []);
 
     useEffect(() => {
         const fetchAffectZonesData = async () => {
-          // get affectations zones
-        if (localStorage.getItem('affectation_z') == null || typeof(localStorage.getItem('affectation_z')) == 'undefined') {
-            try {
-                const querySnapshot = await getDocs(collection(db, "affecter_zone"));
-                var listaffectZones = [];
-                querySnapshot.forEach((doc) => {
-                    listaffectZones.push({id: doc.id, data: doc.data()})
-                });
-                setAffectations_z(listaffectZones)
-            } catch (error) {
-                console.error('Error fetching zones data:', error);
+            console.log("fetchAffectZonesData");
+            // get affectations zones
+            if (localStorage.getItem('affectation_z') == null || typeof(localStorage.getItem('affectation_z')) == 'undefined') {
+                try {
+                    const querySnapshot = await getDocs(collection(db, "affecter_zone"));
+                    var listaffectZones = [];
+                    querySnapshot.forEach((doc) => {
+                        listaffectZones.push({id: doc.id, data: doc.data()})
+                    });
+                    setAffectations_z(listaffectZones)
+                } catch (error) {
+                    console.error('Error fetching zones data:', error);
+                }
             }
-        }
             else {
                 setAffectations_z(JSON.parse(localStorage.getItem('affectation_z')));
+                console.log("fetchAffectZonesData");
             }
         }
         fetchAffectZonesData();
-    }, [val]);
+    }, []);
 
     useEffect(() => {
         const fetchAffectPostesData = async () => {
-          // get affectations postes
-        if (localStorage.getItem('affectation_p') == null || typeof(localStorage.getItem('affectation_p')) == 'undefined') {
-            try {
-                const querySnapshot = await getDocs(collection(db, "affecter_poste"));
-                var listaffectPostes = [];
-                querySnapshot.forEach((doc) => {
-                    listaffectPostes.push({id: doc.id, data: doc.data()})
-                });
-                setAffectations_p(listaffectPostes)
-            } catch (error) {
-                console.error('Error fetching postes data:', error);
+            // get affectations postes
+            if (localStorage.getItem('affectation_p') == null || typeof(localStorage.getItem('affectation_p')) == 'undefined') {
+                console.log("fetchAffectPostesData");
+                try {
+                    const querySnapshot = await getDocs(collection(db, "affecter_poste"));
+                    var listaffectPostes = [];
+                    querySnapshot.forEach((doc) => {
+                        listaffectPostes.push({id: doc.id, data: doc.data()})
+                    });
+                    setAffectations_p(listaffectPostes)
+                } catch (error) {
+                    console.error('Error fetching postes data:', error);
+                }
             }
-        }
             else {
                 setAffectations_p(JSON.parse(localStorage.getItem('affectation_p')));
+                console.log("fetchAffectPostesData");
             }
         }
         fetchAffectPostesData();
-    }, [val]);
+    }, []);
 
     useEffect(() => {
         const fetchPlagesData = async () => {
-        // get plages
-        try {
-            const joursDeLaSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-            const ordrecreneaux = ['9h-11h', '11h-14h', '14h-17h', '17h-20h', '20h-22h'];
-            const querySnapshot = await getDocs(collection(db, "plage_horaire"));
-            var listPlage = []
-            var listPlage2 = []
-            var listJours = new Set()
-            querySnapshot.forEach((doc) => {
-                listPlage.push({id: doc.id, data: doc.data()})
-                listJours.add(doc.data().jour)
-            });
+            // get plages
+            try {
+                console.log("fetchPlagesData");
+                const joursDeLaSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+                const ordrecreneaux = ['9h-11h', '11h-14h', '14h-17h', '17h-20h', '20h-22h'];
+                const querySnapshot = await getDocs(collection(db, "plage_horaire"));
+                var listPlage = []
+                var listPlage2 = []
+                var listJours = new Set()
+                querySnapshot.forEach((doc) => {
+                    listPlage.push({id: doc.id, data: doc.data()})
+                    listJours.add(doc.data().jour)
+                });
 
-          // classe les jours dans l'ordre
-            const joursNonOrdonnesArray = Array.from(listJours);
-            const joursOrdonnesResultat = joursNonOrdonnesArray.sort((a, b) => {
-                return joursDeLaSemaine.indexOf(a) - joursDeLaSemaine.indexOf(b);
-            });
-            
-            listJours = []
-            joursOrdonnesResultat.forEach((unjour) => {
-                listJours.push({"jour": unjour})
-            });
-            setJours(listJours);
+                // classe les jours dans l'ordre
+                const joursNonOrdonnesArray = Array.from(listJours);
+                const joursOrdonnesResultat = joursNonOrdonnesArray.sort((a, b) => {
+                    return joursDeLaSemaine.indexOf(a) - joursDeLaSemaine.indexOf(b);
+                });
+                
+                listJours = []
+                joursOrdonnesResultat.forEach((unjour) => {
+                    listJours.push({"jour": unjour})
+                });
+                setJours(listJours);
 
-            // classe les plages horaires dans l'ordre
-            // parcourt les créneaux et les jours dans l'ordre puis les ajoute dans une 2e listePlage
-            jours.forEach((unjour)=>{
-                ordrecreneaux.forEach((creneau)=>{
-                    listPlage.forEach((uneplage)=>{
-                        if (uneplage.data.jour === unjour.jour && uneplage.data.horaire===creneau){ 
-                            listPlage2.push(uneplage)
-                        }
+                // classe les plages horaires dans l'ordre
+                // parcourt les créneaux et les jours dans l'ordre puis les ajoute dans une 2e listePlage
+                jours.forEach((unjour)=>{
+                    ordrecreneaux.forEach((creneau)=>{
+                        listPlage.forEach((uneplage)=>{
+                            if (uneplage.data.jour === unjour.jour && uneplage.data.horaire===creneau){ 
+                                listPlage2.push(uneplage)
+                            }
+                        })
                     })
-                })
-            });
-            setPlages(listPlage2)
-        } catch (error) {
-            console.error('Error fetching postes data:', error);
+                });
+                setPlages(listPlage2)
+            } 
+            catch (error) {
+                console.error('Error fetching postes data:', error);
+            }
         }
-      }
-      fetchPlagesData();
-    }, [val, jours]);
+        fetchPlagesData();
+    }, []);
 
     useEffect(() => {
         const fetchPostesData = async () => {
-          // get postes
-        if (localStorage.getItem('postes') == null || typeof(localStorage.getItem('postes')) == 'undefined') {
-            try {
-                // console.log('postes rel')
-                const querySnapshot = await getDocs(collection(db, "postes"));
-                var listPostes = []
-                querySnapshot.forEach((doc) => {
-                    listPostes.push({id: doc.id, data: doc.data()})
-                });
-                setPostes(listPostes)
-                localStorage.setItem('postes', JSON.stringify(listPostes));
-            } catch (error) {
-                console.error('Error fetching postes data:', error);
+            // get postes
+            console.log("fetchPostesData");
+            if (localStorage.getItem('postes') == null || typeof(localStorage.getItem('postes')) == 'undefined') {
+                try {
+                    // console.log('postes rel')
+                    const querySnapshot = await getDocs(collection(db, "postes"));
+                    var listPostes = []
+                    querySnapshot.forEach((doc) => {
+                        listPostes.push({id: doc.id, data: doc.data()})
+                    });
+                    setPostes(listPostes)
+                    localStorage.setItem('postes', JSON.stringify(listPostes));
+                } catch (error) {
+                    console.error('Error fetching postes data:', error);
+                }
             }
-          }
-          else {
-              setPostes(JSON.parse(localStorage.getItem('postes')));
-          }
+            else {
+                setPostes(JSON.parse(localStorage.getItem('postes')));
+                console.log("fetchPostesData");
+            }
         }
         fetchPostesData();
     }, [val]);
@@ -170,7 +177,7 @@ export default function HomeView(props){
     useEffect(() => {
         const fetchGamesData = async () => {
             if (localStorage.getItem('games') == null || typeof(localStorage.getItem('games')) == 'undefined') {
-                // console.log("heyy");
+                console.log("fetchGamesData");
                 try {
                     const querySnapshot = await getDocs(collection(db, "games"));
                     var listGames = []
@@ -187,12 +194,14 @@ export default function HomeView(props){
             }
             else {
                 setGames(JSON.parse(localStorage.getItem('games')));
+                console.log("fetchGamesData");
             }
         }
         fetchGamesData();
-    }, [val]);
+    }, []);
 
     useEffect(() => {
+        console.log("fetchUsersCount");
         const fetchUsersCount = async () => {
             const coll = collection(db, "users");
             const snapshot = await getCountFromServer(coll);
@@ -202,6 +211,7 @@ export default function HomeView(props){
     }, []);
 
     useEffect(() => {
+        console.log("getUserData");
         const getUserData = auth.onAuthStateChanged(async (user) => {
             if (user) {
                 try {
