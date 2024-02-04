@@ -29,21 +29,21 @@ connect();*/
 
 const app = express();
 
+const originURL = "http://localhost:3000";
+const originURL2 = "https://marmitise.netlify.app";
+
 app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({
-    origin: "http://localhost:3000"
-    //origin: "https://marmitise.netlify.app"
-}));
+app.use(cors({ origin: originURL }));
 
 
 
 //////////////////////// PERMET DE SECURISE L'UTILISATION DE L'API UNIQUEMENT AU SITE
 // Définissez la liste des origines autorisées
-const allowedOrigins = ["http://localhost:3000","https://marmitise.netlify.app"];
+const allowedOrigins = [originURL];
 
 // Configurez CORS avec une fonction personnalisée pour vérifier l'origine de la requête
 app.use((req, res, next) => {
@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/user', userRoute);
-app.use('/api/soft', authenticateToken, softRouter);
+//app.use('/api/soft', authenticateToken, softRouter);
 
 
 app.get("/", (req, res) => {
