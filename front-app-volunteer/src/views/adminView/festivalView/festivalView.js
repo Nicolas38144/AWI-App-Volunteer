@@ -349,7 +349,7 @@ export default function FestivalView(props) {
                                     type="number"
                                     className='input capa'
                                     name="capacite"
-                                    max={20}
+                                    max={50}
                                     min={1}
                                     pattern="\d{1,3}"
                                     value={ligne.data.capacite}
