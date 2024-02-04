@@ -256,7 +256,14 @@ export default function HomeView(props){
             case 5:
                 return <ProfileView setVal={setVal} games={games} />;
             case 6: 
-                return <AdminView setVal={setVal}/>;
+                return <AdminView setVal={setVal}
+                        postes={postes} 
+                        affectations_p={affectations_p} 
+                        affectations_z={affectations_z} 
+                        jours={jours} 
+                        plages={plages} 
+                        zones={zones}
+                        />;
             default:
                 return <InfoView />;
         }

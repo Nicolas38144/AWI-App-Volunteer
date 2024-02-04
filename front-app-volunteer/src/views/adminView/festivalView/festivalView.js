@@ -22,6 +22,7 @@ export default function FestivalView(props) {
   const [joursfest, setJoursFest] = useState([]);
   const setVal = props.setVal;
   const joursDeLaSemaine = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+  var count = 0;
 
   const getDatesBetween = () =>  {
     let datedebut = new Date(formData.startDate)
@@ -32,6 +33,7 @@ export default function FestivalView(props) {
     while (currentDate <= datefin) {
         listJoursFest.push(new Date(currentDate));
         currentDate.setDate(currentDate.getDate() + 1);
+        
     }
     setJoursFest(listJoursFest)
   }
@@ -56,16 +58,19 @@ export default function FestivalView(props) {
             try {
                 const jeux_col = collection(db, 'games');
                 const jeux_doc = await getDocs(jeux_col);
+                count++;
 
                     localStorage.removeItem('games');
             
                     jeux_doc.forEach(async (document) => {
                         await deleteDoc(doc(jeux_col, document.id));
+                        count++;
                     });
             
                     jeux.forEach(async (jeu) => {
                         try {
                             await addDoc(jeux_col, jeu.data);
+                            count++;
                         } catch (error) {
                             console.error('Erreur lors de l\'ajout du jeu :', error);
                         }
@@ -83,11 +88,13 @@ export default function FestivalView(props) {
         
                 zones_ben_doc.forEach(async (document) => {
                     await deleteDoc(doc(zones_ben_col, document.id));
+                    count++;
                 });
         
                 zone_benevole.forEach(async (intitule) => {
                     try {
                       if (intitule !==''){await addDoc(zones_ben_col, {intitule});}
+                      count++;
                     } catch (error) {
                         console.error('Erreur lors de l\'ajout de la zone :', error);
                     }
@@ -103,12 +110,14 @@ export default function FestivalView(props) {
                 const zones_plan_doc = await getDocs(zones_plan_col);
         
                 zones_plan_doc.forEach(async (document) => {
+                    count++;
                     await deleteDoc(doc(zones_plan_col, document.id));
                 });
         
                 zone_plan.forEach(async (intitule) => {
                     try {
                         if (intitule !==''){await addDoc(zones_plan_col, {intitule});}
+                        count++;
                     } catch (error) {
                         console.error('Erreur lors de l\'ajout de la zone :', error);
                     }
@@ -124,11 +133,13 @@ export default function FestivalView(props) {
                 const postes_doc = await getDocs(postes_col);
         
                 postes_doc.forEach(async (document) => {
+                    count++;
                     await deleteDoc(doc(postes_col, document.id));
                 });
         
                 inputLines.forEach(async (unposte) => {
                     try {
+                        count++;
                         await addDoc(postes_col, unposte.data);
                     } catch (error) {
                         console.error('Erreur lors de l\'ajout du poste :', error);
@@ -145,7 +156,8 @@ export default function FestivalView(props) {
               const creneaudoc = await getDocs(creneaucol);
       
               creneaudoc.forEach(async (document) => {
-                  await deleteDoc(doc(creneaucol, document.id));
+                count++;
+                await deleteDoc(doc(creneaucol, document.id));
               });
       
               joursfest.forEach(async (unjour) => {
@@ -156,6 +168,7 @@ export default function FestivalView(props) {
                       await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "14h-17h"});
                       await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "17h-20h"});
                       await addDoc(creneaucol,  { jour: joursDeLaSemaine[cejour.getDay()], horaire: "20h-22h"});
+                      count++;count++;count++;count++;count++;
                   } catch (error) {
                       console.error('Erreur lors de l\'ajout des créneaux :', error);
                   }
@@ -177,6 +190,7 @@ export default function FestivalView(props) {
             try {
                 const festival_col = collection(db, 'festival');
                 await addDoc(festival_col, nvfestival);
+                count++;
             } catch (error) {
                 console.error('Erreur lors de la création du festival :', error);
             }
@@ -185,6 +199,7 @@ export default function FestivalView(props) {
           }
 
         //   console.log('Festival créé !! Amuse toi bien')
+            console.log(count);
           setVal(0);
     }
     
