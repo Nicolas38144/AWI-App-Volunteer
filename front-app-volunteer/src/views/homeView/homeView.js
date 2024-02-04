@@ -259,6 +259,8 @@ export default function HomeView(props){
                             affectations_z={affectations_z} 
                             jours={jours} 
                             plages={plages} 
+                            setAffectations_p={setAffectations_p}
+                            setAffectations_z={setAffectations_z}
                             zones={zones}
                         />;
             case 4:
