@@ -106,4 +106,10 @@
     right: 10px;
     bottom: -1px;
 }
-
+@media screen and (max-width: 1250px) {
+    .chatContainer {
+        max-width: 60vw;
+        min-width: 60vw;
+        margin: auto;
+    }
+}

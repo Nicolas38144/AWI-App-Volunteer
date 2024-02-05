@@ -45,8 +45,4 @@ export default function ForumView(props) {
         </div>
     );
 }
-/*
-U2FsdGVkX18dhB/tCKdZmpPaxdw/8f4jnQcjqZD4jGk=
-U2FsdGVkX1/8rC3cR66qh/fa6+G6CiqUFcQHFkSUy44=
-44
-*/
+
