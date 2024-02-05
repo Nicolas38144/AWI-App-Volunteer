@@ -15,6 +15,10 @@
     color: red;
 }
 
+.registerplanning h1{
+    color: white;
+}
+
 .registerplanning .planning {
     width: 80%;
     margin: auto;
@@ -58,4 +62,21 @@
 .registerplanning .planning table .borderleft{
     padding: 10px;
     border-left: 1px solid #fff;
+}
+
+@media only screen and (max-width: 1250px) {
+    .registerplanning table {
+           font-size: 0.5rem;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .registerplanning table {
+           font-size: 0.4rem;
+           padding: 0;
+    }
+
+    .registerplanning table td button{
+        font-size: 0.4rem;
+ }
 }

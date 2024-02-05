@@ -102,7 +102,7 @@ export default function PlanningView(props){
                                 {plages.map((plage, inedx) => (                                
                                     <td key={plage.id}>
                                         {isRegisteredZone(actualUser.id, plage.id, unezone.data.intitule) && (
-                                            <button className='travaille'>Travaille</button>
+                                            <button className='travaille'>Travail</button>
                                         )}
                                     </td>
                                 ))}

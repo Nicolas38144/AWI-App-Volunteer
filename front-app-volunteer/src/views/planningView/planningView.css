@@ -15,6 +15,10 @@
     background: linear-gradient(to right, #002663, #4C5CC5);
   }
 
+.planningView h1{
+    color: white;
+}
+
 .planningView .planning table{
     margin: 25px;
     border: 1px solid #fff;
@@ -49,4 +53,21 @@
     background-color: #FA14FF;
     color : #FA14FF;
     border: none;
+}
+
+@media only screen and (max-width: 1250px) {
+    .planningView table {
+           font-size: 0.5rem;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .planningView table {
+           font-size: 0.4rem;
+           padding: 0;
+    }
+
+    .planningView table td{
+        font-size: 0.4rem;
+ }
 }
