@@ -3,11 +3,13 @@ import { useNavigate  } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { encryptData, decryptData } from '../../components/encryption';
 
 import './signUp.css';
 import ImageFond from '../../images/logo31_couleur.png';
 
 export default function SignUp(props){
+
     const [users, setUsers] = useState([])
     useEffect(() => {
         getUsers();
@@ -56,7 +58,10 @@ export default function SignUp(props){
         e.preventDefault();
         try {
             if (password === password2) {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const test = encryptData("user");
+                console.log(encryptData("user"));
+                console.log(decryptData(test));
+                const userCredential = await createUserWithEmailAndPassword(auth, email, encryptData(password));
                 // console.log("User created : OK");
     
                 const uid = userCredential.user.uid;
@@ -65,24 +70,22 @@ export default function SignUp(props){
                 const pseudo = setPseudo(prenom, nom);
                 const userDocRef = doc(db, 'users', uid);
                 const user = {
-                    prenom: prenom,
-                    nom: nom,
-                    email: email,
-                    pw: password,
-                    nbParticipation: nbParticipation,
-                    hebergement: hebergement,
-                    pseudo: pseudo,
-                    adresse:'',
-                    tel:'',
-                    role: 'benevole',
-                    jeuPrefere: '',
+                    prenom: encryptData(prenom),
+                    nom: encryptData(nom),
+                    email: encryptData(email),
+                    pw: encryptData(password),
+                    nbParticipation: encryptData(nbParticipation),
+                    hebergement: encryptData(hebergement),
+                    pseudo: encryptData(pseudo),
+                    adresse:encryptData(''),
+                    tel: encryptData(''),
+                    role: encryptData('benevole'),
+                    jeuPrefere: encryptData(''),
                 };
                 const { pw, ...localUser } = user; 
-                await setDoc(userDocRef, user );
+                await setDoc(userDocRef, user);
                 // console.log("user stored in db: OK");
-    
                 
-                localStorage.setItem('token', userCredential.user.accessToken);
                 setCookie('token',userCredential.user.accessToken)
                 localStorage.setItem('user', JSON.stringify(localUser));
                 // console.log("user stored in localStorage: OK");

@@ -141,10 +141,12 @@ export default function DiscoveryNightsView(props){
                                     <p>Date : {soiree.data.date}</p>
                                     <p>Lieu : {soiree.data.lieu}</p>
                                     <p>Réferent : {soiree.data.referent}</p>
-                                    <div className="btnModify btn">
-                                        <button onClick={() => editDiscoveryNight(soiree)}>Modifier</button>
-                                        <button onClick={() => deleteDiscoveryNight(soiree.id)}>Supprimer</button>
-                                    </div>
+                                    {props.actualUser.data().role !== 'benevole' && (
+                                        <div className="btnModify btn">
+                                            <button onClick={() => editDiscoveryNight(soiree)}>Modifier</button>
+                                            <button onClick={() => deleteDiscoveryNight(soiree.id)}>Supprimer</button>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>

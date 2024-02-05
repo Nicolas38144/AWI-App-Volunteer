@@ -52,7 +52,6 @@ export default function SignIn(props){
                 console.log("No such document!");
             }
             
-            localStorage.setItem('token', userCredential.user.accessToken);
             setCookie('token',userCredential.user.accessToken)
             localStorage.setItem('user', JSON.stringify(user));
             // console.log("user stored in localStorage: OK");
