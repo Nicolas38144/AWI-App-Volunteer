@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import RoleView from './roleView/roleView';
 import FestivalView from './festivalView/festivalView';
 import FlexibiliteView from './flexibiliteView/flexibiliteView';
+import { decryptData } from '../../components/encryption';
 
 import './adminView.css';
 
@@ -40,9 +41,33 @@ export default function AdminView(props){
                 var listUsersFestival = []
                 querySnapshot.forEach((doc) => {
                     // console.log(auth.currentUser.uid);
-                    listUsersFestival.push({id: doc.id, data: doc.data()});
+                    listUsersFestival.push({id: doc.id, data: {
+                        prenom: decryptData(doc.data().prenom),
+                        nom: decryptData(doc.data().nom),
+                        email: decryptData(doc.data().email),
+                        pw: decryptData(doc.data().pw),
+                        nbParticipation: decryptData(doc.data().nbParticipation),
+                        hebergement: decryptData(doc.data().hebergement),
+                        pseudo: decryptData(doc.data().pseudo),
+                        adresse:decryptData(doc.data().adresse),
+                        tel: decryptData(doc.data().tel),
+                        role: doc.data().role,
+                        jeuPrefere: decryptData(doc.data().jeuPrefere),
+                    }});
                     if (auth.currentUser.uid !== doc.id) {
-                        listUsersRole.push({id: doc.id, data: doc.data()});
+                        listUsersRole.push({id: doc.id, data: {
+                            prenom: decryptData(doc.data().prenom),
+                            nom: decryptData(doc.data().nom),
+                            email: decryptData(doc.data().email),
+                            pw: decryptData(doc.data().pw),
+                            nbParticipation: decryptData(doc.data().nbParticipation),
+                            hebergement: decryptData(doc.data().hebergement),
+                            pseudo: decryptData(doc.data().pseudo),
+                            adresse:decryptData(doc.data().adresse),
+                            tel: decryptData(doc.data().tel),
+                            role: doc.data().role,
+                            jeuPrefere: decryptData(doc.data().jeuPrefere),
+                        }});
                         // console.log(doc.id, " => ", doc.data());
                     }                    
                 });

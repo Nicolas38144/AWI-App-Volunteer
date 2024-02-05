@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, doc, getDocs, getDoc, getCountFromServer } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
+import { decryptData } from '../../components/encryption';
 
 import InfoView from '../infoView/infoView';
 import PlanningView from '../planningView/planningView'; 
@@ -30,19 +31,35 @@ export default function HomeView(props){
     const [festival, setFestival]= useState();
 
     useEffect(() => {
-        const fetchUserssData = async () => {
+        const fetchUsersData = async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, "users"));
                 var listUsers = []
                 querySnapshot.forEach((doc) => {
-                    listUsers.push({id: doc.id, data: doc.data()});
+                    // console.log(doc.data());
+                    listUsers.push({
+                        id: doc.id, 
+                        data: {
+                            prenom: decryptData(doc.data().prenom),
+                            nom: decryptData(doc.data().nom),
+                            email: decryptData(doc.data().email),
+                            pw: decryptData(doc.data().pw),
+                            nbParticipation: decryptData(doc.data().nbParticipation),
+                            hebergement: decryptData(doc.data().hebergement),
+                            pseudo: decryptData(doc.data().pseudo),
+                            adresse:decryptData(doc.data().adresse),
+                            tel: decryptData(doc.data().tel),
+                            role: doc.data().role,
+                            jeuPrefere: decryptData(doc.data().jeuPrefere)
+                        }
+                    });
                 });
                 setUsers(listUsers)
             } catch (error) {
-                console.error('Error fetching postes data:', error);
+                console.error('Error fetching users data:', error);
             }
         }
-        fetchUserssData(); 
+        fetchUsersData(); 
     }, []);
 
     useEffect(() => {

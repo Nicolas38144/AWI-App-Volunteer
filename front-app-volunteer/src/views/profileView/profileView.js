@@ -1,10 +1,12 @@
 import React,{ useEffect, useState } from 'react';
 import { db, auth } from '../../firebase';
 import { doc, getDoc } from "firebase/firestore";
+import { decryptData } from '../../components/encryption';
 
-import './profileView.css';
 import ProfileRead from './profileRead/profileRead';
 import ProfileForm from './profileForm/profileForm';
+
+import './profileView.css';
 
 export default function ProfileView(props){
 
@@ -21,17 +23,17 @@ export default function ProfileView(props){
                         const userInfo = {
                             //obligatoires
                             uid: auth.currentUser.uid,
-                            prenom: userDoc.data().prenom,
-                            nom: userDoc.data().nom,
+                            prenom: decryptData(userDoc.data().prenom),
+                            nom: decryptData(userDoc.data().nom),
                             email: auth.currentUser.email,
-                            nbParticipation: userDoc.data().nbParticipation,
-                            hebergement: userDoc.data().hebergement,
+                            nbParticipation: decryptData(userDoc.data().nbParticipation),
+                            hebergement: decryptData(userDoc.data().hebergement),
                             //optionnels
-                            pseudo: userDoc.data().pseudo,
-                            adresse: userDoc.data().adresse,
-                            tel: userDoc.data().tel,
+                            pseudo: decryptData(userDoc.data().pseudo),
+                            adresse: decryptData(userDoc.data().adresse),
+                            tel: decryptData(userDoc.data().tel),
                             role: userDoc.data().role,
-                            jeuPrefere: userDoc.data().jeuPrefere,
+                            jeuPrefere: decryptData(userDoc.data().jeuPrefere),
                         }
                         setUser(userInfo);
                         const token = await auth.currentUser.getIdToken();

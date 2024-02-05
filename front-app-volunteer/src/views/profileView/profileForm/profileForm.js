@@ -1,6 +1,8 @@
 import React,{ useState, useEffect } from 'react';
 import { db, auth } from '../../../firebase';
 import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
+import { encryptData, decryptData } from '../../../components/encryption';
+
 import './profileForm.css';
 
 export default function ProfileForm(props){
@@ -13,7 +15,7 @@ export default function ProfileForm(props){
                 const querySnapshot = await getDocs(usersCollection);
                 var listUsers = [];
                 querySnapshot.docs.forEach((doc) => {
-                    listUsers.push(doc.data().pseudo); // Extrait le champ 'pseudo' de chaque document
+                    listUsers.push(decryptData(doc.data().pseudo)); // Extrait le champ 'pseudo' de chaque document
                 });
                 setRoleUsers(listUsers);
             } 
@@ -58,8 +60,20 @@ export default function ProfileForm(props){
                     jeuPrefere: updatedData.jeuPrefere,
                     role: user.role,
                 }
+                const updatedUserEncrypt = {
+                    prenom: encryptData(updatedData.prenom),
+                    nom: encryptData(updatedData.nom),
+                    email: encryptData(user.email),
+                    nbParticipation: encryptData(updatedData.nbParticipation),
+                    hebergement: encryptData(updatedData.hebergement),
+                    pseudo: encryptData(updatedData.pseudo),
+                    tel: encryptData(updatedData.tel),
+                    adresse: encryptData(updatedData.adresse),
+                    jeuPrefere: encryptData(updatedData.jeuPrefere),
+                    role: user.role,
+                }
                 // Update the local state with the new data
-                await updateDoc(doc(db, 'users', auth.currentUser.uid), updatedUser);
+                await updateDoc(doc(db, 'users', auth.currentUser.uid), updatedUserEncrypt);
                 setUser(updatedUser);
                 localStorage.setItem('user', JSON.stringify(updatedUser));
                 // console.log('Profile updated successfully!');

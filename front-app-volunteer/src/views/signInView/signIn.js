@@ -3,6 +3,7 @@ import { useNavigate  } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { doc, getDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { decryptData } from '../../components/encryption';
 
 import './signIn.css';
 import ImageFond from '../../images/logo31_couleur.png';
@@ -37,15 +38,15 @@ export default function SignIn(props){
             if (docSnap.exists()) {
                 const dataUser = docSnap.data();
                 user = {
-                    prenom: dataUser.prenom,
-                    nom: dataUser.nom,
-                    email: dataUser.email,
-                    nbParticipation: dataUser.nbParticipation,
-                    hebergement: dataUser.hebergement,
-                    pseudo: dataUser.pseudo,
-                    adresse:dataUser.adresse,
-                    tel:dataUser.tel,
-                    jeuPrefere: dataUser.jeuPrefere,
+                    prenom: decryptData(dataUser.prenom),
+                    nom: decryptData(dataUser.nom),
+                    email: decryptData(dataUser.email),
+                    nbParticipation: decryptData(dataUser.nbParticipation),
+                    hebergement: decryptData(dataUser.hebergement),
+                    pseudo: decryptData(dataUser.pseudo),
+                    adresse: decryptData(dataUser.adresse),
+                    tel: decryptData(dataUser.tel),
+                    jeuPrefere: decryptData(dataUser.jeuPrefere),
                     role: dataUser.role,
                 };
             } else {

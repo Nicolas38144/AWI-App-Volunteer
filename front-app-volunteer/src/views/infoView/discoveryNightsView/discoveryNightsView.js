@@ -125,9 +125,10 @@ export default function DiscoveryNightsView(props){
                                         <div className="form-group">
                                             <label>Référent :</label>
                                             <select name="referent" value={formData.referent} onChange={handleInputChange}>
+                                            <option value='Aucun'>Aucun</option>
                                                 {props.users.map((user) => (
-                                                    <option key={user.id} value={user.data.nom}>
-                                                        {user.data.nom}
+                                                    <option key={user.id} value={user.data.prenom + " " +user.data.nom}>
+                                                        {user.data.prenom + " " +user.data.nom}
                                                     </option>
                                                 ))}
                                             </select>

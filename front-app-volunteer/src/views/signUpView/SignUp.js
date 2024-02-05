@@ -3,7 +3,7 @@ import { useNavigate  } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { encryptData, decryptData } from '../../components/encryption';
+import { encryptData } from '../../components/encryption';
 
 import './signUp.css';
 import ImageFond from '../../images/logo31_couleur.png';
@@ -58,10 +58,7 @@ export default function SignUp(props){
         e.preventDefault();
         try {
             if (password === password2) {
-                const test = encryptData("user");
-                console.log(encryptData("user"));
-                console.log(decryptData(test));
-                const userCredential = await createUserWithEmailAndPassword(auth, email, encryptData(password));
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 // console.log("User created : OK");
     
                 const uid = userCredential.user.uid;
@@ -79,7 +76,7 @@ export default function SignUp(props){
                     pseudo: encryptData(pseudo),
                     adresse:encryptData(''),
                     tel: encryptData(''),
-                    role: encryptData('benevole'),
+                    role: 'benevole',
                     jeuPrefere: encryptData(''),
                 };
                 const { pw, ...localUser } = user; 
