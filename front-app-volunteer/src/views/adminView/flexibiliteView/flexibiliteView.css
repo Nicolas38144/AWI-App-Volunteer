@@ -66,3 +66,20 @@
     padding: 10px;
     border-left: 1px solid #fff;
 }
+
+@media only screen and (max-width: 1250px) {
+    .flexibiliteView table {
+           font-size: 0.5rem;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .flexibiliteView table {
+           font-size: 0.4rem;
+           padding: 0;
+    }
+
+    .flexibiliteView table td button{
+        font-size: 0.4rem;
+ }
+}
