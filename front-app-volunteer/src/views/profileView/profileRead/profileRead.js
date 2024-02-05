@@ -31,25 +31,29 @@ export default function ProfileRead(props){
 
     return (
         <div className='profileRead'>
-           {(role === 'admin' || role === 'superAdmin') && <button className='btnadmin' onClick={() => setVal(6)}>Administration</button>}
-            <h2 className='title'>Mon profil</h2>
-            <div className='boxs'>
-                <div className='boxInfo'>
-                    <h3>Coordonnées</h3>
-                    <p className='info'>Prenom : {user.prenom}</p>
-                    <p className='info'>Nom : {user.nom}</p>
-                    <p className='info'>Email : {user.email}</p>
-                    <p className='info'>Adresse : {user.adresse || 'Non renseigné'} </p>
-                    <p className='info'>Téléphone : {user.tel || 'Non renseigné'} </p>
+            <div>
+                {(role === 'admin' || role === 'superAdmin') && <button className='btnadmin' onClick={() => setVal(6)}>Administration</button>}
+           </div>
+           <div>
+                <h2 className='title'>Mon profil</h2>
+                <div className='boxs'>
+                    <div className='boxInfo'>
+                        <h3>Coordonnées</h3>
+                        <p className='info'>Prenom : {user.prenom}</p>
+                        <p className='info'>Nom : {user.nom}</p>
+                        <p className='info'>Email : {user.email}</p>
+                        <p className='info'>Adresse : {user.adresse || 'Non renseigné'} </p>
+                        <p className='info'>Téléphone : {user.tel || 'Non renseigné'} </p>
+                    </div>
+                    <div className='boxInfo'>
+                        <h3>Autres</h3>
+                        <p className='info'>Pseudo : {user.pseudo || 'Non renseigné'} </p>
+                        <p className='info'>Participation(s) : {user.nbParticipation}</p>
+                        <p className='info'>Hebergement : {user.hebergement}</p>
+                        <p className='info'>Jeu préféré : {user.jeuPrefere || 'Non renseigné'} </p>
+                        <p className='info'>Role : {user.role} </p>
+                    </div>            
                 </div>
-                <div className='boxInfo'>
-                    <h3>Autres</h3>
-                    <p className='info'>Pseudo : {user.pseudo || 'Non renseigné'} </p>
-                    <p className='info'>Participation(s) : {user.nbParticipation}</p>
-                    <p className='info'>Hebergement : {user.hebergement}</p>
-                    <p className='info'>Jeu préféré : {user.jeuPrefere || 'Non renseigné'} </p>
-                    <p className='info'>Role : {user.role} </p>
-                </div>            
             </div>
         </div>
     )

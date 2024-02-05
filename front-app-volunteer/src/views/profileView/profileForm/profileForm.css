@@ -37,3 +37,48 @@
     border: none;
     color: black;
 }
+
+@media screen and (max-width: 1465px) {
+    .profileForm .boxs {
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+        width: 600px;
+    }
+    .profileForm .boxInfo {
+        width: 100vw;
+    }
+}
+
+@media screen and (max-width: 1125px) {
+    .profileForm .boxs {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 50px;
+    }
+    .profileForm .boxInfo {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .profileForm .boxs {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 50px;
+        width: 200px;
+    }
+    .profileForm .boxInfo {
+        width: 50vw;
+    }
+
+    .profileForm .boxInfo .info input {
+        width: 100px;
+    }
+
+    .profileForm .boxInfo .info select {
+        width: 100px;
+    }
+}

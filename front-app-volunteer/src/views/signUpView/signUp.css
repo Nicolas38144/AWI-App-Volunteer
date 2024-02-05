@@ -2,6 +2,8 @@
 
 .signUp {
     display: flex;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .signUp .left-panel {
@@ -107,3 +109,20 @@
   background: #002663;
 }
 
+@media screen and (max-width: 1200px) {
+    .signUp  {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 50px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .signUp  .others {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+    }
+}

@@ -2,6 +2,8 @@
 
 .signIn {
     display: flex;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .signIn .left-panel {
@@ -96,3 +98,11 @@
   background: #002663;
 }
 
+@media screen and (max-width: 1200px) {
+    .signIn  {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 50px;
+    }
+}
