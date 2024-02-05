@@ -152,7 +152,7 @@ export default function ProfileForm(props){
                             <select type="text" name="jeuPrefere" value={formData.jeuPrefere} onChange={handleChange} >
                                 <option value="Non renseigné">Selectionner</option>
                                 {props.games.map((row, index) => (
-                                    <option key={index}  value={row['Nom_jeu']}>{row['Nom_jeu']}</option>
+                                    <option key={index}  value={row['Nom_jeu']}>{row.data['Nom_jeu']}</option>
                                 ))}
                             </select>
                         </label>

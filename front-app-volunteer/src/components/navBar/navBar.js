@@ -15,7 +15,9 @@ export default function NavBar({ hasReceivedMessages, hasNews, setVal }) {
     const navigate = useNavigate();
     const handleLogout = async () => { 
         await signOut(auth);
-        localStorage.removeItem('token');
+        localStorage.removeItem('zones');
+        localStorage.removeItem('postes');
+        localStorage.removeItem('games');
         localStorage.removeItem('user')
         navigate('/login'); 
     };

@@ -19,14 +19,6 @@ export default function ForumView(props) {
                 var listQuestions = [];
                 
                 querySnapshot.forEach((doc) => {
-                    /*const words = doc.data().auteur;
-                    console.log("words : ",words);
-                    const prenom = decryptData(words.substr(0, 44))
-                    const nom = decryptData(words.substr(45)) 
-                    const auteur = prenom+" "+nom;
-                    console.log("prenom : ",prenom);
-                    console.log("nom : ",nom);
-                    console.log("auteur : ",auteur);*/
                     listQuestions.push({
                         id: doc.id, 
                         data: {

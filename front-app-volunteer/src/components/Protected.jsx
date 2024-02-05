@@ -15,8 +15,6 @@ const Protected = () => {
         return null;
     }
 
-    console.log(token)
-
     return (
         token ? <Outlet /> : <Navigate to="/login" />
     )

@@ -66,7 +66,7 @@ export default function HomeView(props){
         const fetchZonesData = async () => {
             // get zones
             if (localStorage.getItem('zones') == null || typeof(localStorage.getItem('zones')) == 'undefined') {
-                console.log("fetchZonesData");
+                // console.log("fetchZonesData");
                 try {
                     const querySnapshot = await getDocs(collection(db, "zone_benevole"));
                     var listZones = [];
@@ -81,7 +81,7 @@ export default function HomeView(props){
             }
             else {
                 setZones(JSON.parse(localStorage.getItem('zones')));
-                console.log("fetchZonesData");
+                // console.log("fetchZonesData");
             }
         }
         fetchZonesData();
@@ -89,7 +89,7 @@ export default function HomeView(props){
 
     useEffect(() => {
         const fetchAffectZonesData = async () => {
-            console.log("fetchAffectZonesData");
+            // console.log("fetchAffectZonesData");
             // get affectations zones
             if (localStorage.getItem('affectation_z') == null || typeof(localStorage.getItem('affectation_z')) == 'undefined') {
                 try {
@@ -105,7 +105,7 @@ export default function HomeView(props){
             }
             else {
                 setAffectations_z(JSON.parse(localStorage.getItem('affectation_z')));
-                console.log("fetchAffectZonesData");
+                // console.log("fetchAffectZonesData");
             }
         }
         fetchAffectZonesData();
@@ -115,7 +115,7 @@ export default function HomeView(props){
         const fetchAffectPostesData = async () => {
             // get affectations postes
             if (localStorage.getItem('affectation_p') == null || typeof(localStorage.getItem('affectation_p')) == 'undefined') {
-                console.log("fetchAffectPostesData");
+                // console.log("fetchAffectPostesData");
                 try {
                     const querySnapshot = await getDocs(collection(db, "affecter_poste"));
                     var listaffectPostes = [];
@@ -129,7 +129,7 @@ export default function HomeView(props){
             }
             else {
                 setAffectations_p(JSON.parse(localStorage.getItem('affectation_p')));
-                console.log("fetchAffectPostesData");
+                // console.log("fetchAffectPostesData");
             }
         }
         fetchAffectPostesData();
@@ -182,7 +182,7 @@ export default function HomeView(props){
     useEffect(() => {
         const fetchPostesData = async () => {
             // get postes
-            console.log("fetchPostesData");
+            // console.log("fetchPostesData");
             if (localStorage.getItem('postes') == null || typeof(localStorage.getItem('postes')) == 'undefined') {
                 try {
                     // console.log('postes rel')
@@ -199,7 +199,7 @@ export default function HomeView(props){
             }
             else {
                 setPostes(JSON.parse(localStorage.getItem('postes')));
-                console.log("fetchPostesData");
+                // console.log("fetchPostesData");
             }
         }
         fetchPostesData();
@@ -208,7 +208,7 @@ export default function HomeView(props){
     useEffect(() => {
         const fetchGamesData = async () => {
             if (localStorage.getItem('games') == null || typeof(localStorage.getItem('games')) == 'undefined') {
-                console.log("fetchGamesData");
+                // console.log("fetchGamesData");
                 try {
                     const querySnapshot = await getDocs(collection(db, "games"));
                     var listGames = []
@@ -225,14 +225,14 @@ export default function HomeView(props){
             }
             else {
                 setGames(JSON.parse(localStorage.getItem('games')));
-                console.log("fetchGamesData");
+                // console.log("fetchGamesData");
             }
         }
         fetchGamesData();
     }, [festival]);
 
     useEffect(() => {
-        console.log("fetchUsersCount");
+        // console.log("fetchUsersCount");
         const fetchUsersCount = async () => {
             const coll = collection(db, "users");
             const snapshot = await getCountFromServer(coll);
@@ -242,7 +242,7 @@ export default function HomeView(props){
     }, []);
 
     useEffect(() => {
-        console.log("getUserData");
+        // console.log("getUserData");
         const getUserData = auth.onAuthStateChanged(async (user) => {
             if (user) {
                 try {

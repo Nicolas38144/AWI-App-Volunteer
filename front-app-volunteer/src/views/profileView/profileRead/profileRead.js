@@ -12,8 +12,10 @@ export default function ProfileRead(props){
     
     useEffect(() => {
         const fetchUserRole = async () => {
+            console.log(auth.currentUser)
             try {
                 const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
+                console.log('role : ', userDoc.data().role);
                 if (userDoc.exists()) {
                     // console.log('role : ', userDoc.data().role);
                     setRole(userDoc.data().role);
