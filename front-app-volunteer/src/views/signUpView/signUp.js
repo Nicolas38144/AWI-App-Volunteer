@@ -79,12 +79,24 @@ export default function SignUp(props){
                     role: 'benevole',
                     jeuPrefere: encryptData(''),
                 };
-                const { pw, ...localUser } = user; 
+                const userDecrypt = {
+                    prenom: prenom,
+                    nom: nom,
+                    email: email,
+                    nbParticipation: nbParticipation,
+                    hebergement: hebergement,
+                    pseudo: pseudo,
+                    adresse:'',
+                    tel: '',
+                    role: 'benevole',
+                    jeuPrefere: '',
+                };
+                // const { pw, ...localUser } = user; 
                 await setDoc(userDocRef, user);
                 // console.log("user stored in db: OK");
                 
                 setCookie('token',userCredential.user.accessToken)
-                localStorage.setItem('user', JSON.stringify(localUser));
+                localStorage.setItem('user', JSON.stringify(userDecrypt));
                 // console.log("user stored in localStorage: OK");
                 navigate('/');
             }
