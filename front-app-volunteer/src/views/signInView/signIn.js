@@ -15,6 +15,13 @@ export default function SignIn(props){
     const navigate = useNavigate();
     const handleClickRegister = () => { navigate('/register'); };
 
+     // Fonction pour définir un cookie qui expire en 1 jour
+     function setCookie(name, value) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000); // 1 jour
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -46,6 +53,7 @@ export default function SignIn(props){
             }
             
             localStorage.setItem('token', userCredential.user.accessToken);
+            setCookie('token',userCredential.user.accessToken)
             localStorage.setItem('user', JSON.stringify(user));
             // console.log("user stored in localStorage: OK");
             navigate('/');

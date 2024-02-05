@@ -98,7 +98,7 @@ export default function RegisterPlanningView(props){
                         // console.log('Inscription supprimée');
                     }
             });
-            setAffectations_z(affectations_p.filter(obj =>
+            setAffectations_z(affectations_z.filter(obj =>
                 !(obj.data.id_user === iduser && obj.data.id_plage === id_creneau && obj.data.zone === zone)
             ))
         } 

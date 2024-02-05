@@ -298,11 +298,13 @@ export default function HomeView(props){
             case 6: 
                 return <AdminView 
                         setVal={setVal}
-                        postes={postes} 
                         affectations_p={affectations_p} 
                         affectations_z={affectations_z} 
                         jours={jours} 
-                        plages={plages} 
+                        postes={postes}
+                        setAffectations_p={setAffectations_p}
+                        setAffectations_z={setAffectations_z} 
+                        plages={plages}
                         zones={zones}
                         setFestival={setFestival}
                         />;

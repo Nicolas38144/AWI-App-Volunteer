@@ -24,6 +24,13 @@ export default function SignUp(props){
     const [nbParticipation, setNbParticipation] = useState('');
     const [hebergement, setHebergement] = useState('');
 
+    // Fonction pour définir un cookie qui expire en 1 jour
+    function setCookie(name, value) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000); // 1 jour
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
     const getUsers = async (e) => {
         const col = collection(db, "users");
         const snapshot = await getDocs(col);
@@ -76,6 +83,7 @@ export default function SignUp(props){
     
                 
                 localStorage.setItem('token', userCredential.user.accessToken);
+                setCookie('token',userCredential.user.accessToken)
                 localStorage.setItem('user', JSON.stringify(localUser));
                 // console.log("user stored in localStorage: OK");
                 navigate('/');
