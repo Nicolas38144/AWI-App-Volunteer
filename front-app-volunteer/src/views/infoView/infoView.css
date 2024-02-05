@@ -6,10 +6,10 @@
 .infoView .custom-tab-list {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px; 
     list-style-type: none;
-    margin-bottom: 3%;
     gap: 5%;
+    margin: 5% auto;
+    padding: 0px;
 }
 
 .infoView .custom-tab {
@@ -22,4 +22,16 @@
 
 .infoView .custom-tab.react-tabs__tab--selected {
     color: black;
+}
+
+@media screen and (max-width: 495px) {
+    .infoView .custom-tab-list {
+        display: flex;
+        list-style-type: none;
+        gap: 10px;
+        margin: 5% auto;
+        padding: 0px;
+        flex-direction: column;
+        width: fit-content;
+    }
 }

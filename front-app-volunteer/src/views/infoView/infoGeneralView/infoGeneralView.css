@@ -37,3 +37,9 @@
 .editors li:nth-child(odd) {
     background-color: #032151;
 }
+
+@media screen and (max-width: 700px) {
+    .editors li {
+        width: 33%; 
+    }
+}

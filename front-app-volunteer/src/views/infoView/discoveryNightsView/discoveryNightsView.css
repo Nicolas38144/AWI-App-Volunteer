@@ -11,7 +11,7 @@
     width: fit-content;
     min-height: 150px;
     padding: 0px 10px;
-    margin: 0px 20px;
+    margin: 0px auto;
     border: 2px solid rgb(255, 255, 255, 0.5);
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -65,8 +65,8 @@
 
 
 .discoveryNightsView button {
-    max-width: 10vw;
-    min-width: 10vw;
+    max-width: 100px;
+    min-width: 100px;
     min-height: 35px;
     margin: 0% auto 3%;
     background: none;
@@ -84,4 +84,20 @@
 
 .discoveryNightsView .otherBtn {
     margin-top: 25px;
+}
+
+@media screen and (max-width: 750px) {
+    .discoveryNightsView .box {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+    .discoveryNightsView .soiree {
+        margin: auto;
+    }
+
+    .discoveryNightsView .soiree .nightForm form .form-group input {
+        width: 30vw;
+    }
+    
 }

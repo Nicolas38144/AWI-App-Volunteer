@@ -159,3 +159,20 @@
     }
     
 }
+
+@media screen and (max-width: 710px) {
+    .navBar .navigation {
+        display: flex;
+        flex-direction: column;
+        .monprofil{
+            margin-right: 45vw;  
+        }  
+    }
+    
+
+    /*.navBar .navigation .current{
+        margin-left: 1vw;
+        font-size: 0.8em;
+    }*/
+    
+}
