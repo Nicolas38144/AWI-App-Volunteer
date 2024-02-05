@@ -8,8 +8,6 @@ import logo from '../../images/logo31_couleur.png'
 import LogoutIcon from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
 
-
-
 export default function NavBar({ hasReceivedMessages, hasNews, setVal }) {
 
     const navigate = useNavigate();
