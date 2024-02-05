@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { db } from '../../../firebase';
 import { collection, onSnapshot, addDoc, serverTimestamp, orderBy, query } from 'firebase/firestore';
 import Send from '../../../images/send.png';
+import { decryptData, encryptData } from '../../../components/encryption';
 
 import './chatGeneralView.css';
 
@@ -9,7 +10,8 @@ export default function ChatGeneralView(props) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const userId = props.actualUser.id;
-    const userData = props.actualUser.data();
+    const userDataPrenom = decryptData(props.actualUser.data().prenom);
+    const userDataNom = decryptData(props.actualUser.data().nom);
     const messagesContainerRef = useRef(null);
 
     useEffect(() => {
@@ -39,11 +41,11 @@ export default function ChatGeneralView(props) {
 
     const handleSendMessage = async () => {
         await addDoc(collection(db, 'messages'), {
-            text: newMessage,
+            text: encryptData(newMessage),
             timestamp: serverTimestamp(),
             userId: userId,
-            prenom: userData.prenom,
-            nom: userData.nom,            
+            prenom: encryptData(userDataPrenom),
+            nom: encryptData(userDataNom),            
         });
         setNewMessage('');
     };
@@ -68,11 +70,11 @@ export default function ChatGeneralView(props) {
                         >
                             {(index === 0 || messages[index - 1].userId !== message.userId) && (
                                 <div className='userInfo'>
-                                    <p>{message.prenom} {message.nom}</p>
+                                    <p>{decryptData(message.prenom)} {decryptData(message.nom)}</p>
                                 </div>
                             )}
                             <div className='msg'>
-                                <p>{message.text}</p>
+                                <p>{decryptData(message.text)}</p>
                             </div>
                         </div>
                     ))}

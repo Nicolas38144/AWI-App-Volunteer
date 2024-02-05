@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { collection, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { db } from "../../../firebase" 
+import { decryptData, encryptData } from '../../../components/encryption';
+
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -14,13 +16,14 @@ export default function FaqView(props) {
 
     const sendQuestion = async (e) => {
         e.preventDefault();
-        const auteur = props.actualUser.data().prenom + " " + props.actualUser.data().nom
+        const auteur = decryptData(props.actualUser.data().prenom) + " " + decryptData(props.actualUser.data().nom)
+        console.log(auteur);
         try {
             const newDoc = await addDoc(collection(db, "questions"), {
-                auteur: auteur,
-                estRepondue: false,
-                question: question,
-                reponse: ""
+                auteur: encryptData(auteur),
+                estRepondue: encryptData(false),
+                question: encryptData(question),
+                reponse: encryptData("")
             });
             props.setQuestions(prevQuestions => [
                 ...prevQuestions,
@@ -49,14 +52,14 @@ export default function FaqView(props) {
             const questionDocRef = doc(db, 'questions', questionId);
             if (replyText === "") {
                 await updateDoc(questionDocRef, {
-                    estRepondue: false,
-                    reponse: replyText,
+                    estRepondue: encryptData(false),
+                    reponse: encryptData(replyText),
                 });
             }
             else {
                 await updateDoc(questionDocRef, {
-                    estRepondue: true,
-                    reponse: replyText,
+                    estRepondue: encryptData(true),
+                    reponse: encryptData(replyText),
                 });
             }
 
@@ -111,6 +114,8 @@ export default function FaqView(props) {
         }
     };
 
+    console.log(props.questions);
+    console.log(props.actualUser.data().role);
     return (
         <div className='faqView'>
             <h2>FAQ</h2>
