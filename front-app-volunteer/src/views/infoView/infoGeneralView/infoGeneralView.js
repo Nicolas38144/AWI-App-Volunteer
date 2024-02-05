@@ -47,7 +47,7 @@ export default function InfoGeneralView(props){
             <p>Nombre de jeux prévus : {filteredGamesCount}</p>
             <p>Nombre de jeux reçus : {receivedGamesCount}</p>
             <p>Nombre de jeux non reçus : {notReceivedGamesCount}</p>
-            <p>Coordonnées des référents des postes choisis : </p>
+            <p>Accès au site web : <a href="https://www.festivaldujeu-montpellier.org">www.festivaldujeu-montpellier.org</a></p>
         </div>
     );
 }

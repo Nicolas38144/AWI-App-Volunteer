@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { collection, doc, getDocs, getDoc, getCountFromServer } from 'firebase/firestore'
 import { db, auth } from '../../firebase';
 
@@ -17,6 +17,7 @@ import './homeView.css';
 export default function HomeView(props){
     
     const [val, setVal] = useState(0);
+    const [users, setUsers] = useState([]);
     const [games, setGames] = useState([]);
     const [countUsers, setCountUsers] = useState([]);
     const [actualUser, setActualUser] = useState(null);
@@ -27,6 +28,22 @@ export default function HomeView(props){
     const [plages, setPlages] = useState([]);
     const [jours, setJours] = useState([]);
     const [festival, setFestival]= useState();
+
+    useEffect(() => {
+        const fetchUserssData = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "users"));
+                var listUsers = []
+                querySnapshot.forEach((doc) => {
+                    listUsers.push({id: doc.id, data: doc.data()});
+                });
+                setUsers(listUsers)
+            } catch (error) {
+                console.error('Error fetching postes data:', error);
+            }
+        }
+        fetchUserssData(); 
+    }, []);
 
     useEffect(() => {
         const fetchZonesData = async () => {
@@ -244,7 +261,12 @@ export default function HomeView(props){
     const renderView = () => {
         switch (val) {
             case 0:
-                return <InfoView games={games} countUsers={countUsers}/>;
+                return <InfoView 
+                    games={games} 
+                    countUsers={countUsers} 
+                    actualUser={actualUser} 
+                    users={users}
+                />;
             case 1:
                 return <PlanningView 
                             isRegisteredPoste={isRegisteredPoste} 
@@ -285,7 +307,12 @@ export default function HomeView(props){
                         setFestival={setFestival}
                         />;
             default:
-                return <InfoView />;
+                return <InfoView 
+                    games={games} 
+                    countUsers={countUsers} 
+                    actualUser={actualUser} 
+                    users={users}
+                />;
         }
     };
 

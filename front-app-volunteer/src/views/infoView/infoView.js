@@ -24,7 +24,7 @@ export default function InfoView(props){
                 </TabPanel>
 
                 <TabPanel>
-                    <DiscoveryNightsView />
+                    <DiscoveryNightsView actualUser={props.actualUser} users={props.users} />
                 </TabPanel>
 
                 <TabPanel>
